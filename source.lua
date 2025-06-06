@@ -4080,8 +4080,7 @@ otth:Button("Become Ghost [ use when you're dead or in lobby ]", function()
 game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("RemoteFunctions"):WaitForChild("Spectate"):InvokeServer()
 end)
 otth:Button("Close Hub", function()
-Window:Destroy()
-DiscordLib:Destroy()
+game:GetService("CoreGui"):WaitForChild("Discord"):Destroy()
 end)
 
 
@@ -4102,7 +4101,7 @@ local imageButton = Instance.new("ImageButton", buttonFrame)
 		imageButton.Size = UDim2.new(0, 36, 0, 36)
 		imageButton.AnchorPoint = Vector2.new(0.5, 0.5)
 		imageButton.Position = UDim2.new(0.5, 0, 0.5, 0)
-		imageButton.Image = "http://www.roblox.com/asset/?id=131523679474566"
+		imageButton.Image = "rbxthumb://type=Asset&id=2714338264&w=150&h=150"
 function FortniteFlips()
 		if FlipCooldown then
 			return
