@@ -4026,7 +4026,8 @@ Animations Changer
 
 local skibidiamogus = LP.Character or LP.CharacterAdded:Wait()
 local AnimationFolder = skibidiamogus:WaitForChild("Animations")
-local AnimationChanger = Window:Server("Animations Changer","rbxassetid://73777691791017")
+local Animation = Window:Server("Animations Changer","rbxassetid://73777691791017")
+local AnimationChanger = Animation:Channel("Animation Changer")
 
 AnimationChanger:Label("Ghost Animations")
 AnimationChanger:Button("Apply Ghost Animations", function()
@@ -4074,10 +4075,11 @@ Other things, idk, why are you even skidding my script breeeeh
 ]]--
 
 local Other = Window:Server("Other","rbxassetid://116399911657417")
-Other:Button("Become Ghost [ use when you're dead or in lobby ]", function()
+local otth = Other:Channel("some things")
+otth:Button("Become Ghost [ use when you're dead or in lobby ]", function()
 game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("RemoteFunctions"):WaitForChild("Spectate"):InvokeServer()
 end)
-Other:Button("Close Hub", function()
+otth:Button("Close Hub", function()
 Window:Destroy()
 DiscordLib:Destroy()
 end)
