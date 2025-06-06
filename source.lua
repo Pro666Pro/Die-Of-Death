@@ -1,5 +1,6 @@
-
+pcall(function()
 game:GetService("CoreGui")
+end)
 
 if not game:FindService("CoreGui") then
 game:GetService("StarterGui"):SetCore("SendNotification",{
