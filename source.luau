@@ -3366,8 +3366,8 @@ if TestRequire() ~= true then
 SetAtt("MaxStamina", (math and math.huge) or 9000000000)
 DiscordLib:Notification("Half-Success!", "Now your stamina is infinite! ( Only max stamina is infinite because your executor don't support ''require'' function. )", "Okay!")
 else
-MovementModule["Stamina"] = (math and math.huge) or 9000000000
 SetAtt("MaxStamina", (math and math.huge) or 9000000000)
+MovementModule["Stamina"] = (math and math.huge) or 9000000000
 DiscordLib:Notification("Success!", "Now your stamina is infinite!", "Okay!")
 end
 end)
@@ -3394,6 +3394,7 @@ end
 StaminaLoss = Value
 if StaminaLoss == true then
 repeat task.wait(0.005)
+if HaveAtt("MaxStamina") ~= true then SetAtt("MaxStamina",100) end
 MovementModule["Stamina"] = GetAtt("MaxStamina")
 until StaminaLoss == false
 end
@@ -3410,13 +3411,10 @@ end)
 StaminaAdvanced:Textbox("Max Stamina", "Type Here!", true, function(Value)
 local text = Value
 local val
-if typeof(text) == "number" then
-val = tonumber(text)
-elseif text == "inf" or text == "mathhuge" or text == "math.huge" or text == "infinity" or text == "INF" or text == "Inf" or text == "Infinity" or text == "INFINITY" or text == "Unlimited" or text == "unlimited" or text == "UNLIMITED" or text == "inf." or text == "Inf." or text == "INF." then
+if text == "inf" or text == "mathhuge" or text == "math.huge" or text == "infinity" or text == "INF" or text == "Inf" or text == "Infinity" or text == "INFINITY" or text == "Unlimited" or text == "unlimited" or text == "UNLIMITED" or text == "inf." or text == "Inf." or text == "INF." then
 val = (math and math.huge) or 9000000000
 else
-DiscordLib:Notification("Error!", "You should put a number or ''inf''!", "Okay!")
-return nil
+val = tonumber(text)
 end
 SetAtt("MaxStamina", val)
 if TestRequire() ~= true and AutoFillStamina == true then
@@ -3430,37 +3428,19 @@ StaminaAdvanced:Seperator()
 
 StaminaAdvanced:Textbox("Sprint Speed", "Type Here!", true, function(Value)
 local text = Value
-local val
-if typeof(text) == "number" then
-val = tonumber(text)
-else
-DiscordLib:Notification("Error!", "You should put a number!", "Okay!")
-return nil
-end
+local val = tonumber(text)
 SetAtt("SprintSpeed", val)
 end)
 
 StaminaAdvanced:Textbox("Walk Speed", "Type Here!", true, function(Value)
 local text = Value
-local val
-if typeof(text) == "number" then
-val = tonumber(text)
-else
-DiscordLib:Notification("Error!", "You should put a number!", "Okay!")
-return nil
-end
+local val = tonumber(text)
 SetAtt("WalkSpeed", val)
 end)
 
 StaminaAdvanced:Textbox("Walk Speed Modifier", "Type Here!", true, function(Value)
 local text = Value
-local val
-if typeof(text) == "number" then
-val = tonumber(text)
-else
-DiscordLib:Notification("Error!", "You should put a number!", "Okay!")
-return nil
-end
+local val = tonumber(text)
 SetAtt("WalkSpeedModifier", val)
 end)
 
@@ -4087,6 +4067,10 @@ end)
 
 -- Credits to @shmasocoolio from scriptblox! (https://www.scriptblox.com/u/shmasocoolio)
 
+if not getgenv then return nil end
+
+if not getgenv().loadedflip_dod then
+getgenv().loadedflip_dod = true
 local sausageHolder = game.CoreGui.TopBarApp.TopBarApp.UnibarLeftFrame.UnibarMenu["2"]
 local originalSize = sausageHolder.Size.X.Offset
 local sSize = UDim2.new(0, originalSize + 48, 0, sausageHolder.Size.Y.Offset)
@@ -4181,4 +4165,5 @@ imageButton.Activated:Connect(FortniteFlips)
 while task.wait(0.0003) do
 sausageHolder.Size = sSize
 buttonFrame.Position = UDim2.new(0, sausageHolder.Size.X.Offset - 48, 0, 0)
+end
 end
