@@ -97,7 +97,7 @@ local value = val
 Char:SetAttribute(tostring(attribute), value)
 end
 
-local DiscordLib = BootUpLibrary()
+local DiscordLib = loadstring(game:HttpGet("https://raw.githubusercontent.com/Pro666Pro/Die-Of-Death/refs/heads/main/dslib.luau"))()
 local Window = DiscordLib:Window("Die Of Death - Nexer Hub")
 
 
