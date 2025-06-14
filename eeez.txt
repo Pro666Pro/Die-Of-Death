@@ -688,9 +688,6 @@ local OldCF = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.
 if game:GetService("Workspace"):WaitForChild("GameAssets"):WaitForChild("Teams"):WaitForChild("Killer"):FindFirstChildOfClass("Model") and game:GetService("Workspace"):WaitForChild("GameAssets"):WaitForChild("Teams"):WaitForChild("Killer"):FindFirstChildOfClass("Model").Name ~= game:GetService("Players").LocalPlayer.Name then
 local Killer = game:GetService("Workspace"):WaitForChild("GameAssets"):WaitForChild("Teams"):WaitForChild("Killer"):FindFirstChildOfClass("Model")
 local Flinged = checkifgotflingedlol(Killer:WaitForChild("HumanoidRootPart"))
-if Killer:FindFirstChild("Humanoid") and workspace:FindFirstChild("Camera") then
-workspace:WaitForChild("Camera").CameraSubject = Killer:WaitForChild("Humanoid")
-end
 while Killer and Killer ~= nil and Killer:FindFirstChild("HumanoidRootPart") and Killer:FindFirstChild("Humanoid") and Flinged ~= true and Killer:WaitForChild("Humanoid").Health ~= 0 and game:GetService("RunService").Heartbeat:Wait() do 
 Flinged = checkifgotflingedlol(Killer:WaitForChild("HumanoidRootPart"))
 local vel, movel = nil, 0.1
@@ -713,18 +710,6 @@ end
 for i = 1, 100 do
 game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = OldCF * CFrame.new(0,0.4,0)
 task.wait()
-end
-task.wait(2)
-if workspace:FindFirstChild("Camera") then
-workspace.Camera:remove()
-wait(.1)
-repeat wait() until game.Players.LocalPlayer.Character ~= nil
-workspace.Camera.CameraSubject = game.Players.LocalPlayer.Character:FindFirstChildWhichIsA('Humanoid')
-workspace.Camera.CameraType = "Custom"
-game.Players.LocalPlayer.CameraMinZoomDistance = 0.5
-game.Players.LocalPlayer.CameraMaxZoomDistance = 400
-game.Players.LocalPlayer.CameraMode = "Classic"
-game.Players.LocalPlayer.Character.Head.Anchored = false
 end
 else
 DiscordLib:Notification("Error!", "Killer not found!", "Okay!")
