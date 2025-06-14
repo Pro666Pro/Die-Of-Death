@@ -784,10 +784,16 @@ Animations Changer
 ]]--
 
 local skibidiamogus = LP.Character or LP.CharacterAdded:Wait()
-local AnimationFolder = skibidiamogus:WaitForChild("Animations")
+local function ReturnAnimFolder()
+if skibidiamogus:FindFirstChild("Animations") then
+return skibidiamogus:WaitForChild("Animations")
+end
+return nil
+end
 local Animation = Window:Server("Animations Changer","rbxassetid://73777691791017")
 local AnimationChanger = Animation:Channel("Animation Changer")
 local function SetAnim(run, walk, idle)
+local AnimationFolder = ReturnAnimFolder()
 pcall(function()
 if AnimationFolder:FindFirstChild("HurtSprint") then
 AnimationFolder:FindFirstChild("HurtSprint").AnimationId = tostring(run)
