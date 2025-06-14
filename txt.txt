@@ -701,7 +701,7 @@ local OldCF = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.
 if game:GetService("Workspace"):WaitForChild("GameAssets"):WaitForChild("Teams"):WaitForChild("Killer"):FindFirstChildOfClass("Model") and game:GetService("Workspace"):WaitForChild("GameAssets"):WaitForChild("Teams"):WaitForChild("Killer"):FindFirstChildOfClass("Model").Name ~= game:GetService("Players").LocalPlayer.Name then
 local Killer = game:GetService("Workspace"):WaitForChild("GameAssets"):WaitForChild("Teams"):WaitForChild("Killer"):FindFirstChildOfClass("Model")
 local Flinged = checkifgotflingedlol(Killer:WaitForChild("HumanoidRootPart"))
-while Killer and Killer ~= nil and Killer:FindFirstChild("HumanoidRootPart") and Killer:FindFirstChild("Humanoid") and Flinged ~= true and Killer:WaitForChild("Humanoid").Health ~= 0 and game:GetService("RunService").Heartbeat:Wait() do 
+while Killer and Killer ~= nil and Killer:FindFirstChild("HumanoidRootPart") and Killer:FindFirstChild("Humanoid") and Flinged ~= true and Killer:WaitForChild("Humanoid").Health ~= 0 and game:GetService("Players").LocalPlayer.Character and game:GetService("Players").LocalPlayer.Character:FindFirstChild("Humanoid") and game:GetService("Players").LocalPlayer.Character.Humanoid.Health ~= 0 and game:GetService("Players").LocalPlayer.Character:FindFirstChild("Head") and game:GetService("RunService").Heartbeat:Wait() do 
 Flinged = checkifgotflingedlol(Killer:WaitForChild("HumanoidRootPart"))
 local vel, movel = nil, 0.1
 while not (game:GetService("Players").LocalPlayer.Character and game:GetService("Players").LocalPlayer.Character.Parent and game:GetService("Players").LocalPlayer.Character.HumanoidRootPart and game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Parent) do
