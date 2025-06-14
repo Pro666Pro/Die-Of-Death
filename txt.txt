@@ -531,16 +531,18 @@ end
 
 local ImportantSymbols = ""..randomsymbol()..""..randomsymbol()..""..randomsymbol()..""
 
+_G.ESPenabledHandler = false
+_G.ESPtransHandler = 0.35
 function CreateHighlight(plr)
 local plr_char = plr.Character or plr.CharacterAdded:Wait()
 local highlight = Instance.new("Highlight", plr_char)
 highlight.Name = ""..ImportantSymbols.."_"..randomstring()..""
 highlight.Archivable = true
 highlight.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
-highlight.Enabled = false
+highlight.Enabled = _G.ESPenabledHandler
 highlight.FillColor = plr.TeamColor.Color
 highlight.OutlineColor = Color3.fromRGB(255, 255, 255)
-highlight.FillTransparency = 0.5
+highlight.FillTransparency = _G.ESPtransHandler
 highlight.OutlineTransparency = 1
 end
 
@@ -555,11 +557,21 @@ end)
 end
 end
 
+game:GetService("Players").PlayerAdded:Connect(function(v)
+CreateHighlight(v)
+v.CharacterAdded:Connect(function(char)
+pcall(function()
+CreateHighlight(game:GetService("Players"):GetPlayerFromCharacter(char))
+end)
+end)
+end)
+
 local Visual = Window:Server("Visuals Management","rbxassetid://90476367580326")
 
 local VisualESP = Visual:Channel("Players ESP")
 
-VisualESP:Slider("ESP Transparency ( in % )", 0, 100, 50, function(Value)
+VisualESP:Slider("ESP Transparency ( in % )", 0, 100, 35, function(Value)
+_G.ESPtransHandler = (tonumber(Value) / 100)
 for i,v in pairs(game:GetService("Players"):GetDescendants()) do
 if v and v:IsA("Highlight") and v.Name:find(""..ImportantSymbols.."_") or v.Name:match(""..ImportantSymbols.."_") then
 v.FillTransparency = (tonumber(Value) / 100)
@@ -573,6 +585,7 @@ end
 end)
 
 VisualESP:Toggle("ESP Everyone",false,function(Value)
+_G.ESPenabledHandler = Value
 for i,v in pairs(game:GetService("Players"):GetDescendants()) do
 if v and v:IsA("Highlight") and v.Name:find(""..ImportantSymbols.."_") or v.Name:match(""..ImportantSymbols.."_") then
 v.Enabled = Value
