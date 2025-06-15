@@ -947,8 +947,8 @@ end
 
 AnimationChanger:Label("Civilian Animations")
 AnimationChanger:Button("Apply Civilian Animations", function()
-local RunAnim = "rbxassetid://138161225743614"
-local WalkAnim = "rbxassetid://79488319304371"
+local RunAnim = "rbxassetid://79488319304371"
+local WalkAnim = "rbxassetid://138161225743614"
 local IdleAnim = "rbxassetid://74309548749074"
 local suc, err = pcall(SetAnim(RunAnim, WalkAnim, IdleAnim)) if not suc then DiscordLib:Notification("Error!", "Callback Error: "..tostring(err).."", "Okay!") end
 end)
