@@ -1,0 +1,1085 @@
+pcall(function()
+game:GetService("CoreGui")
+end)
+
+if not game:FindService("CoreGui") then
+game:GetService("StarterGui"):SetCore("SendNotification",{
+	Title = "Error!",
+	Text = "Your executor don't have access to core gui which is being used for UI library! Script stopped loading.",
+        Icon = "rbxassetid://125704683916878",
+	Duration = 36000,
+	Button1 = "Ok!"
+})
+return nil
+end
+
+function TestFireSignal()
+if firesignal then
+return true
+end
+return false
+--[[
+local suc, err = pcall(function()
+Instance.new("RemoteEvent", game:GetService("LogService")).Name = "TestRemote"
+local source = 
+
+game:GetService("LogService"):WaitForChild("TestRemote").OnClientEvent:Connect(function()
+Instance.new("Folder", game:GetService("LogService")).Name = "TestFolder"
+end)
+
+loadstring(source)()
+task.wait(1)
+pcall(function()
+firesignal(game:GetService("LogService"):WaitForChild("TestRemote").OnClientEvent)
+task.wait(1)
+end)
+end)
+if game:GetService("LogService"):FindFirstChild("TestFolder") and suc then
+if game:GetService("LogService"):FindFirstChild("TestRemote") then game:GetService("LogService"):FindFirstChild("TestRemote"):Destroy() end
+if game:GetService("LogService"):FindFirstChild("TestFolder") then game:GetService("LogService"):FindFirstChild("TestFolder"):Destroy() end
+return true
+end
+if game:GetService("LogService"):FindFirstChild("TestRemote") then game:GetService("LogService"):FindFirstChild("TestRemote"):Destroy() end
+if game:GetService("LogService"):FindFirstChild("TestFolder") then game:GetService("LogService"):FindFirstChild("TestFolder"):Destroy() end
+return false
+]]--
+end
+
+function TestRequire()
+if require then
+return true
+end
+return false
+end
+
+if TestRequire() ~= true then
+game:GetService("StarterGui"):SetCore("SendNotification",{
+	Title = "Warning!",
+	Text = "Your executor don't support require function, which is being used in most of the features!",
+        Icon = "rbxassetid://125704683916878",
+	Duration = 36000,
+	Button1 = "Ok!"
+})
+end
+
+if TestFireSignal() ~= true then
+game:GetService("StarterGui"):SetCore("SendNotification",{
+	Title = "Warning!",
+	Text = "Your executor don't support firesignal function, which is being used in most of the features!",
+        Icon = "rbxassetid://125704683916878",
+	Duration = 36000,
+	Button1 = "Ok!"
+})
+end
+
+pcall(function()
+game = game or workspace.Parent or Ugc or _game or __game or (roblox and roblox.game)
+end)
+local Players = game:GetService("Players")
+local LP = Players.LocalPlayer
+local Char = LP.Character or LP.CharacterAdded:Wait()
+local HRP = Char:WaitForChild("HumanoidRootPart")
+
+function HaveAtt(att)
+local attribute = tostring(att)
+if Char:GetAttribute(tostring(attribute)) then return true end
+return false
+end
+
+function GetAtt(att)
+local attribute = Char:GetAttribute(tostring(att))
+return attribute
+end
+
+function SetAtt(att, val)
+local attribute = tostring(att)
+local value = val
+Char:SetAttribute(tostring(attribute), value)
+end
+
+local DiscordLib = loadstring(game:HttpGet("https://raw.githubusercontent.com/Pro666Pro/Die-Of-Death/refs/heads/main/dslib.luau"))()
+local Window = DiscordLib:Window("Die Of Death - Nexer Hub")
+
+
+
+
+
+
+--[[ 
+
+
+  _________ __                  __               
+ /   _____//  |______    _____ |__| ____ _____   
+ \_____  \\   __\__  \  /     \|  |/    \\__  \  
+ /        \|  |  / __ \|  Y Y  \  |   |  \/ __ \_
+/_______  /|__| (____  /__|_|  /__|___|  (____  /
+        \/           \/      \/        \/     \/ 
+
+Stamina Management
+
+
+]]--
+
+local MovementModule = require(game:GetService("Players").LocalPlayer:WaitForChild("PlayerGui"):WaitForChild("MainGui"):WaitForChild("Client"):WaitForChild("Modules"):WaitForChild("Movement"))
+local Stamina = Window:Server("Stamina Management","rbxassetid://9525535512")
+local StaminaButtons = Stamina:Channel("Buttons")
+
+StaminaButtons:Button("Infinite Stamina", function()
+if TestRequire() ~= true then
+SetAtt("MaxStamina", (math and math.huge) or 9000000000)
+DiscordLib:Notification("Half-Success!", "Now your stamina is infinite! ( Only max stamina is infinite because your executor don't support ''require'' function. )", "Okay!")
+else
+SetAtt("MaxStamina", (math and math.huge) or 9000000000)
+MovementModule["Stamina"] = (math and math.huge) or 9000000000
+DiscordLib:Notification("Success!", "Now your stamina is infinite!", "Okay!")
+end
+end)
+
+StaminaButtons:Button("Fast Sprint", function()
+SetAtt("SprintSpeed", 80)
+DiscordLib:Notification("Success!", "Now you'll be fast when sprinting!", "Okay!")
+end)
+
+StaminaButtons:Button("2x WalkSpeed Modifier", function()
+SetAtt("WalkSpeedModifier", 2)
+DiscordLib:Notification("Success!", "Your modifier is now set to 2x!", "Okay!")
+end)
+
+
+local StaminaToggles = Stamina:Channel("Toggles")
+
+local StaminaLoss
+StaminaToggles:Toggle("No Stamina Loss",false,function(Value)
+if TestRequire() ~= true then
+DiscordLib:Notification("Error!", "Your executor doesn't support ''require'' function, which is being used in this feature!", "Okay!")
+return nil
+end
+StaminaLoss = Value
+if StaminaLoss == true then
+repeat task.wait(0.005)
+if HaveAtt("MaxStamina") ~= true then SetAtt("MaxStamina",100) end
+MovementModule["Stamina"] = GetAtt("MaxStamina")
+until StaminaLoss == false
+end
+end)
+
+local StaminaAdvanced = Stamina:Channel("Advanced")
+
+local AutoFillStamina
+AutoFillStamina = true
+StaminaAdvanced:Toggle("Auto-Fill Stamina After Changing Max Stamina",true,function(Value)
+AutoFillStamina = Value
+end)
+
+StaminaAdvanced:Textbox("Max Stamina", "Type Here!", true, function(Value)
+local text = Value
+local val
+if text == "inf" or text == "mathhuge" or text == "math.huge" or text == "infinity" or text == "INF" or text == "Inf" or text == "Infinity" or text == "INFINITY" or text == "Unlimited" or text == "unlimited" or text == "UNLIMITED" or text == "inf." or text == "Inf." or text == "INF." then
+val = (math and math.huge) or 9000000000
+else
+val = tonumber(text)
+end
+SetAtt("MaxStamina", val)
+if TestRequire() ~= true and AutoFillStamina == true then
+DiscordLib:Notification("Error!", "Stamina wasn't refilled because your executor doesn't support ''require'' function.", "Okay!")
+elseif TestRequire() == true and AutoFillStamina == true then
+MovementModule["Stamina"] = val
+end
+end)
+
+StaminaAdvanced:Seperator()
+
+StaminaAdvanced:Textbox("Sprint Speed", "Type Here!", true, function(Value)
+local text = Value
+local val = tonumber(text)
+SetAtt("SprintSpeed", val)
+end)
+
+StaminaAdvanced:Textbox("Walk Speed", "Type Here!", true, function(Value)
+local text = Value
+local val = tonumber(text)
+SetAtt("WalkSpeed", val)
+end)
+
+StaminaAdvanced:Textbox("Walk Speed Modifier", "Type Here!", true, function(Value)
+local text = Value
+local val = tonumber(text)
+SetAtt("WalkSpeedModifier", val)
+end)
+
+local StaminaInjection = Stamina:Channel("Auto-Injection")
+
+local AutoInjectStamina
+AutoInjectStamina = false
+StaminaInjection:Toggle("Auto-Inject",false,function(Value)
+AutoInjectStamina = Value
+end)
+
+StaminaInjection:Textbox("Max Stamina", "Type Here!", false, function(Value)
+local text = Value
+local val
+if text == "inf" or text == "mathhuge" or text == "math.huge" or text == "infinity" or text == "INF" or text == "Inf" or text == "Infinity" or text == "INFINITY" or text == "Unlimited" or text == "unlimited" or text == "UNLIMITED" or text == "inf." or text == "Inf." or text == "INF." then
+val = (math and math.huge) or 9000000000
+else
+val = tonumber(text)
+end
+_G.MaxStaminaInjection = val
+end)
+
+StaminaInjection:Textbox("Sprint Speed", "Type Here!", false, function(Value)
+local text = Value
+local val = tonumber(text)
+_G.SprintSpeedInjection = val
+end)
+
+StaminaInjection:Textbox("Walk Speed", "Type Here!", false, function(Value)
+local text = Value
+local val = tonumber(text)
+_G.WalkSpeedInjection = val
+end)
+
+StaminaInjection:Textbox("Walk Speed Modifier", "Type Here!", false, function(Value)
+local text = Value
+local val = tonumber(text)
+_G.WalkSpeedModifierInjection = val
+end)
+
+game:GetService("Workspace"):WaitForChild("GameAssets"):WaitForChild("Teams").DescendantAdded:Connect(function(descendant)
+if descendant and descendant.Name == ""..LP.Name.."" and AutoInjectStamina == true then
+SetAtt("MaxStamina", _G.MaxStaminaInjection)
+if TestRequire() == true then
+MovementModule["Stamina"] = _G.MaxStaminaInjection
+end
+SetAtt("SprintSpeed", _G.SprintSpeedInjection)
+SetAtt("WalkSpeed", _G.WalkSpeedInjection)
+SetAtt("WalkSpeedModifier", _G.WalkSpeedModifierInjection)
+end
+end)
+
+--[[ 
+
+
+___________               __                 
+\_   _____/ _____   _____/  |_  ____   ______
+ |    __)_ /     \ /  _ \   __\/ __ \ /  ___/
+ |        \  Y Y  (  <_> )  | \  ___/ \___ \ 
+/_______  /__|_|  /\____/|__|  \___  >____  >
+        \/      \/                 \/     \/ 
+
+Emotes Management
+
+
+]]--
+local Emotes_Table = {
+[1] = "Dance";
+[2] = "Squingle";
+[3] = "MyEmoteIdea";
+}
+function GetRandomEmote()
+return Emotes_Table[math.random(1, #Emotes_Table)]
+end
+local EmotesModule = require(game:GetService("Players").LocalPlayer:WaitForChild("PlayerGui"):WaitForChild("MainGui"):WaitForChild("Client"):WaitForChild("Modules"):WaitForChild("Ability"))
+local Dance = Window:Server("Emotes Management","rbxassetid://9006890331")
+local DanceButtons = Dance:Channel("Dance")
+
+DanceButtons:Button("Override-Use Your Current Emote", function()
+if TestRequire() ~= true then
+DiscordLib:Notification("Error!", "Your executor doesn't support ''require'' function, which is being used in this feature!", "Okay!")
+return nil
+end
+game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("RemoteEvents"):WaitForChild("Emote"):FireServer(EmotesModule.SelectedEmote)
+end)
+
+DanceButtons:Seperator()
+
+DanceButtons:Button("Override-Use Dance", function()
+game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("RemoteEvents"):WaitForChild("Emote"):FireServer("Dance")
+end)
+
+DanceButtons:Button("Override-Use Squingle", function()
+game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("RemoteEvents"):WaitForChild("Emote"):FireServer("Squingle")
+end)
+
+DanceButtons:Button("Override-Use Rainbow Waves", function()
+game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("RemoteEvents"):WaitForChild("Emote"):FireServer("MyEmoteIdea")
+end)
+
+local ChangeDance = Dance:Channel("Change Emote")
+
+local preferedemote
+local ChangeEmotes = ChangeDance:Dropdown("Pick Emote",{"Dance","Squingle","Rainbow Waves"},function(Value)
+if Value == "Rainbow Waves" then
+preferedemote = tostring("MyEmoteIdea")
+else
+preferedemote = tostring(Value)
+end
+end)
+
+ChangeDance:Button("Change Emote", function()
+if TestRequire() ~= true then
+DiscordLib:Notification("Error!", "Your executor doesn't support ''require'' function, which is being used in this feature!", "Okay!")
+return nil
+end
+local suc, err = pcall(function()
+EmotesModule.SelectedEmote = tostring(preferedemote)
+end)
+if not suc then
+EmotesModule.SelectedEmote = GetRandomEmote()
+end
+end)
+
+ChangeDance:Seperator()
+
+ChangeDance:Button("Change Emote to Random", function()
+if TestRequire() ~= true then
+DiscordLib:Notification("Error!", "Your executor doesn't support ''require'' function, which is being used in this feature!", "Okay!")
+return nil
+end
+EmotesModule.SelectedEmote = GetRandomEmote()
+end)
+
+local OverrideMove = Dance:Channel("Override")
+
+local CanMoveWhileEmoting
+CanMoveWhileEmoting = false
+OverrideMove:Toggle("Can Move While Using Emote?",false,function(Value)
+CanMoveWhileEmoting = Value
+if CanMoveWhileEmoting == true then
+repeat task.wait(0.03)
+if HaveAtt("Emoting") and HaveAtt("WalkSpeedModifier") and GetAtt("Emoting") == true and GetAtt("WalkSpeedModifier") == (-100) then
+SetAtt("WalkSpeedModifier", 0)
+end
+until CanMoveWhileEmoting == false
+end
+end)
+
+--[[ 
+
+
+   _____ ___     __ __   __  __   __               
+  /  _  \\_ |__ |__|  | |__|/  |_|__| ____   ______
+ /  /_\  \| __ \|  |  | |  \   __\  |/ __ \ /  ___/
+/    |    \ \_\ \  |  |_|  ||  | |  \  ___/ \___ \ 
+\____|__  /___  /__|____/__||__| |__|\___  >____  >
+        \/    \/                         \/     \/ 
+
+Abilities Management
+
+
+]]--
+
+local Abilities_Table = {
+	[1] = "Cloak",
+	[2] = "Punch",
+	[3] = "Taunt",
+	[4] = "BonusPad",
+	[5] = "Block",
+	[6] = "Caretaker",
+	[7] = "Dash",
+	[8] = "Hotdog",
+	[9] = "Revolver",
+	[10] = "Adrenaline"
+}
+function GetRandomAbility()
+return Abilities_Table[math.random(1, #Abilities_Table)]
+end
+local AbilityModule = require(game:GetService("Players").LocalPlayer:WaitForChild("PlayerGui"):WaitForChild("MainGui"):WaitForChild("Client"):WaitForChild("Modules"):WaitForChild("Ability"))
+local Ability = Window:Server("Abilities Management","rbxassetid://85436299122876")
+
+local AbilityGive = Ability:Channel("Give Abilities")
+
+AbilityGive:Button("Give Random Abilities", function()
+local args = {
+	{
+		GetRandomAbility(),
+		GetRandomAbility()
+	}
+}
+game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("RemoteEvents"):WaitForChild("AbilitySelection"):FireServer(unpack(args))
+end)
+
+AbilityGive:Seperator()
+
+local preferedability_1
+preferedability_1 = "N/A"
+AbilityGive:Dropdown("Pick First Ability",{"Cloak","Punch","Taunt","BonusPad","Block","Caretaker","Dash","Hotdog","Revolver","Adrenaline"},function(Value)
+preferedability_1 = tostring(Value)
+end)
+
+local preferedability_2
+preferedability_2 = "N/A"
+AbilityGive:Dropdown("Pick Second Ability",{"Cloak","Punch","Taunt","BonusPad","Block","Caretaker","Dash","Hotdog","Revolver","Adrenaline"},function(Value)
+preferedability_2 = tostring(Value)
+end)
+
+AbilityGive:Button("Give Abilities", function()
+if preferedability_1 == "N/A" or preferedability_2 == "N/A" then
+DiscordLib:Notification("Error!", "You didn't pick abilities, or didn't pick both of them!", "Okay!")
+return nil
+end
+local args = {
+	{
+		preferedability_1,
+		preferedability_2
+	}
+}
+game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("RemoteEvents"):WaitForChild("AbilitySelection"):FireServer(unpack(args))
+end)
+
+local CardsGive = Ability:Channel("Summon Cards")
+local preferedability_1_incard_1,preferedability_2_incard_1,preferedability_1_incard_2,preferedability_2_incard_2,preferedability_1_incard_3,preferedability_2_incard_3 = "N/A","N/A","N/A","N/A","N/A","N/A"
+
+CardsGive:Button("Summon Random Cards", function()
+if TestFireSignal() ~= true then
+DiscordLib:Notification("Error!", "Your executor doesn't support ''firesignal'' function, which is being used in this feature!", "Okay!")
+return nil
+end
+firesignal(game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("RemoteEvents"):WaitForChild("AbilitySelection").OnClientEvent, 
+    {
+        GetRandomAbility(),
+        GetRandomAbility()
+    },
+    {
+        GetRandomAbility(),
+        GetRandomAbility()
+    },
+    {
+        GetRandomAbility(),
+        GetRandomAbility()
+    }
+)
+end)
+
+CardsGive:Seperator()
+
+local AutoInjectCards
+AutoInjectCards = false
+CardsGive:Toggle("Auto-Inject",false,function(Value)
+if TestFireSignal() ~= true then
+DiscordLib:Notification("Error!", "Your executor doesn't support ''firesignal'' function, which is being used in this feature!", "Okay!")
+return nil
+end
+if preferedability_1_incard_1 == "N/A" or preferedability_2_incard_1 == "N/A" or preferedability_1_incard_2 == "N/A" or preferedability_2_incard_2 == "N/A" or preferedability_1_incard_3 == "N/A" or preferedability_2_incard_3 == "N/A" then
+DiscordLib:Notification("Error!", "You didn't pick all cards settings!", "Okay!")
+return nil
+end
+AutoInjectCards = Value
+end)
+
+game:GetService("Workspace"):WaitForChild("GameAssets"):WaitForChild("Teams").DescendantAdded:Connect(function(descendant)
+if descendant and descendant.Name == ""..LP.Name.."" and AutoInjectCards == true then
+task.wait(6)
+firesignal(game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("RemoteEvents"):WaitForChild("AbilitySelection").OnClientEvent, 
+    {
+        preferedability_1_incard_1,
+        preferedability_2_incard_1
+    },
+    {
+        preferedability_1_incard_2,
+        preferedability_2_incard_2
+    },
+    {
+        preferedability_1_incard_3,
+        preferedability_2_incard_3
+    }
+)
+end
+end)
+
+CardsGive:Seperator()
+
+CardsGive:Label("First Card Settings")
+CardsGive:Dropdown("Pick First Ability",{"Cloak","Punch","Taunt","BonusPad","Block","Caretaker","Dash","Hotdog","Revolver","Adrenaline"},function(Value)
+preferedability_1_incard_1 = tostring(Value)
+end)
+CardsGive:Dropdown("Pick Second Ability",{"Cloak","Punch","Taunt","BonusPad","Block","Caretaker","Dash","Hotdog","Revolver","Adrenaline"},function(Value)
+preferedability_2_incard_1 = tostring(Value)
+end)
+
+CardsGive:Label("Second Card Settings")
+CardsGive:Dropdown("Pick First Ability",{"Cloak","Punch","Taunt","BonusPad","Block","Caretaker","Dash","Hotdog","Revolver","Adrenaline"},function(Value)
+preferedability_1_incard_2 = tostring(Value)
+end)
+CardsGive:Dropdown("Pick Second Ability",{"Cloak","Punch","Taunt","BonusPad","Block","Caretaker","Dash","Hotdog","Revolver","Adrenaline"},function(Value)
+preferedability_2_incard_2 = tostring(Value)
+end)
+
+CardsGive:Label("Third Card Settings")
+CardsGive:Dropdown("Pick First Ability",{"Cloak","Punch","Taunt","BonusPad","Block","Caretaker","Dash","Hotdog","Revolver","Adrenaline"},function(Value)
+preferedability_1_incard_3 = tostring(Value)
+end)
+CardsGive:Dropdown("Pick Second Ability",{"Cloak","Punch","Taunt","BonusPad","Block","Caretaker","Dash","Hotdog","Revolver","Adrenaline"},function(Value)
+preferedability_2_incard_3 = tostring(Value)
+end)
+
+CardsGive:Label("Summon Cards")
+CardsGive:Button("Summon Choosen Cards", function()
+if TestFireSignal() ~= true then
+DiscordLib:Notification("Error!", "Your executor doesn't support ''firesignal'' function, which is being used in this feature!", "Okay!")
+return nil
+end
+if preferedability_1_incard_1 == "N/A" or preferedability_2_incard_1 == "N/A" or preferedability_1_incard_2 == "N/A" or preferedability_2_incard_2 == "N/A" or preferedability_1_incard_3 == "N/A" or preferedability_2_incard_3 == "N/A" then
+DiscordLib:Notification("Error!", "You didn't pick all cards settings!", "Okay!")
+return nil
+end
+firesignal(game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("RemoteEvents"):WaitForChild("AbilitySelection").OnClientEvent, 
+    {
+        preferedability_1_incard_1,
+        preferedability_2_incard_1
+    },
+    {
+        preferedability_1_incard_2,
+        preferedability_2_incard_2
+    },
+    {
+        preferedability_1_incard_3,
+        preferedability_2_incard_3
+    }
+)
+end)
+
+
+
+local AbilitySpam = Ability:Channel("Ability Spam")
+
+local preferedabilitytospam
+preferedabilitytospam = "N/A"
+AbilitySpam:Dropdown("Pick Ability For Spamming",{"Cloak","Punch","Taunt","BonusPad","Block","Caretaker","Dash","Hotdog","Revolver","Adrenaline"},function(Value)
+preferedabilitytospam = tostring(Value)
+end)
+
+local AutoSpamAbility
+AutoSpamAbility = false
+AbilitySpam:Toggle("Auto-Spam Ability",false,function(Value)
+if preferedabilitytospam == "N/A" then
+DiscordLib:Notification("Error!", "You didn't pick ability to spam!", "Okay!")
+return nil
+end
+AutoSpamAbility = Value
+if AutoSpamAbility == true then
+repeat task.wait(0.1)
+pcall(function()
+local args = {
+	{
+		tostring(preferedabilitytospam),
+		tostring(preferedabilitytospam)
+	}
+}
+game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("RemoteEvents"):WaitForChild("AbilitySelection"):FireServer(unpack(args))
+local args = {
+	tostring(preferedabilitytospam)
+}
+game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("RemoteFunctions"):WaitForChild("UseAbility"):InvokeServer(unpack(args))
+end)
+until AutoSpamAbility == false
+end
+end)
+
+--[[ 
+
+
+____   ____ __                     __          
+\   \ /   /|__| ________ _______  |  |   ______
+ \   Y   / |  |/  ___/  |  \__  \ |  |  /  ___/
+  \     /  |  |\___ \|  |  // __ \|  |__\___ \ 
+   \___/   |__/____  >____/(____  /____/____  >
+                   \/           \/          \/ 
+
+Visuals Management
+
+
+]]--
+
+function randomsymbol()
+    local rndm = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890@#$_&-+()*':;!?,.[]{}=|~`•"
+    local rndmindex = math.random(1, #rndm)
+    return rndm:sub(rndmindex,rndmindex)
+end
+
+function randomstring()
+local rndm = math.random(1,20)
+local rndmstring = tostring(randomsymbol())
+for i = 1, rndm do
+rndmstring = ""..rndmstring..""..tostring(randomsymbol())..""
+end
+return rndmstring
+end
+
+local ImportantSymbols = ""..randomsymbol()..""..randomsymbol()..""..randomsymbol()..""
+
+_G.ESPenabledHandler = false
+_G.ESPtransHandler = 0.35
+function CreateHighlight(plr)
+local plr_char = plr.Character or plr.CharacterAdded:Wait()
+local highlight = Instance.new("Highlight", plr_char)
+highlight.Name = ""..ImportantSymbols.."_"..randomstring()..""
+highlight.Archivable = true
+highlight.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
+highlight.Enabled = _G.ESPenabledHandler
+highlight.FillColor = plr.TeamColor.Color
+highlight.OutlineColor = Color3.fromRGB(255, 255, 255)
+highlight.FillTransparency = _G.ESPtransHandler
+highlight.OutlineTransparency = 1
+end
+
+for i,v in pairs(game:GetService("Players"):GetPlayers()) do
+if v and v ~= game:GetService("Players").LocalPlayer then
+CreateHighlight(v)
+v.CharacterAdded:Connect(function(char)
+pcall(function()
+CreateHighlight(game:GetService("Players"):GetPlayerFromCharacter(char))
+end)
+end)
+end
+end
+
+game:GetService("Players").PlayerAdded:Connect(function(v)
+CreateHighlight(v)
+v.CharacterAdded:Connect(function(char)
+pcall(function()
+CreateHighlight(game:GetService("Players"):GetPlayerFromCharacter(char))
+end)
+end)
+end)
+
+local Visual = Window:Server("Visuals Management","rbxassetid://90476367580326")
+
+local VisualESP = Visual:Channel("Players ESP")
+
+VisualESP:Slider("ESP Transparency ( in % )", 0, 100, 35, function(Value)
+_G.ESPtransHandler = (tonumber(Value) / 100)
+for i,v in pairs(game:GetService("Players"):GetDescendants()) do
+if v and v:IsA("Highlight") and v.Name:find(""..ImportantSymbols.."_") or v.Name:match(""..ImportantSymbols.."_") then
+v.FillTransparency = (tonumber(Value) / 100)
+end
+end
+for i,v in pairs(game:GetService("Workspace"):GetDescendants()) do
+if v and v:IsA("Highlight") and v.Name:find(""..ImportantSymbols.."_") or v.Name:match(""..ImportantSymbols.."_") then
+v.FillTransparency = (tonumber(Value) / 100)
+end
+end
+end)
+
+VisualESP:Toggle("ESP Everyone",false,function(Value)
+_G.ESPenabledHandler = Value
+for i,v in pairs(game:GetService("Players"):GetDescendants()) do
+if v and v:IsA("Highlight") and v.Name:find(""..ImportantSymbols.."_") or v.Name:match(""..ImportantSymbols.."_") then
+v.Enabled = Value
+end
+end
+for i,v in pairs(game:GetService("Workspace"):GetDescendants()) do
+if v and v:IsA("Highlight") and v.Name:find(""..ImportantSymbols.."_") or v.Name:match(""..ImportantSymbols.."_") then
+v.Enabled = Value
+end
+end
+end)
+
+local GuiChanger = Visual:Channel("Gui Changer")
+
+GuiChanger:Button("Disable ''Harken Broken Eye'' Effect [ Use Before Harken Use It ]", function()
+game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("RemoteEvents"):WaitForChild("HarkenMove"):Destroy()
+DiscordLib:Notification("Success!", "Disabled ''Harken Broken Eye'' Effect!", "Okay!")
+end)
+GuiChanger:Button("Disable ''Evil Scary'' Jumpscare", function()
+game:GetService("Players").LocalPlayer:WaitForChild("PlayerGui"):WaitForChild("MainGui"):WaitForChild("EvilScary"):Destroy()
+DiscordLib:Notification("Success!", "Disabled ''Evil Scary'' Jumpscare!", "Okay!")
+end)
+GuiChanger:Button("Disable ''Anti-Cheat / Anti-Exploiter'' Jumpscare", function()
+game:GetService("Players").LocalPlayer:WaitForChild("PlayerGui"):WaitForChild("MainGui"):WaitForChild("Exploiter"):Destroy()
+DiscordLib:Notification("Success!", "Disabled ''Anti-Cheat / Anti-Exploiter'' Jumpscare!", "Okay!")
+end)
+GuiChanger:Button("Disable ''Hallucination'' Effect", function()
+game:GetService("Players"):WaitForChild("Sounds"):WaitForChild("SFX"):WaitForChild("Hallucination"):Destroy()
+game:GetService("Players"):WaitForChild("Sounds"):WaitForChild("SFX"):WaitForChild("Hallucination2"):Destroy()
+game:GetService("Players"):WaitForChild("Sounds"):WaitForChild("SFX"):WaitForChild("Hallucination3"):Destroy()
+game:GetService("Players"):WaitForChild("Sounds"):WaitForChild("SFX"):WaitForChild("Hallucination4"):Destroy()
+game:GetService("Players").LocalPlayer:WaitForChild("PlayerGui"):WaitForChild("MainGui"):WaitForChild("Hallucination"):Destroy()
+DiscordLib:Notification("Success!", "Disabled ''Hallucination'' Effect!", "Okay!")
+end)
+
+local Intro_Event = Visual:Channel("Intro / Event")
+
+local killerintro
+killerintro = "Pursuer"
+Intro_Event:Dropdown("Killer Intro",{"Pursuer","Artful","Badware","Killdroid","Harken"},function(Value)
+killerintro = tostring(Value)
+end)
+
+Intro_Event:Button("Start Intro", function()
+if TestFireSignal() ~= true then
+DiscordLib:Notification("Error!", "Your executor doesn't support ''firesignal'' function, which is being used in this feature!", "Okay!")
+return nil
+end
+firesignal(game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("RemoteEvents"):WaitForChild("KillerIntro").OnClientEvent,
+    game:GetService("Players").LocalPlayer,
+    killerintro,
+    killerintro,
+    "Default",
+    1
+)
+end)
+
+Intro_Event:Seperator()
+
+local specialroundevent
+specialroundevent = "Double Trouble"
+Intro_Event:Dropdown("Special Round Event",{"Double Trouble","Evil Scary","One Bounce","Gunslinger"},function(Value)
+specialroundevent = tostring(Value)
+end)
+
+Intro_Event:Button("Start Event", function()
+if TestFireSignal() ~= true then
+DiscordLib:Notification("Error!", "Your executor doesn't support ''firesignal'' function, which is being used in this feature!", "Okay!")
+return nil
+end
+firesignal(game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("RemoteEvents"):WaitForChild("GamemodeUI").OnClientEvent,specialroundevent)
+end)
+
+
+--[[ 
+
+
+  _________     ___            __                         
+ /   _____/____ \_ |__   _____/  |______     ____   ____  
+ \_____  \\__  \ | __ \ /  _ \   __\__  \   / ___\_/ __ \ 
+ /        \/ __ \| \_\ (  <_> )  |  / __ \_/ /_/  >  ___/ 
+/_______  (____  /___  /\____/|__| (____  /\___  / \___  >
+        \/     \/    \/                 \//_____/      \/ 
+
+Sabotage
+
+
+]]--
+
+local Sabotage = Window:Server("Sabotage","rbxassetid://97428323453639")
+
+local KillThings = Sabotage:Channel("Kill")
+
+KillThings:Label("Survivor Things")
+
+KillThings:Button("Insta-Kill Killer [ OP !!! ]", function()
+
+local function checkifgotflingedlol(hrp)
+    local velocity = hrp.Velocity
+    local speed = velocity.Magnitude
+    if speed > 200 then
+        local verticalsp = math.abs(velocity.Y)
+        if verticalsp > 50 and verticalsp > math.abs(velocity.X) and verticalsp > math.abs(velocity.Z) then
+            return true
+        end
+    end
+    return false
+end
+while not (game:GetService("Players").LocalPlayer.Character and game:GetService("Players").LocalPlayer.Character.Parent and game:GetService("Players").LocalPlayer.Character.HumanoidRootPart and game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Parent) do
+game:GetService("RunService").Heartbeat:Wait()
+end
+local OldCF = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame
+if game:GetService("Workspace"):WaitForChild("GameAssets"):WaitForChild("Teams"):WaitForChild("Killer"):FindFirstChildOfClass("Model") and game:GetService("Workspace"):WaitForChild("GameAssets"):WaitForChild("Teams"):WaitForChild("Killer"):FindFirstChildOfClass("Model").Name ~= game:GetService("Players").LocalPlayer.Name then
+local Killer = game:GetService("Workspace"):WaitForChild("GameAssets"):WaitForChild("Teams"):WaitForChild("Killer"):FindFirstChildOfClass("Model")
+local Flinged = checkifgotflingedlol(Killer:WaitForChild("HumanoidRootPart"))
+while Killer and Killer ~= nil and Killer:FindFirstChild("HumanoidRootPart") and Killer:FindFirstChild("Humanoid") and Flinged ~= true and Killer:WaitForChild("Humanoid").Health ~= 0 and game:GetService("Players").LocalPlayer.Character and game:GetService("Players").LocalPlayer.Character:FindFirstChild("Humanoid") and game:GetService("Players").LocalPlayer.Character.Humanoid.Health ~= 0 and game:GetService("Players").LocalPlayer.Character:FindFirstChild("Head") and game:GetService("RunService").Heartbeat:Wait() do 
+Flinged = checkifgotflingedlol(Killer:WaitForChild("HumanoidRootPart"))
+local vel, movel = nil, 0.1
+while not (game:GetService("Players").LocalPlayer.Character and game:GetService("Players").LocalPlayer.Character.Parent and game:GetService("Players").LocalPlayer.Character.HumanoidRootPart and game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Parent) do
+game:GetService("RunService").Heartbeat:Wait()
+end
+game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = Killer:WaitForChild("HumanoidRootPart").CFrame * CFrame.new(0,1,math.random(-20, -0.5))
+vel = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Velocity
+game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Velocity = vel * 10000 + Vector3.new(0, 10000, 0)
+game:GetService("RunService").RenderStepped:Wait()
+if game:GetService("Players").LocalPlayer.Character and game:GetService("Players").LocalPlayer.Character.Parent and game:GetService("Players").LocalPlayer.Character.HumanoidRootPart and game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Parent then
+game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Velocity = vel
+end
+game:GetService("RunService").Stepped:Wait()
+if game:GetService("Players").LocalPlayer.Character and game:GetService("Players").LocalPlayer.Character.Parent and game:GetService("Players").LocalPlayer.Character.HumanoidRootPart and game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Parent then
+game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Velocity = vel + Vector3.new(0, movel, 0)
+movel = movel * -1
+end
+end
+for i = 1, 100 do
+game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = OldCF * CFrame.new(0,0.4,0)
+task.wait()
+end
+else
+DiscordLib:Notification("Error!", "Killer not found!", "Okay!")
+end
+
+end)
+
+local AntiThings = Sabotage:Channel("Anti / Immunities")
+
+local AntiWalls
+AntiWalls = false
+AntiThings:Toggle("Anti-Artful Walls",false,function(Value)
+AntiWalls = Value
+if AntiWalls == true then
+for i,v in pairs(game:GetService("Workspace"):WaitForChild("GameAssets"):WaitForChild("Teams"):WaitForChild("Other"):GetDescendants()) do
+if v and v.Name == "HumanoidRootPart" and v.Anchored == true then
+v.CanCollide = false
+v.CanTouch = false
+v.Transparency = 0.5
+end
+end
+end
+end)
+game:GetService("Workspace"):WaitForChild("GameAssets"):WaitForChild("Teams"):WaitForChild("Other").DescendantAdded:Connect(function(descendant)
+if descendant and descendant.Name == "HumanoidRootPart" and descendant.Anchored == true and AntiWalls == true then
+descendant.CanCollide = false
+descendant.CanTouch = false
+descendant.Transparency = 0.5
+end
+end)
+
+local AntiComputer
+AntiComputer = false
+AntiThings:Toggle("Auto-Disable Cooldown in Badware Computer Prompts [ Break computers by yourself ]",false,function(Value)
+AntiComputer = Value
+if AntiComputer == true then
+for _,descendant in pairs(game:GetService("Workspace"):WaitForChild("GameAssets"):WaitForChild("Debris"):WaitForChild("Cleanable"):GetDescendants()) do
+if descendant and descendant:IsA("ProximityPrompt") and descendant.Parent and descendant.Parent.Name == "Primary" then
+pcall(function()
+descendant.HoldDuration = 0
+descendant.RequiresLineOfSight = false
+descendant.Enabled = true
+end)
+end
+end
+end
+end)
+
+game:GetService("Workspace"):WaitForChild("GameAssets"):WaitForChild("Debris"):WaitForChild("Cleanable").DescendantAdded:Connect(function(descendant)
+if descendant and descendant:IsA("ProximityPrompt") and descendant.Parent and descendant.Parent.Name == "Primary" and AntiComputer == true then
+pcall(function()
+descendant.HoldDuration = 0
+descendant.RequiresLineOfSight = false
+descendant.Enabled = true
+end)
+end
+end)
+
+--[[ 
+
+
+   _____          __                __   __               
+  /  _  \   ____ |__| _____ _____ _/  |_|__| ____   ____  
+ /  /_\  \ /    \|  |/     \\__  \\   __\  |/  _ \ /    \ 
+/    |    \   |  \  |  Y Y  \/ __ \|  | |  (  <_> )   |  \
+\____|__  /___|  /__|__|_|  (____  /__| |__|\____/|___|  /
+        \/     \/         \/     \/                    \/ 
+
+Animations Changer
+
+
+]]--
+
+local function ReturnAnimFolder()
+local skibidiamogus = LP.Character or LP.CharacterAdded:Wait()
+if skibidiamogus:FindFirstChild("Animations") then
+return skibidiamogus:WaitForChild("Animations")
+end
+return nil
+end
+local Animation = Window:Server("Animations Changer","rbxassetid://73777691791017")
+local AnimationChanger = Animation:Channel("Animation Changer")
+local function SetAnim(run, walk, idle)
+local AnimationFolder = ReturnAnimFolder()
+pcall(function()
+if AnimationFolder:FindFirstChild("HurtSprint") then
+AnimationFolder:FindFirstChild("HurtSprint").AnimationId = run
+end
+end)
+pcall(function()
+if AnimationFolder:FindFirstChild("NormalSprint") then
+AnimationFolder:FindFirstChild("NormalSprint").AnimationId = run
+end
+end)
+pcall(function()
+if AnimationFolder:FindFirstChild("OldSprint") then
+AnimationFolder:FindFirstChild("OldSprint").AnimationId = run
+end
+end)
+pcall(function()
+if AnimationFolder:FindFirstChild("Sprint") then
+AnimationFolder:FindFirstChild("Sprint").AnimationId = run
+end
+end)
+pcall(function()
+if AnimationFolder:FindFirstChild("Idle") then
+AnimationFolder:FindFirstChild("Idle").AnimationId = idle
+end
+end)
+pcall(function()
+if AnimationFolder:FindFirstChild("OldIdle") then
+AnimationFolder:FindFirstChild("OldIdle").AnimationId = idle
+end
+end)
+pcall(function()
+if AnimationFolder:FindFirstChild("Walk") then
+AnimationFolder:FindFirstChild("Walk").AnimationId = walk
+end
+end)
+pcall(function()
+if AnimationFolder:FindFirstChild("OldWalk") then
+AnimationFolder:FindFirstChild("OldWalk").AnimationId = walk
+end
+end)
+end
+
+AnimationChanger:Label("Ghost Animations")
+AnimationChanger:Button("Apply Ghost Animations", function()
+local RunAnim = "rbxassetid://124260679864309"
+local WalkAnim = "rbxassetid://124260679864309"
+local IdleAnim = "rbxassetid://110395159339100"
+local suc, err = pcall(SetAnim(RunAnim, WalkAnim, IdleAnim)) if not suc then DiscordLib:Notification("Error!", "Callback Error: "..tostring(err).."", "Okay!") end
+end)
+AnimationChanger:Seperator()
+
+pcall(function()
+for i,v in pairs(game:GetService("ReplicatedStorage"):WaitForChild("Characters"):WaitForChild("Killer"):GetChildren()) do if v then
+AnimationChanger:Label(v.Name.." Animations")
+for _,e in pairs(v:GetChildren()) do if e and e:FindFirstChild("Animations") then
+AnimationChanger:Button("Apply "..e.Name.." Animations", function()
+local RunAnim = e:WaitForChild("Animations"):WaitForChild("Sprint").AnimationId or e:WaitForChild("Animations"):WaitForChild("OldSprint").AnimationId or e:WaitForChild("Animations"):WaitForChild("NormalSprint").AnimationId or e:WaitForChild("Animations"):WaitForChild("HurtSprint").AnimationId
+local WalkAnim = e:WaitForChild("Animations"):WaitForChild("Walk").AnimationId or e:WaitForChild("Animations"):WaitForChild("OldWalk").AnimationId
+local IdleAnim = e:WaitForChild("Animations"):WaitForChild("Idle").AnimationId or e:WaitForChild("Animations"):WaitForChild("OldIdle").AnimationId
+local suc, err = pcall(SetAnim(RunAnim, WalkAnim, IdleAnim)) if not suc then DiscordLib:Notification("Error!", "Callback Error: "..tostring(err).."", "Okay!") end
+end)
+end; end
+end; end
+end)
+
+AnimationChanger:Seperator()
+AnimationChanger:Label("More Animations Coming Soon! :)")
+
+
+
+
+
+
+--[[ 
+
+
+________   __   __                  
+\_____  \_/  |_|  |__   ___________ 
+ /   |   \   __\  |  \_/ __ \_  __ \
+/    |    \  | |   Y  \  ___/|  | \/
+\_______  /__| |___|  /\___  >__|   
+        \/          \/     \/       
+
+Other things, idk, why are you even skidding my script breeeeh
+
+
+]]--
+
+local Other = Window:Server("Other","rbxassetid://116399911657417")
+local otth = Other:Channel("some things")
+otth:Button("Become Ghost [ use when you're dead or in lobby ]", function()
+game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("RemoteFunctions"):WaitForChild("Spectate"):InvokeServer()
+end)
+otth:Button("Close Hub", function()
+game:GetService("CoreGui"):WaitForChild("Discord"):Destroy()
+end)
+
+
+-- Credits to @shmasocoolio from scriptblox! (https://www.scriptblox.com/u/shmasocoolio)
+
+if not getgenv then return nil end
+
+if not getgenv().loadedflip_dod then
+getgenv().loadedflip_dod = true
+local sausageHolder = game.CoreGui.TopBarApp.TopBarApp.UnibarLeftFrame.UnibarMenu["2"]
+local originalSize = sausageHolder.Size.X.Offset
+local sSize = UDim2.new(0, originalSize + 48, 0, sausageHolder.Size.Y.Offset)
+
+local buttonFrame = Instance.new("Frame", sausageHolder)
+		buttonFrame.Size = UDim2.new(0, 48, 0, 44)
+		buttonFrame.BackgroundTransparency = 1
+		buttonFrame.BorderSizePixel = 0
+		buttonFrame.Position = UDim2.new(0, sausageHolder.Size.X.Offset - 48, 0, 0)
+local imageButton = Instance.new("ImageButton", buttonFrame)
+		imageButton.BackgroundTransparency = 1
+		imageButton.BorderSizePixel = 0
+		imageButton.Size = UDim2.new(0, 36, 0, 36)
+		imageButton.AnchorPoint = Vector2.new(0.5, 0.5)
+		imageButton.Position = UDim2.new(0.5, 0, 0.5, 0)
+		imageButton.Image = "rbxthumb://type=Asset&id=2714338264&w=150&h=150"
+function FortniteFlips()
+		if FlipCooldown then
+			return
+		end
+
+		FlipCooldown = true
+		local character = game:GetService("Players").LocalPlayer.Character
+		local hrp = character and character:FindFirstChild("HumanoidRootPart")
+		local humanoid = character and character:FindFirstChildOfClass("Humanoid")
+		local animator = humanoid and humanoid:FindFirstChildOfClass("Animator")
+		if not hrp or not humanoid then
+			FlipCooldown = false
+			return
+		end
+
+		local savedTracks = {}
+
+		if animator then
+			for _, track in ipairs(animator:GetPlayingAnimationTracks()) do
+				savedTracks[#savedTracks + 1] = { track = track, time = track.TimePosition }
+				track:Stop(0)
+			end
+		end
+
+		humanoid:ChangeState(Enum.HumanoidStateType.Physics)
+		humanoid:SetStateEnabled(Enum.HumanoidStateType.FallingDown, false)
+		humanoid:SetStateEnabled(Enum.HumanoidStateType.Freefall, false)
+		humanoid:SetStateEnabled(Enum.HumanoidStateType.Running, false)
+		humanoid:SetStateEnabled(Enum.HumanoidStateType.Seated, false)
+		humanoid:SetStateEnabled(Enum.HumanoidStateType.Climbing, false)
+
+		local duration = 0.45
+		local steps = 120
+		local startCFrame = hrp.CFrame
+		local forwardVector = startCFrame.LookVector
+		local upVector = Vector3.new(0, 1, 0)
+		task.spawn(function()
+			local startTime = tick()
+			for i = 1, steps do
+				local t = i / steps
+				local height = 4 * (t - t ^ 2) * 10
+				local nextPos = startCFrame.Position + forwardVector * (35 * t) + upVector * height
+				local rotation = startCFrame.Rotation * CFrame.Angles(-math.rad(i * (360 / steps)), 0, 0)
+
+				hrp.CFrame = CFrame.new(nextPos) * rotation
+				local elapsedTime = tick() - startTime
+				local expectedTime = (duration / steps) * i
+				local waitTime = expectedTime - elapsedTime
+				if waitTime > 0 then
+					task.wait(waitTime)
+				end
+			end
+
+			hrp.CFrame = CFrame.new(startCFrame.Position + forwardVector * 35) * startCFrame.Rotation
+			humanoid:SetStateEnabled(Enum.HumanoidStateType.FallingDown, true)
+			humanoid:SetStateEnabled(Enum.HumanoidStateType.Freefall, true)
+			humanoid:SetStateEnabled(Enum.HumanoidStateType.Running, true)
+			humanoid:SetStateEnabled(Enum.HumanoidStateType.Seated, true)
+			humanoid:SetStateEnabled(Enum.HumanoidStateType.Climbing, true)
+			humanoid:ChangeState(Enum.HumanoidStateType.Running)
+
+			if animator then
+				for _, data in ipairs(savedTracks) do
+					local track = data.track
+					track:Play()
+					track.TimePosition = data.time
+				end
+			end
+			task.wait(0.25)
+			FlipCooldown = false
+		end)
+	end
+
+imageButton.Activated:Connect(FortniteFlips)
+
+while task.wait(0.0003) do
+sausageHolder.Size = sSize
+buttonFrame.Position = UDim2.new(0, sausageHolder.Size.X.Offset - 48, 0, 0)
+end
+end
