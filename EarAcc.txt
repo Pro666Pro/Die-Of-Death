@@ -688,14 +688,6 @@ GuiChanger:Button("Disable ''Anti-Cheat / Anti-Exploiter'' Jumpscare", function(
 game:GetService("Players").LocalPlayer:WaitForChild("PlayerGui"):WaitForChild("MainGui"):WaitForChild("Exploiter"):Destroy()
 DiscordLib:Notification("Success!", "Disabled ''Anti-Cheat / Anti-Exploiter'' Jumpscare!", "Okay!")
 end)
-GuiChanger:Button("Disable ''Hallucination'' Effect", function()
-game:GetService("Players"):WaitForChild("Sounds"):WaitForChild("SFX"):WaitForChild("Hallucination"):Destroy()
-game:GetService("Players"):WaitForChild("Sounds"):WaitForChild("SFX"):WaitForChild("Hallucination2"):Destroy()
-game:GetService("Players"):WaitForChild("Sounds"):WaitForChild("SFX"):WaitForChild("Hallucination3"):Destroy()
-game:GetService("Players"):WaitForChild("Sounds"):WaitForChild("SFX"):WaitForChild("Hallucination4"):Destroy()
-game:GetService("Players").LocalPlayer:WaitForChild("PlayerGui"):WaitForChild("MainGui"):WaitForChild("Hallucination"):Destroy()
-DiscordLib:Notification("Success!", "Disabled ''Hallucination'' Effect!", "Okay!")
-end)
 
 local Intro_Event = Visual:Channel("Intro / Event")
 
@@ -783,7 +775,7 @@ local vel, movel = nil, 0.1
 while not (game:GetService("Players").LocalPlayer.Character and game:GetService("Players").LocalPlayer.Character.Parent and game:GetService("Players").LocalPlayer.Character.HumanoidRootPart and game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Parent) do
 game:GetService("RunService").Heartbeat:Wait()
 end
-game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = Killer:WaitForChild("HumanoidRootPart").CFrame * CFrame.new(0,1,math.random(-20, -0.5))
+game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = Killer:WaitForChild("HumanoidRootPart").CFrame * CFrame.new(0,1,math.random((5 - tonumber(Killer:WaitForChild("HumanoidRootPart").Magnitude)), 0))
 vel = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Velocity
 game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Velocity = vel * 10000 + Vector3.new(0, 10000, 0)
 game:GetService("RunService").RenderStepped:Wait()
