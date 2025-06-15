@@ -476,7 +476,7 @@ end)
 
 game:GetService("Workspace"):WaitForChild("GameAssets"):WaitForChild("Teams").DescendantAdded:Connect(function(descendant)
 if descendant and descendant.Name == ""..LP.Name.."" and AutoInjectCards == true then
-task.wait(6)
+task.wait(7)
 firesignal(game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("RemoteEvents"):WaitForChild("AbilitySelection").OnClientEvent, 
     {
         preferedability_1_incard_1,
