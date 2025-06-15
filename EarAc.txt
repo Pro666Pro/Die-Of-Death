@@ -757,8 +757,13 @@ local KillThings = Sabotage:Channel("Kill")
 
 KillThings:Label("Survivor Things")
 
-KillThings:Button("Insta-Kill Killer [ OP !!! ]", function()
+local preferedkillingmethod
+preferedkillingmethod = "RNG + Predict"
+KillThings:Dropdown("Insta-Kill Killer Method",{"RNG + Predict","Velocity + Magnitude [ BETA ]"},function(Value)
+preferedkillingmethod = tostring(Value)
+end)
 
+KillThings:Button("Insta-Kill Killer [ OP !!! ]", function()
 local function checkifgotflingedlol(hrp)
     local velocity = hrp.Velocity
     local speed = velocity.Magnitude
@@ -783,7 +788,15 @@ local vel, movel = nil, 0.1
 while not (game:GetService("Players").LocalPlayer.Character and game:GetService("Players").LocalPlayer.Character.Parent and game:GetService("Players").LocalPlayer.Character.HumanoidRootPart and game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Parent) do
 game:GetService("RunService").Heartbeat:Wait()
 end
-game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = Killer:WaitForChild("HumanoidRootPart").CFrame * CFrame.new(0,1,math.random((5 - tonumber(Killer:WaitForChild("HumanoidRootPart").Velocity.Magnitude)), 0))
+
+if preferedkillingmethod == "RNG + Predict" then
+game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = Killer:WaitForChild("HumanoidRootPart").CFrame * CFrame.new(0,1,math.random(-20, -0.6))
+elseif preferedkillingmethod == "Velocity + Magnitude [ BETA ]" then
+game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = Killer:WaitForChild("HumanoidRootPart").CFrame * CFrame.new(0,1,math.random((4.6 - tonumber(Killer:WaitForChild("HumanoidRootPart").Velocity.Magnitude)), 0))
+else
+game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = Killer:WaitForChild("HumanoidRootPart").CFrame * CFrame.new(0,1,math.random(-20, -0.6))
+end
+
 vel = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Velocity
 game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Velocity = vel * 10000 + Vector3.new(0, 10000, 0)
 game:GetService("RunService").RenderStepped:Wait()
