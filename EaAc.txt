@@ -476,7 +476,7 @@ end)
 
 game:GetService("Workspace"):WaitForChild("GameAssets"):WaitForChild("Teams").DescendantAdded:Connect(function(descendant)
 if descendant and descendant.Name == ""..LP.Name.."" and AutoInjectCards == true then
-task.wait(7)
+task.wait(7.5)
 firesignal(game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("RemoteEvents"):WaitForChild("AbilitySelection").OnClientEvent, 
     {
         preferedability_1_incard_1,
@@ -809,7 +809,14 @@ game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Velocity = vel
 movel = movel * -1
 end
 end
-for i = 1, 100 do
+local time = tick()
+while tick() - time < 2 do
+for i,v in pairs(game:GetService("Players").LocalPlayer.Character:GetDescendants()) do
+if v and v:IsA("BasePart") then
+v.Velocity = Vector3.new(0,0,0)
+v.RotVelocity = Vector3.new(0,0,0)
+end
+end
 game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = OldCF * CFrame.new(0,0.4,0)
 task.wait()
 end
@@ -938,6 +945,15 @@ end
 end)
 end
 
+AnimationChanger:Label("Civilian Animations")
+AnimationChanger:Button("Apply Civilian Animations", function()
+local RunAnim = "rbxassetid://138161225743614"
+local WalkAnim = "rbxassetid://79488319304371"
+local IdleAnim = "rbxassetid://74309548749074"
+local suc, err = pcall(SetAnim(RunAnim, WalkAnim, IdleAnim)) if not suc then DiscordLib:Notification("Error!", "Callback Error: "..tostring(err).."", "Okay!") end
+end)
+AnimationChanger:Seperator()
+
 AnimationChanger:Label("Ghost Animations")
 AnimationChanger:Button("Apply Ghost Animations", function()
 local RunAnim = "rbxassetid://124260679864309"
@@ -958,10 +974,10 @@ local IdleAnim = e:WaitForChild("Animations"):WaitForChild("Idle").AnimationId o
 local suc, err = pcall(SetAnim(RunAnim, WalkAnim, IdleAnim)) if not suc then DiscordLib:Notification("Error!", "Callback Error: "..tostring(err).."", "Okay!") end
 end)
 end; end
+AnimationChanger:Seperator()
 end; end
 end)
 
-AnimationChanger:Seperator()
 AnimationChanger:Label("More Animations Coming Soon! :)")
 
 
