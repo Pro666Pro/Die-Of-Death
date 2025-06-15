@@ -246,13 +246,21 @@ end)
 
 game:GetService("Workspace"):WaitForChild("GameAssets"):WaitForChild("Teams").DescendantAdded:Connect(function(descendant)
 if descendant and descendant.Name == ""..LP.Name.."" and AutoInjectStamina == true then
+pcall(function()
 SetAtt("MaxStamina", _G.MaxStaminaInjection)
 if TestRequire() == true then
 MovementModule["Stamina"] = _G.MaxStaminaInjection
 end
+end)
+pcall(function()
 SetAtt("SprintSpeed", _G.SprintSpeedInjection)
+end)
+pcall(function()
 SetAtt("WalkSpeed", _G.WalkSpeedInjection)
+end)
+pcall(function()
 SetAtt("WalkSpeedModifier", _G.WalkSpeedModifierInjection)
+end)
 end
 end)
 
