@@ -783,7 +783,7 @@ local vel, movel = nil, 0.1
 while not (game:GetService("Players").LocalPlayer.Character and game:GetService("Players").LocalPlayer.Character.Parent and game:GetService("Players").LocalPlayer.Character.HumanoidRootPart and game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Parent) do
 game:GetService("RunService").Heartbeat:Wait()
 end
-game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = Killer:WaitForChild("HumanoidRootPart").CFrame * CFrame.new(0,1,math.random((5 - tonumber(Killer:WaitForChild("HumanoidRootPart").Magnitude)), 0))
+game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = Killer:WaitForChild("HumanoidRootPart").CFrame * CFrame.new(0,1,math.random((5 - tonumber(Killer:WaitForChild("HumanoidRootPart").Velocity.Magnitude)), 0))
 vel = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Velocity
 game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Velocity = vel * 10000 + Vector3.new(0, 10000, 0)
 game:GetService("RunService").RenderStepped:Wait()
