@@ -1,15 +1,14 @@
+--[[
+getgenv().hookfunction = function() warn("Hookfunction disabled. Please rejoin the game to enable it.") game:GetService("StarterGui"):SetCore("SendNotification",{Title = "Error!",Text = "Hookfunction disabled. Please rejoin the game to enable it.",Icon = "rbxassetid://0",Duration = 36000,Button1 = "Ok!"}) return nil end
+getgenv().hookmetamethod = function() warn("Hookmetamethod disabled. Please rejoin the game to enable it.") game:GetService("StarterGui"):SetCore("SendNotification",{Title = "Error!",Text = "Hookmetamethod disabled. Please rejoin the game to enable it.",Icon = "rbxassetid://0",Duration = 36000,Button1 = "Ok!"}) return nil end
+]]--
+
 pcall(function()
 game:GetService("CoreGui")
 end)
 
 if not game:FindService("CoreGui") then
-game:GetService("StarterGui"):SetCore("SendNotification",{
-	Title = "Error!",
-	Text = "Your executor don't have access to core gui which is being used for UI library! Script stopped loading.",
-        Icon = "rbxassetid://125704683916878",
-	Duration = 36000,
-	Button1 = "Ok!"
-})
+game:GetService("StarterGui"):SetCore("SendNotification",{Title = "Error!",Text = "Your executor don't have access to core gui which is being used for UI library! Script stopped loading.",Icon = "rbxassetid://125704683916878",Duration = 36000,Button1 = "Ok!"})
 return nil
 end
 
