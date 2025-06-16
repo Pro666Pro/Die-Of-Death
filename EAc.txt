@@ -754,78 +754,11 @@ Sabotage
 
 local Sabotage = Window:Server("Sabotage","rbxassetid://97428323453639")
 
-local KillThings = Sabotage:Channel("Kill")
+local KillThings = Sabotage:Channel("Farm / Kill / Idk")
 
 KillThings:Label("Survivor Things")
 
-local preferedkillingmethod
-preferedkillingmethod = "RNG + Predict"
-KillThings:Dropdown("Insta-Kill Killer Method",{"RNG + Predict","Velocity + Magnitude [ BETA ]"},function(Value)
-preferedkillingmethod = tostring(Value)
-end)
 
-KillThings:Button("Insta-Kill Killer [ OP !!! ]", function()
-local function checkifgotflingedlol(hrp)
-    local velocity = hrp.Velocity
-    local speed = velocity.Magnitude
-    if speed > 200 then
-        local verticalsp = math.abs(velocity.Y)
-        if verticalsp > 50 and verticalsp > math.abs(velocity.X) and verticalsp > math.abs(velocity.Z) then
-            return true
-        end
-    end
-    return false
-end
-while not (game:GetService("Players").LocalPlayer.Character and game:GetService("Players").LocalPlayer.Character.Parent and game:GetService("Players").LocalPlayer.Character.HumanoidRootPart and game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Parent) do
-game:GetService("RunService").Heartbeat:Wait()
-end
-local OldCF = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame
-if game:GetService("Workspace"):WaitForChild("GameAssets"):WaitForChild("Teams"):WaitForChild("Killer"):FindFirstChildOfClass("Model") and game:GetService("Workspace"):WaitForChild("GameAssets"):WaitForChild("Teams"):WaitForChild("Killer"):FindFirstChildOfClass("Model").Name ~= game:GetService("Players").LocalPlayer.Name then
-local Killer = game:GetService("Workspace"):WaitForChild("GameAssets"):WaitForChild("Teams"):WaitForChild("Killer"):FindFirstChildOfClass("Model")
-local Flinged = checkifgotflingedlol(Killer:WaitForChild("HumanoidRootPart"))
-while Killer and Killer ~= nil and Killer:FindFirstChild("HumanoidRootPart") and Killer:FindFirstChild("Humanoid") and Flinged ~= true and Killer:WaitForChild("Humanoid").Health ~= 0 and game:GetService("Players").LocalPlayer.Character and game:GetService("Players").LocalPlayer.Character:FindFirstChild("Humanoid") and game:GetService("Players").LocalPlayer.Character.Humanoid.Health ~= 0 and game:GetService("Players").LocalPlayer.Character:FindFirstChild("Head") and game:GetService("RunService").Heartbeat:Wait() do 
-Flinged = checkifgotflingedlol(Killer:WaitForChild("HumanoidRootPart"))
-local vel, movel = nil, 0.1
-while not (game:GetService("Players").LocalPlayer.Character and game:GetService("Players").LocalPlayer.Character.Parent and game:GetService("Players").LocalPlayer.Character.HumanoidRootPart and game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Parent) do
-game:GetService("RunService").Heartbeat:Wait()
-end
-
-if preferedkillingmethod == "RNG + Predict" then
-game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = Killer:WaitForChild("HumanoidRootPart").CFrame * CFrame.new(0,1,math.random(-20, -0.6))
-elseif preferedkillingmethod == "Velocity + Magnitude [ BETA ]" then
-game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = Killer:WaitForChild("HumanoidRootPart").CFrame * CFrame.new(0,1,math.random((4.6 - tonumber(Killer:WaitForChild("HumanoidRootPart").Velocity.Magnitude)), 0))
-else
-game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = Killer:WaitForChild("HumanoidRootPart").CFrame * CFrame.new(0,1,math.random(-20, -0.6))
-end
-
-vel = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Velocity
-game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Velocity = vel * 10000 + Vector3.new(0, 10000, 0)
-game:GetService("RunService").RenderStepped:Wait()
-if game:GetService("Players").LocalPlayer.Character and game:GetService("Players").LocalPlayer.Character.Parent and game:GetService("Players").LocalPlayer.Character.HumanoidRootPart and game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Parent then
-game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Velocity = vel
-end
-game:GetService("RunService").Stepped:Wait()
-if game:GetService("Players").LocalPlayer.Character and game:GetService("Players").LocalPlayer.Character.Parent and game:GetService("Players").LocalPlayer.Character.HumanoidRootPart and game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Parent then
-game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Velocity = vel + Vector3.new(0, movel, 0)
-movel = movel * -1
-end
-end
-local time = tick()
-while tick() - time < 2 do
-for i,v in pairs(game:GetService("Players").LocalPlayer.Character:GetDescendants()) do
-if v and v:IsA("BasePart") then
-v.Velocity = Vector3.new(0,0,0)
-v.RotVelocity = Vector3.new(0,0,0)
-end
-end
-game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = OldCF * CFrame.new(0,0.4,0)
-task.wait()
-end
-else
-DiscordLib:Notification("Error!", "Killer not found!", "Okay!")
-end
-
-end)
 
 local AntiThings = Sabotage:Channel("Anti / Immunities")
 
@@ -917,6 +850,109 @@ end
 end
 end)
 
+
+local OPTHINGS = Sabotage:Channel("OP FEATURES!!!!")
+
+OPTHINGS:Label("Info [ Insta-Kill Killer ]: Automatically insta-kills killer.")
+
+OPTHINGS:Label("How To Use [ Insta-Kill Killer ]: Activate when match started ( you should be survivor, AKA civilian ). PS: you may get killed during it :)")
+
+local preferedkillingmethod
+preferedkillingmethod = "RNG + Predict"
+OPTHINGS:Dropdown("Insta-Kill Killer Method",{"RNG + Predict","Velocity + Magnitude [ BETA, may not work ]"},function(Value)
+preferedkillingmethod = tostring(Value)
+end)
+
+OPTHINGS:Button("Insta-Kill Killer [ OP !!! ]", function()
+local function checkifgotflingedlol(hrp)
+    local velocity = hrp.Velocity
+    local speed = velocity.Magnitude
+    if speed > 200 then
+        local verticalsp = math.abs(velocity.Y)
+        if verticalsp > 50 and verticalsp > math.abs(velocity.X) and verticalsp > math.abs(velocity.Z) then
+            return true
+        end
+    end
+    return false
+end
+while not (game:GetService("Players").LocalPlayer.Character and game:GetService("Players").LocalPlayer.Character.Parent and game:GetService("Players").LocalPlayer.Character.HumanoidRootPart and game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Parent) do
+game:GetService("RunService").Heartbeat:Wait()
+end
+local OldCF = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame
+if game:GetService("Workspace"):WaitForChild("GameAssets"):WaitForChild("Teams"):WaitForChild("Killer"):FindFirstChildOfClass("Model") and game:GetService("Workspace"):WaitForChild("GameAssets"):WaitForChild("Teams"):WaitForChild("Killer"):FindFirstChildOfClass("Model").Name ~= game:GetService("Players").LocalPlayer.Name then
+local Killer = game:GetService("Workspace"):WaitForChild("GameAssets"):WaitForChild("Teams"):WaitForChild("Killer"):FindFirstChildOfClass("Model")
+local Flinged = checkifgotflingedlol(Killer:WaitForChild("HumanoidRootPart"))
+while Killer and Killer ~= nil and Killer:FindFirstChild("HumanoidRootPart") and Killer:FindFirstChild("Humanoid") and Flinged ~= true and Killer:WaitForChild("Humanoid").Health ~= 0 and game:GetService("Players").LocalPlayer.Character and game:GetService("Players").LocalPlayer.Character:FindFirstChild("Humanoid") and game:GetService("Players").LocalPlayer.Character.Humanoid.Health ~= 0 and game:GetService("Players").LocalPlayer.Character:FindFirstChild("Head") and game:GetService("RunService").Heartbeat:Wait() do 
+Flinged = checkifgotflingedlol(Killer:WaitForChild("HumanoidRootPart"))
+local vel, movel = nil, 0.1
+while not (game:GetService("Players").LocalPlayer.Character and game:GetService("Players").LocalPlayer.Character.Parent and game:GetService("Players").LocalPlayer.Character.HumanoidRootPart and game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Parent) do
+game:GetService("RunService").Heartbeat:Wait()
+end
+
+if preferedkillingmethod == "RNG + Predict" then
+game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = Killer:WaitForChild("HumanoidRootPart").CFrame * CFrame.new(0,1,math.random(-20, -0.6))
+elseif preferedkillingmethod == "Velocity + Magnitude [ BETA ]" then
+game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = Killer:WaitForChild("HumanoidRootPart").CFrame * CFrame.new(0,1,math.random((4.6 - tonumber(Killer:WaitForChild("HumanoidRootPart").Velocity.Magnitude)), 0))
+else
+game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = Killer:WaitForChild("HumanoidRootPart").CFrame * CFrame.new(0,1,math.random(-20, -0.6))
+end
+
+vel = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Velocity
+game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Velocity = vel * 10000 + Vector3.new(0, 10000, 0)
+game:GetService("RunService").RenderStepped:Wait()
+if game:GetService("Players").LocalPlayer.Character and game:GetService("Players").LocalPlayer.Character.Parent and game:GetService("Players").LocalPlayer.Character.HumanoidRootPart and game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Parent then
+game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Velocity = vel
+end
+game:GetService("RunService").Stepped:Wait()
+if game:GetService("Players").LocalPlayer.Character and game:GetService("Players").LocalPlayer.Character.Parent and game:GetService("Players").LocalPlayer.Character.HumanoidRootPart and game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Parent then
+game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Velocity = vel + Vector3.new(0, movel, 0)
+movel = movel * -1
+end
+end
+local time = tick()
+while tick() - time < 2 do
+for i,v in pairs(game:GetService("Players").LocalPlayer.Character:GetDescendants()) do
+if v and v:IsA("BasePart") then
+v.Velocity = Vector3.new(0,0,0)
+v.RotVelocity = Vector3.new(0,0,0)
+end
+end
+game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = OldCF * CFrame.new(0,0.4,0)
+task.wait()
+end
+else
+DiscordLib:Notification("Error!", "Killer not found!", "Okay!")
+end
+
+end)
+
+OPTHINGS:Seperator()
+
+OPTHINGS:Label("Info [ Server-Break ]: Breaks whole server. Timer will just stop, and round will never start. ( Which makes server unable to play on 0")
+
+OPTHINGS:Label("How To Use [ Server-Break ]: Activate when match started ( you should be survivor, AKA civilian ), then wait until everyone dies ( when lms starts between you and killer ). After this you'll automatically rejoin this server and ta-daa! Server will break. ( including some server scripts in serverscriptstorage )")
+
+
+OPTHINGS:Button("Server-Break [ OP !!! ]", function()
+
+while not (game:GetService("Players").LocalPlayer.Character and game:GetService("Players").LocalPlayer.Character.Parent and game:GetService("Players").LocalPlayer.Character.HumanoidRootPart and game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Parent) do
+game:GetService("RunService").Heartbeat:Wait()
+end
+
+local time = tick()
+while tick() - time < 6 do
+for i,v in pairs(game:GetService("Players").LocalPlayer.Character:GetDescendants()) do
+if v and v:IsA("BasePart") then
+v.Velocity = Vector3.new(0,0,0)
+v.RotVelocity = Vector3.new(0,0,0)
+end
+end
+game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(0,-490,0)
+end
+
+
+
+end)
 --[[ 
 
 
