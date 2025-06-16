@@ -901,7 +901,7 @@ end
 end
 end)
 
-game:GetService("Workspace"):WaitForChild("GameAssets").ChildrenAdded:Connect(function(descendant)
+game:GetService("Workspace"):WaitForChild("GameAssets").ChildAdded:Connect(function(descendant)
 if descendant and descendant.Name == "Map" and AntiKillerOnly == true then
 for _,q in pairs(descendant:GetChildren()) do
 if q and q.Name == "Config" and AntiKillerOnly == true then
