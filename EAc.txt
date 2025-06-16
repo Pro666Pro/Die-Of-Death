@@ -940,6 +940,11 @@ DiscordLib:Notification("Error!", "There's not enough players! ( Need atleast 3 
 return nil
 end
 
+if game:GetService("Workspace"):WaitForChild("GameAssets"):WaitForChild("Teams"):WaitForChild("Survivor"):GetChildren() < 2 then
+DiscordLib:Notification("Error!", "There's not enough survivors/civilians! ( Need atleast 2 )", "Okay!")
+return nil
+end
+
 local SurvivorChecker = 0
 
 local function CheckHowManySurvivorsLeft()
@@ -957,7 +962,7 @@ game:GetService("RunService").Heartbeat:Wait()
 end
 
 local time = tick()
-while tick() - time < 6 do
+while tick() - time < 7 do
 for i,v in pairs(game:GetService("Players").LocalPlayer.Character:GetDescendants()) do
 if v and v:IsA("BasePart") then
 v.Velocity = Vector3.new(0,0,0)
