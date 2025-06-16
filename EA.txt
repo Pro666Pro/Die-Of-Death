@@ -475,7 +475,7 @@ AutoInjectCards = Value
 end)
 
 game:GetService("Workspace"):WaitForChild("GameAssets"):WaitForChild("Teams").DescendantAdded:Connect(function(descendant)
-if descendant and descendant.Name == ""..LP.Name.."" and AutoInjectCards == true then
+if descendant and descendant.Name == ""..LP.Name.."" and descendant:WaitForChild("Humanoid").Health < 200 and AutoInjectCards == true then
 task.wait(7.5)
 firesignal(game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("RemoteEvents"):WaitForChild("AbilitySelection").OnClientEvent, 
     {
