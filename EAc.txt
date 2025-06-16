@@ -245,7 +245,7 @@ _G.WalkSpeedModifierInjection = val
 end)
 
 game:GetService("Workspace"):WaitForChild("GameAssets"):WaitForChild("Teams").DescendantAdded:Connect(function(descendant)
-if descendant and descendant.Name == ""..LP.Name.."" and not descendant:WaitForChild("Humanoid").Health > 5000 and AutoInjectStamina == true then
+if descendant and descendant.Name == ""..LP.Name.."" and not descendant.Parent.Name == "Ghost" and AutoInjectStamina == true then
 task.wait(21.5)
 pcall(function()
 SetAtt("MaxStamina", _G.MaxStaminaInjection)
@@ -476,7 +476,7 @@ AutoInjectCards = Value
 end)
 
 game:GetService("Workspace"):WaitForChild("GameAssets"):WaitForChild("Teams").DescendantAdded:Connect(function(descendant)
-if descendant and descendant.Name == ""..LP.Name.."" and descendant:WaitForChild("Humanoid").Health < 200 and AutoInjectCards == true then
+if descendant and descendant.Name == ""..LP.Name.."" and descendant.Parent.Name == "Survivor" and AutoInjectCards == true then
 task.wait(7.5)
 firesignal(game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("RemoteEvents"):WaitForChild("AbilitySelection").OnClientEvent, 
     {
