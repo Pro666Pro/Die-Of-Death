@@ -977,6 +977,14 @@ repeat SurvivorChecker = CheckHowManySurvivorsLeft(); game:GetService("RunServic
 game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, game.JobId, LP)
 
 end)
+
+
+OPTHINGS:Seperator()
+
+OPTHINGS:Label("More coming very and very soon!!! :)")
+
+
+
 --[[ 
 
 
