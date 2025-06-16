@@ -930,10 +930,15 @@ OPTHINGS:Seperator()
 
 OPTHINGS:Label("Info [ Server-Break ]: Breaks whole server. Timer will just stop, and round will never start. ( Which makes server unable to play on 0")
 
-OPTHINGS:Label("How To Use [ Server-Break ]: Activate when match started ( you should be survivor, AKA civilian ), then wait until everyone dies ( when lms starts between you and killer ). After this you'll automatically rejoin this server and ta-daa! Server will break. ( including some server scripts in serverscriptstorage )")
+OPTHINGS:Label("How To Use [ Server-Break ]: Activate when match started ( you should be survivor, AKA civilian ), then wait until everyone dies ( when lms starts between you and killer ). After this you'll automatically rejoin this server and ta-daa! Server will break. ( including some server scripts in serverscriptstorage ). PS: You need atleast 2 civilians in match ( you and someone else )")
 
 
 OPTHINGS:Button("Server-Break [ OP !!! ]", function()
+
+if game:GetService("Players"):GetChildren() < 3 then
+DiscordLib:Notification("Error!", "There's not enough players! ( Need atleast 3 )", "Okay!")
+return nil
+end
 
 local SurvivorChecker = 0
 
