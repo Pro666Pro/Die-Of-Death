@@ -246,6 +246,7 @@ end)
 
 game:GetService("Workspace"):WaitForChild("GameAssets"):WaitForChild("Teams").DescendantAdded:Connect(function(descendant)
 if descendant and descendant.Name == ""..LP.Name.."" and not descendant:WaitForChild("Humanoid").Health > 5000 and AutoInjectStamina == true then
+task.wait(20)
 pcall(function()
 SetAtt("MaxStamina", _G.MaxStaminaInjection)
 if TestRequire() == true then
