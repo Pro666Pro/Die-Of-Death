@@ -877,6 +877,45 @@ end)
 end
 end)
 
+local AntiKillerOnly
+AntiKillerOnly = false
+AntiThings:Toggle("Anti-Killer-Only Walls",false,function(Value)
+AntiKillerOnly = Value
+if AntiKillerOnly == true then
+
+for _,descendant in pairs(game:GetService("Workspace"):WaitForChild("GameAssets"):GetChildren()) do
+if descendant and descendant.Name == "Map" and AntiKillerOnly == true then
+for _,q in pairs(descendant:GetChildren()) do
+if q and q.Name == "Config" and AntiKillerOnly == true then
+for _,portals in pairs(q:WaitForChild("KillerOnly"):GetChildren()) do
+if portals and portals.CanCollide == true and AntiKillerOnly == true then
+portals.CanCollide = false
+portals.CanTouch = false
+end
+end
+end
+end
+end
+end
+
+end
+end)
+
+game:GetService("Workspace"):WaitForChild("GameAssets").ChildrenAdded:Connect(function(descendant)
+if descendant and descendant.Name == "Map" and AntiKillerOnly == true then
+for _,q in pairs(descendant:GetChildren()) do
+if q and q.Name == "Config" and AntiKillerOnly == true then
+for _,portals in pairs(q:WaitForChild("KillerOnly"):GetChildren()) do
+if portals and portals.CanCollide == true and AntiKillerOnly == true then
+portals.CanCollide = false
+portals.CanTouch = false
+end
+end
+end
+end
+end
+end)
+
 --[[ 
 
 
