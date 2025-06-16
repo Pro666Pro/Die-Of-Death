@@ -892,7 +892,7 @@ end
 if preferedkillingmethod == "RNG + Predict" then
 game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = Killer:WaitForChild("HumanoidRootPart").CFrame * CFrame.new(0,1,math.random(-20, -0.6))
 elseif preferedkillingmethod == "Velocity + Magnitude [ BETA ]" then
-game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = Killer:WaitForChild("HumanoidRootPart").CFrame * CFrame.new(0,1,math.random((4.6 - tonumber(Killer:WaitForChild("HumanoidRootPart").Velocity.Magnitude)), 0))
+game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = Killer:WaitForChild("HumanoidRootPart").CFrame * CFrame.new(0,1,math.random((4.6 - Killer:WaitForChild("HumanoidRootPart").Velocity.Magnitude), 0))
 else
 game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = Killer:WaitForChild("HumanoidRootPart").CFrame * CFrame.new(0,1,math.random(-20, -0.6))
 end
@@ -935,6 +935,18 @@ OPTHINGS:Label("How To Use [ Server-Break ]: Activate when match started ( you s
 
 OPTHINGS:Button("Server-Break [ OP !!! ]", function()
 
+local SurvivorChecker = 0
+
+local function CheckHowManySurvivorsLeft()
+local survivorsamount = 0
+for i,v in pairs(game:GetService("Workspace"):WaitForChild("GameAssets"):WaitForChild("Teams"):WaitForChild("Survivor"):GetChildren()) do
+if v and v:FindFirstChild("Humanoid") then
+survivorsamount = survivorsamount + 1
+end
+end
+return tonumber(survivorsamount)
+end
+
 while not (game:GetService("Players").LocalPlayer.Character and game:GetService("Players").LocalPlayer.Character.Parent and game:GetService("Players").LocalPlayer.Character.HumanoidRootPart and game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Parent) do
 game:GetService("RunService").Heartbeat:Wait()
 end
@@ -950,7 +962,9 @@ end
 game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(0,-490,0)
 end
 
+repeat SurvivorChecker = CheckHowManySurvivorsLeft(); game:GetService("RunService").Heartbeat:Wait() until SurvivorChecker == 1 and game:GetService("Workspace"):WaitForChild("GameAssets"):WaitForChild("Teams"):WaitForChild("Survivor"):GetChildren()[1].Name == ""..LP.Name..""
 
+game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, game.JobId, LP)
 
 end)
 --[[ 
