@@ -1,8 +1,9 @@
 --[[
 getgenv().hookfunction = function() warn("Hookfunction disabled. Please rejoin the game to enable it.") game:GetService("StarterGui"):SetCore("SendNotification",{Title = "Error!",Text = "Hookfunction disabled. Please rejoin the game to enable it.",Icon = "rbxassetid://0",Duration = 36000,Button1 = "Ok!"}) return nil end
 getgenv().hookmetamethod = function() warn("Hookmetamethod disabled. Please rejoin the game to enable it.") game:GetService("StarterGui"):SetCore("SendNotification",{Title = "Error!",Text = "Hookmetamethod disabled. Please rejoin the game to enable it.",Icon = "rbxassetid://0",Duration = 36000,Button1 = "Ok!"}) return nil end
+]]--
 
-local function getplrspeed(plr)
+function getplrspeed(plr)
 local target = plr
 local speed = 0
 local character = target.Character or target.CharacterAdded:Wait()
@@ -17,7 +18,7 @@ speed = horizontalvelocity.Magnitude
 return speed
 end
 
-local function predict(plr)
+function predict(plr)
 local target = plr
 local predicted = 0
 if getplrspeed(target) == 0 then
@@ -33,7 +34,6 @@ predicted = getplrspeed(target) + 10
 end
 return predicted
 end
-]]--
 
 pcall(function()
 game:GetService("CoreGui")
@@ -889,8 +889,8 @@ OPTHINGS:Label("Info [ Insta-Kill Killer ]: Automatically insta-kills killer.")
 OPTHINGS:Label("How To Use [ Insta-Kill Killer ]: Activate when match started ( you should be survivor, AKA civilian ). PS: you may get killed during it :)")
 
 local preferedkillingmethod
-preferedkillingmethod = "RNG + Predict"
-OPTHINGS:Dropdown("Insta-Kill Killer Method",{"RNG + Predict","Velocity + Magnitude [ BETA, may not work ]"},function(Value)
+preferedkillingmethod = "RNG"
+OPTHINGS:Dropdown("Insta-Kill Killer Method",{"RNG","Velocity + Magnitude","Predict"},function(Value)
 preferedkillingmethod = tostring(Value)
 end)
 
@@ -920,10 +920,12 @@ while not (game:GetService("Players").LocalPlayer.Character and game:GetService(
 game:GetService("RunService").Heartbeat:Wait()
 end
 
-if preferedkillingmethod == "RNG + Predict" then
+if preferedkillingmethod == "RNG" then
 game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = Killer:WaitForChild("HumanoidRootPart").CFrame * CFrame.new(0,1,math.random(-20, -0.6))
-elseif preferedkillingmethod == "Velocity + Magnitude [ BETA ]" then
-game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = Killer:WaitForChild("HumanoidRootPart").CFrame * CFrame.new(0,1,math.random((4.6 - Killer:WaitForChild("HumanoidRootPart").Velocity.Magnitude), 0))
+elseif preferedkillingmethod == "Velocity + Magnitude" then
+game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = Killer:WaitForChild("HumanoidRootPart").CFrame * CFrame.new(0,1,getplrspeed(Killer))
+elseif preferedkillingmethod == "Predict" then
+game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = Killer:WaitForChild("HumanoidRootPart").CFrame * CFrame.new(0,1,predict(Killer))
 else
 game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = Killer:WaitForChild("HumanoidRootPart").CFrame * CFrame.new(0,1,math.random(-20, -0.6))
 end
