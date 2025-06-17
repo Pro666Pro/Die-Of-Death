@@ -30,7 +30,7 @@ predicted = getplrspeed(target) + 6
 elseif getplrspeed(target) < 30 then
 predicted = getplrspeed(target) + 9
 else
-predicted = getplrspeed(target) + 10
+predicted = getplrspeed(target) + 11
 end
 return predicted
 end
@@ -113,8 +113,11 @@ local HRP = Char:WaitForChild("HumanoidRootPart")
 
 function HaveAtt(att)
 local attribute = tostring(att)
-if Char:GetAttribute(tostring(attribute)) then return true end
+if Char:GetAttribute(tostring(attribute)) then
+return true
+else
 return false
+end
 end
 
 function GetAtt(att)
