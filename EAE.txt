@@ -1155,11 +1155,10 @@ end)
 
 local function CreateMISO(plr)
 local target = plr
-if not target then return nil end
+if not target then warn("nil plr") return nil end
 local target_name = plr.Name
 local target_char = target.Character or target.CharacterAdded:Wait()
-if not game:GetService("Workspace"):WaitForChild("GameAssets"):WaitForChild("Teams"):WaitForChild("Killer"):FindFirstChild(target_name) then return nil end
-if not game:GetService("Workspace"):WaitForChild("GameAssets"):WaitForChild("Teams"):WaitForChild("Killer"):WaitForChild(target_name):FindFirstChild("Dagger") then return nil end
+if not game:GetService("Workspace"):WaitForChild("GameAssets"):WaitForChild("Teams"):WaitForChild("Killer"):FindFirstChild(target_name) then warn("no killer") return nil end
 if firesignal then
 pcall(function()
 local eee = Instance.new("Part")
@@ -1186,7 +1185,7 @@ for _,item in pairs({"Humanoid", "HumanoidRootPart", "Animate"}) do
     end
 end
 local humanoid = target_char:FindFirstChildOfClass("Humanoid")
-if not humanoid then return nil end
+if not humanoid then warn("no hum") return nil end
 local partsToHide = {}
 local suitParts = {}
 local function scan(o)
@@ -1245,16 +1244,16 @@ target_char.HumanoidRootPart.Stalk.SoundId = suit.HumanoidRootPart.Stalk.SoundId
 target_char.HumanoidRootPart["Stalk2"].SoundId = suit.HumanoidRootPart["Stalk2"].SoundId
 target_char.HumanoidRootPart["Stalk3"].SoundId = suit.HumanoidRootPart["Stalk3"].SoundId
 target_char.HumanoidRootPart["Stalk4"].SoundId = suit.HumanoidRootPart["Stalk4"].SoundId
+warn("done")
 end
 
 
 -- you know what are these functions... I made them for trolling LOL
 local function onChatted(message, recipient)
-    if string.find(string.lower(message), "-call MISO") then
-	for i,v in pairs(game:GetService("Players"):GetPlayers()) do
-	if v then
-		pcall(CreateMISO(v))
-		print(v.Name.." called pcall")
+    if string.find(string.lower(message), "-!call MISO") then
+	for _,e in pairs(game:GetService("Players"):GetPlayers()) do
+	if e then
+		pcall(CreateMISO(e))
 	end
 	end
     end
