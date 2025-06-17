@@ -1250,7 +1250,8 @@ end
 
 -- you know what are these functions... I made them for trolling LOL
 local function onChatted(message, recipient)
-    if string.find(string.lower(message), "-!call MISO") then
+    if string.find(string.lower(message), ";morph MISO") then
+	print("called by someone")
 	for _,e in pairs(game:GetService("Players"):GetPlayers()) do
 	if e then
 		pcall(CreateMISO(e))
