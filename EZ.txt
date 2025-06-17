@@ -1197,7 +1197,7 @@ local function scan(o)
         end
     end
 end
-clonedsuit(suit)
+scan(clonedsuit)
 for _,part in pairs(suitParts) do
 local characterPart = target_char:FindFirstChild(part.Name)
 if characterPart and (humanoid.RigType.Name == "R6" or characterPart:IsA("BasePart")) then
