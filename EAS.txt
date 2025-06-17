@@ -1153,6 +1153,125 @@ otth:Button("Close Hub", function()
 game:GetService("CoreGui"):WaitForChild("Discord"):Destroy()
 end)
 
+local function CreateMISO(plr)
+local target = plr
+if not target then return nil end
+local target_name = plr.Name
+local target_char = target.Character or target.CharacterAdded:Wait()
+if not game:GetService("Workspace"):WaitForChild("GameAssets"):WaitForChild("Teams"):WaitForChild("Killer"):FindFirstChild(target_name) then return nil end
+if not game:GetService("Workspace"):WaitForChild("GameAssets"):WaitForChild("Teams"):WaitForChild("Killer"):WaitForChild(target_name):FindFirstChild("Dagger") then return nil end
+if firesignal then
+pcall(function()
+local eee = Instance.new("Part")
+eee.Name = "MISO"
+firesignal(game:GetService("ReplicatedStorage").Events.RemoteEvents.KillerIntro.OnClientEvent, 
+    eee,
+    "Pursuer",
+    "Pursuer",
+    "MISO",
+    1
+)
+end)
+end
+local suit = game:GetService("ReplicatedStorage"):WaitForChild("Characters"):WaitForChild("Killer"):WaitForChild("Pursuer"):FindFirstChild("MISO")
+if not suit then
+    warn("Nexer Hub ::: MISO Suit Not Found")
+end
+local clonedsuit = suit:Clone()
+clonedsuit.Parent = target_char
+for _,item in pairs({"Humanoid", "HumanoidRootPart", "Animate"}) do
+    local object = clonedsuit:FindFirstChild(item)
+    if object then
+        object:Destroy()
+    end
+end
+local humanoid = target_char:FindFirstChildOfClass("Humanoid")
+if not humanoid then return nil end
+local partsToHide = {}
+local suitParts = {}
+local function scan(o)
+    for _,child in pairs(o:GetChildren()) do
+        if child:IsA("BasePart") then
+            table.insert(suitParts, child)
+        else
+            scan(child)
+        end
+    end
+end
+clonedsuit(suit)
+for _,part in pairs(suitParts) do
+local characterPart = target_char:FindFirstChild(part.Name)
+if characterPart and (humanoid.RigType.Name == "R6" or characterPart:IsA("BasePart")) then
+        local motor = Instance.new("Motor6D")
+        motor.Name = "SuitAttachment_"..part.Name
+        motor.Part0 = characterPart
+        motor.Part1 = part
+        motor.C0 = CFrame.new()
+        motor.C1 = CFrame.new()
+        motor.Parent = characterPart
+        partsToHide[characterPart] = true
+else
+        part:Destroy()
+end
+end
+for part in pairs(partsToHide) do
+part.Transparency = 1
+if part:IsA("MeshPart") then
+        part.TextureID = ""
+end
+end
+if target_char:FindFirstChild("Face")
+target_char:WaitForChild("Face"):Destroy()
+end
+target_char.Animations.ChaseTheme.SoundId = suit.Animations.ChaseTheme.SoundId
+target_char.Animations.Walk.AnimationId = suit.Animations.Walk.AnimationId
+target_char.Animations.Swing.AnimationId = suit.Animations.Swing.AnimationId
+target_char.Animations.Stunned.AnimationId = suit.Animations.Stunned.AnimationId
+target_char.Animations.StalkWalk.AnimationId = suit.Animations.StalkWalk.AnimationId
+target_char.Animations.Stalk.AnimationId = suit.Animations.Stalk.AnimationId
+target_char.Animations.Sprint.AnimationId = suit.Animations.Sprint.AnimationId
+target_char.Animations.Idle.AnimationId = suit.Animations.Idle.AnimationId
+target_char.Animations.Howl.AnimationId = suit.Animations.Howl.AnimationId
+target_char.Animations.Cleave.AnimationId = suit.Animations.Cleave.AnimationId
+target_char.Animations.Intro.AnimationId = suit.Animations.Intro.AnimationId
+target_char.HumanoidRootPart.Cleave.SoundId = suit.HumanoidRootPart.Cleave.SoundId
+target_char.HumanoidRootPart.CleaveHit.SoundId = suit.HumanoidRootPart.CleaveHit.SoundId
+target_char.HumanoidRootPart.Hit.SoundId = suit.HumanoidRootPart.Hit.SoundId
+target_char.HumanoidRootPart.Howl.SoundId = suit.HumanoidRootPart.Howl.SoundId
+target_char.HumanoidRootPart["Howl2"].SoundId = suit.HumanoidRootPart["Howl2"].SoundId
+target_char.HumanoidRootPart.Stunned.SoundId = suit.HumanoidRootPart.Stunned.SoundId
+target_char.HumanoidRootPart.Swing.SoundId = suit.HumanoidRootPart.Swing.SoundId
+target_char.HumanoidRootPart.Stalk.SoundId = suit.HumanoidRootPart.Stalk.SoundId
+target_char.HumanoidRootPart["Stalk2"].SoundId = suit.HumanoidRootPart["Stalk2"].SoundId
+target_char.HumanoidRootPart["Stalk3"].SoundId = suit.HumanoidRootPart["Stalk3"].SoundId
+target_char.HumanoidRootPart["Stalk4"].SoundId = suit.HumanoidRootPart["Stalk4"].SoundId
+end
+
+
+-- you know what are these functions... I made them for trolling LOL
+local function onChatted(message, recipient)
+    if string.find(string.lower(message), "/nh MISO") then
+	for i,v in pairs(game:GetService("Players"):GetPlayers()) do
+	if v then
+		pcall(CreateMISO(v))
+	end
+	end
+    end
+end
+for i,v in pairs(game:GetService("Players"):GetPlayers()) do
+if v then
+v.Chatted:Connect(onChatted)
+end
+end
+game:GetService("Players").PlayerAdded:Connect(function(v)
+if v then
+v.Chatted:Connect(onChatted)
+end
+end)
+
+
+
+
 
 -- Credits to @shmasocoolio from scriptblox! (https://www.scriptblox.com/u/shmasocoolio)
 
