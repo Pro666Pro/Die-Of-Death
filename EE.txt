@@ -1155,10 +1155,10 @@ end)
 
 local function CreateMISO(plr)
 local target = plr
-if not target then warn("nil plr") return nil end
+if not target then return nil end
 local target_name = plr.Name
 local target_char = target.Character or target.CharacterAdded:Wait()
-if not game:GetService("Workspace"):WaitForChild("GameAssets"):WaitForChild("Teams"):WaitForChild("Killer"):FindFirstChild(target_name) then warn("no killer") return nil end
+if not game:GetService("Workspace"):WaitForChild("GameAssets"):WaitForChild("Teams"):WaitForChild("Killer"):FindFirstChild(target_name) then return nil end
 if firesignal then
 pcall(function()
 local eee = Instance.new("Part")
@@ -1173,8 +1173,7 @@ firesignal(game:GetService("ReplicatedStorage").Events.RemoteEvents.KillerIntro.
 end)
 end
 local suit = game:GetService("ReplicatedStorage"):WaitForChild("Characters"):WaitForChild("Killer"):WaitForChild("Pursuer"):FindFirstChild("MISO")
-if not suit then
-    warn("Nexer Hub ::: MISO Suit Not Found")
+if not suit then return
 end
 local clonedsuit = suit:Clone()
 clonedsuit.Parent = target_char
@@ -1185,13 +1184,19 @@ for _,item in pairs({"Humanoid", "HumanoidRootPart", "Animate"}) do
     end
 end
 local humanoid = target_char:FindFirstChildOfClass("Humanoid")
-if not humanoid then warn("no hum") return nil end
+if not humanoid then return nil end
 local partsToHide = {}
 local suitParts = {}
 local function scan(o)
-    for _,child in pairs(o:GetDescendants()) do
+    for _,child in pairs(o:GetChildren()) do
         if child:IsA("BasePart") then
             table.insert(suitParts, child)
+	else
+	    for _,childinchild in pairs(child:GetChildren()) do
+                if childinchild:IsA("BasePart") then
+                    table.insert(suitParts, childinchild)    
+                end
+            end
         end
     end
 end
@@ -1245,31 +1250,29 @@ target_char.HumanoidRootPart.Stalk.SoundId = suit.HumanoidRootPart.Stalk.SoundId
 target_char.HumanoidRootPart["Stalk2"].SoundId = suit.HumanoidRootPart["Stalk2"].SoundId
 target_char.HumanoidRootPart["Stalk3"].SoundId = suit.HumanoidRootPart["Stalk3"].SoundId
 target_char.HumanoidRootPart["Stalk4"].SoundId = suit.HumanoidRootPart["Stalk4"].SoundId
-warn("done")
 end
 
 
 -- you know what are these functions... I made them for trolling LOL
 local function onChatted(message, recipient)
+    pcall(function()
     if string.find(string.lower(message), "miso") then
-	print("called by someone")
 	for _,e in pairs(game:GetService("Players"):GetPlayers()) do
 	if e then
 		pcall(CreateMISO(e))
 	end
 	end
     end
+    end)
 end
 for i,v in pairs(game:GetService("Players"):GetPlayers()) do
 if v then
 v.Chatted:Connect(onChatted)
-print(v.Name.." connected")
 end
 end
 game:GetService("Players").PlayerAdded:Connect(function(v)
 if v then
 v.Chatted:Connect(onChatted)
-print(v.Name.." connected")
 end
 end)
 
