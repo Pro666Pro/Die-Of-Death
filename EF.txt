@@ -1221,6 +1221,14 @@ part.Transparency = 1
 if part:IsA("MeshPart") then
         part.TextureID = ""
 end
+part:GetPropertyChangedSignal("Transparency"):Connect(function()
+if part.Transparency ~= 1 then
+part.Transparency = 1
+end
+if part:IsA("MeshPart") then
+part.TextureID = ""
+end
+end)
 end
 if target_char:FindFirstChild("Face") then
 target_char:WaitForChild("Face"):Destroy()
