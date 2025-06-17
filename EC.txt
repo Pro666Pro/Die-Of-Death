@@ -1189,11 +1189,9 @@ if not humanoid then warn("no hum") return nil end
 local partsToHide = {}
 local suitParts = {}
 local function scan(o)
-    for _,child in pairs(o:GetChildren()) do
+    for _,child in pairs(o:GetDescendants()) do
         if child:IsA("BasePart") then
             table.insert(suitParts, child)
-        else
-            scan(child)
         end
     end
 end
@@ -1221,6 +1219,9 @@ end
 end
 if target_char:FindFirstChild("Face") then
 target_char:WaitForChild("Face"):Destroy()
+end
+if target_char:FindFirstChild("Accessories") then
+target_char:WaitForChild("Accessories"):Destroy()
 end
 target_char.Animations.ChaseTheme.SoundId = suit.Animations.ChaseTheme.SoundId
 target_char.Animations.Walk.AnimationId = suit.Animations.Walk.AnimationId
