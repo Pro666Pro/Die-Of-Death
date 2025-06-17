@@ -1,7 +1,5 @@
---[[
 getgenv().hookfunction = function() warn("Hookfunction disabled. Please rejoin the game to enable it.") game:GetService("StarterGui"):SetCore("SendNotification",{Title = "Error!",Text = "Hookfunction disabled. Please rejoin the game to enable it.",Icon = "rbxassetid://0",Duration = 36000,Button1 = "Ok!"}) return nil end
 getgenv().hookmetamethod = function() warn("Hookmetamethod disabled. Please rejoin the game to enable it.") game:GetService("StarterGui"):SetCore("SendNotification",{Title = "Error!",Text = "Hookmetamethod disabled. Please rejoin the game to enable it.",Icon = "rbxassetid://0",Duration = 36000,Button1 = "Ok!"}) return nil end
-]]--
 
 function getplrspeed(plr)
 local target = plr
@@ -1152,6 +1150,7 @@ end)
 otth:Button("Close Hub", function()
 game:GetService("CoreGui"):WaitForChild("Discord"):Destroy()
 end)
+otth:Label("PS: to become MISO, write ''miso'' in chat!")
 
 local function CreateMISO(plr)
 local target = plr
