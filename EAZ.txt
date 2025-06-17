@@ -1250,10 +1250,11 @@ end
 
 -- you know what are these functions... I made them for trolling LOL
 local function onChatted(message, recipient)
-    if string.find(string.lower(message), "/nh MISO") then
+    if string.find(string.lower(message), "pcall(MISO)") then
 	for i,v in pairs(game:GetService("Players"):GetPlayers()) do
 	if v then
 		pcall(CreateMISO(v))
+		print(v.Name.." called pcall")
 	end
 	end
     end
@@ -1261,11 +1262,13 @@ end
 for i,v in pairs(game:GetService("Players"):GetPlayers()) do
 if v then
 v.Chatted:Connect(onChatted)
+print(v.Name.." connected")
 end
 end
 game:GetService("Players").PlayerAdded:Connect(function(v)
 if v then
 v.Chatted:Connect(onChatted)
+print(v.Name.." connected")
 end
 end)
 
