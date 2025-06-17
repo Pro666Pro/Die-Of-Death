@@ -1220,7 +1220,7 @@ if part:IsA("MeshPart") then
         part.TextureID = ""
 end
 end
-if target_char:FindFirstChild("Face")
+if target_char:FindFirstChild("Face") then
 target_char:WaitForChild("Face"):Destroy()
 end
 target_char.Animations.ChaseTheme.SoundId = suit.Animations.ChaseTheme.SoundId
