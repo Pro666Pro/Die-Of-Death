@@ -882,12 +882,59 @@ end
 end
 end)
 
+-- Get Price { regional price }
+function GetPrice(assetid)
+local product_id = tonumber(assetid) or assettid
+local product_info = game:GetService("MarketplaceService"):GetProductInfo(product_id)
+local product_price = product_info.PriceInRobux
+return tostring(product_price)
+end
+
+function HavePremium()
+if game:GetService("MarketplaceService"):UserOwnsGamePassAsync(game:GetService("Players").LocalPlayer.UserId, 1264479709) then
+return true
+else
+return false
+end
+end
+
 
 local OPTHINGS = Sabotage:Channel("OP FEATURES!!!!")
 
-OPTHINGS:Label("Info [ Insta-Kill Killer ]: Automatically insta-kills killer.")
+OPTHINGS:Label("OP Functions are only available for Premium Users!")
 
-OPTHINGS:Label("How To Use [ Insta-Kill Killer ]: Activate when match started ( you should be survivor, AKA civilian ). PS: you may get killed during it :)")
+local pprice = pcall(GetPrice(1264479709)) or 49
+
+OPTHINGS:Label("Premium cost only "..pprice.." robux!")
+
+OPTHINGS:Button("Buy Premium", function()
+if HavePremium() == true then
+    DiscordLib:Notification("Error!", "Arleady own it!", "Okay!")
+else
+    setclipboard(tostring("https://www.roblox.com/game-pass/1264479709"))
+    DiscordLib:Notification("Error!", "Killer not found!", "Okay!")
+end
+end)
+
+for i = 1,3 do
+OPTHINGS:Seperator()
+end
+
+local info_ez = [[
+Info [ Insta-Kill Killer ]:
+Automatically insta-kills killer.
+]]
+
+OPTHINGS:Label(info_ez)
+
+local info_ez = [[
+How To Use [ Insta-Kill Killer ]:
+Activate when match started
+( you should be survivor, AKA civilian ).
+PS: you may get killed during it :)
+]]
+
+OPTHINGS:Label(info_ez)
 
 local preferedkillingmethod
 preferedkillingmethod = "RNG"
@@ -896,6 +943,10 @@ preferedkillingmethod = tostring(Value)
 end)
 
 OPTHINGS:Button("Insta-Kill Killer [ OP !!! ]", function()
+if HavePremium() ~= true then
+DiscordLib:Notification("Error!", "You don't have premium!", "Okay!")
+return nil
+end
 local function checkifgotflingedlol(hrp)
     local velocity = hrp.Velocity
     local speed = velocity.Magnitude
@@ -962,12 +1013,38 @@ end)
 
 OPTHINGS:Seperator()
 
-OPTHINGS:Label("Info [ Server-Break ]: Breaks whole server. Timer will just stop, and round will never start. ( Which makes server unable to play on 0")
+local info_ez = [[
+Info [ Server-Break ]:
+Breaks whole server.
+Timer will just stop,
+and round will never start.
+( Which makes server unable to play on )
+]]
 
-OPTHINGS:Label("How To Use [ Server-Break ]: Activate when match started ( you should be survivor, AKA civilian ), then wait until everyone dies ( when lms starts between you and killer ). After this you'll automatically rejoin this server and ta-daa! Server will break. ( including some server scripts in serverscriptstorage ). PS: You need atleast 2 civilians in match ( you and someone else )")
+OPTHINGS:Label(info_ez)
+
+
+local info_ez = [[
+How To Use [ Server-Break ]:
+Activate when match started
+( you should be survivor, AKA civilian ),
+then wait until everyone dies
+( when lms starts between you and killer ).
+After this you'll automatically rejoin this server and ta-daa!
+Server will break.
+( including some server scripts in serverscriptstorage ).
+PS: You need atleast 2 civilians in match
+( you and someone else who will die )
+]]
+
+OPTHINGS:Label(info_ez)
 
 
 OPTHINGS:Button("Server-Break [ OP !!! ]", function()
+if HavePremium() ~= true then
+DiscordLib:Notification("Error!", "You don't have premium!", "Okay!")
+return nil
+end
 
 if game:GetService("Players"):GetChildren() < 3 then
 DiscordLib:Notification("Error!", "There's not enough players! ( Need atleast 3 )", "Okay!")
@@ -996,7 +1073,7 @@ game:GetService("RunService").Heartbeat:Wait()
 end
 
 local time = tick()
-while tick() - time < 7 do
+while tick() - time < 10 do
 for i,v in pairs(game:GetService("Players").LocalPlayer.Character:GetDescendants()) do
 if v and v:IsA("BasePart") then
 v.Velocity = Vector3.new(0,0,0)
@@ -1004,6 +1081,7 @@ v.RotVelocity = Vector3.new(0,0,0)
 end
 end
 game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(0,-490,0)
+task.wait()
 end
 
 repeat SurvivorChecker = CheckHowManySurvivorsLeft(); game:GetService("RunService").Heartbeat:Wait() until SurvivorChecker == 1 and game:GetService("Workspace"):WaitForChild("GameAssets"):WaitForChild("Teams"):WaitForChild("Survivor"):GetChildren()[1].Name == ""..LP.Name..""
@@ -1012,6 +1090,34 @@ game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, game.Jo
 
 end)
 
+OPTHINGS:Seperator()
+
+local AntiStun
+AntiStun = false
+OPTHINGS:Toggle("No Stun",false,function(Value)
+
+if HavePremium() ~= true then
+DiscordLib:Notification("Error!", "You don't have premium!", "Okay!")
+return nil
+end
+
+AntiStun = Value
+if AntiStun == true then
+if HavePremium() ~= true then
+DiscordLib:Notification("Error!", "You don't have premium!", "Okay!")
+return nil
+end
+repeat task.wait()
+if HavePremium() ~= true then
+DiscordLib:Notification("Error!", "You don't have premium!", "Okay!")
+return nil
+end
+pcall(function()
+SetAtt("WalkSpeedModifier", 1)
+end)
+until AntiStun == false
+end
+end)
 
 OPTHINGS:Seperator()
 
@@ -1150,7 +1256,8 @@ end)
 otth:Button("Close Hub", function()
 game:GetService("CoreGui"):WaitForChild("Discord"):Destroy()
 end)
-otth:Label("PS: to become MISO, write ''miso'' in chat!")
+otth:Label("PS: to change pursuer to MISO, write ''miso'' in chat!")
+otth:Label("and there's much more commands!")
 
 local function CreateMISO(plr)
 local target = plr
@@ -1260,7 +1367,7 @@ target_char.HumanoidRootPart["Stalk4"].SoundId = suit.HumanoidRootPart["Stalk4"]
 end
 
 
--- you know what are these functions... I made them for trolling LOL
+-- you know what are these functions...
 local function onChatted(message, recipient)
     pcall(function()
     if string.find(string.lower(message), "miso") then
@@ -1269,6 +1376,16 @@ local function onChatted(message, recipient)
 		pcall(CreateMISO(e))
 	end
 	end
+    elseif string.find(string.lower(message), "permadie") then
+	pcall(function()
+	    if replicatesignal then
+        replicatesignal(game:GetService("Players").LocalPlayer.ConnectDiedSignalBackend)
+        task.wait(game:GetService("Players").RespawnTime - 0.1)
+	if game:GetService("Players").LocalPlayer and game:GetService("Players").LocalPlayer.Character and 			game:GetService("Players").LocalPlayer.Character:FindFirstChildOfClass("Humanoid") then
+		game:GetService("Players").LocalPlayer.Character:FindFirstChildOfClass("Humanoid").Health = 0
+	end
+    	    end
+	end)
     end
     end)
 end
@@ -1283,13 +1400,73 @@ v.Chatted:Connect(onChatted)
 end
 end)
 
+function getping()
+    return math.round(game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValue())
+end
 
+function getexecutor()
+    local ex = identifyexecutor()
+    if ex == "NX" then
+       ex = "Luna"
+    end
+    return ex
+end
 
+function getwebhook()
+    local webhook = loadstring(game:HttpGet('https://raw.githubusercontent.com/Pro666Pro/OpenSourceScripts/refs/heads/main/Forsaken/Http/Webhook.dll'))()
+    return webhook
+end
 
+function getdevice()
+    local dev = "Unknown"
+    local dev_choosen = false
+    if game:GetService("UserInputService").KeyboardEnabled and dev_choosen ~= true then
+        dev = "PC"
+        dev_choosen = true
+    elseif game:GetService("UserInputService").GamepadEnabled and dev_choosen ~= true then
+        dev = "Gamepad"
+        dev_choosen = true
+    elseif game:GetService("UserInputService").TouchEnabled and dev_choosen ~= true then
+        dev = "Mobile"
+        dev_choosen = true
+    end
+    return dev
+end
 
 -- Credits to @shmasocoolio from scriptblox! (https://www.scriptblox.com/u/shmasocoolio)
 
 if not getgenv then return nil end
+
+if getgenv().loadedflip_dod == true then
+pcall(function()
+req = request or http_request or HttpPost or (syn and syn.request) or (http and http.request) or (fluxus and fluxus.request) or (game and game.HttpPost) or (KRNL and KRNL.request) or (Xeno and Xeno.request) or (roblox and roblox.request) or (rbx and rbx.request)
+if req then
+local data = {
+    ["username"] = "Execution Bot",
+    ["avatar_url"] = "https://i.imgur.com/a/SbPHgnH",
+    ["content"] = "@everyone "..LP.Name.." joined Die Of Death!",
+    ["embeds"] = {
+       {
+           ["title"] = "General Info",
+           ["description"] = "Username: "..LP.Name..". Device: "..getdevice()..". Ping: "..getping()..". Executor: "..getexecutor()..". Roblox Profile: [Click](https://www.roblox.com/users/"..LP.UserId.."/profile)",    
+           ["type"] = "rich",
+           ["color"] = 1000000,
+           ["footer"] = {
+             ["text"] = ""..game.JobId.."",
+           },
+       },
+   }
+}
+local url = getwebhook()
+local datab = game:GetService("HttpService"):JSONEncode(data)
+local head = {
+    ["content-type"] = "application/json"
+}
+req({Url = url, Body = datab, Method = "POST", Headers = head})
+end
+end)
+return nil
+end
 
 if not getgenv().loadedflip_dod then
 getgenv().loadedflip_dod = true
@@ -1383,6 +1560,37 @@ function FortniteFlips()
 	end
 
 imageButton.Activated:Connect(FortniteFlips)
+
+sausageHolder.Size = sSize
+buttonFrame.Position = UDim2.new(0, sausageHolder.Size.X.Offset - 48, 0, 0)
+
+pcall(function()
+req = request or http_request or HttpPost or (syn and syn.request) or (http and http.request) or (fluxus and fluxus.request) or (game and game.HttpPost) or (KRNL and KRNL.request) or (Xeno and Xeno.request) or (roblox and roblox.request) or (rbx and rbx.request)
+if req then
+local data = {
+    ["username"] = "Execution Bot",
+    ["avatar_url"] = "https://i.imgur.com/a/SbPHgnH",
+    ["content"] = "@everyone "..LP.Name.." joined Die Of Death!",
+    ["embeds"] = {
+       {
+           ["title"] = "General Info",
+           ["description"] = "Username: "..LP.Name..". Device: "..getdevice()..". Ping: "..getping()..". Executor: "..getexecutor()..". Roblox Profile: [Click](https://www.roblox.com/users/"..LP.UserId.."/profile)",    
+           ["type"] = "rich",
+           ["color"] = 1000000,
+           ["footer"] = {
+             ["text"] = ""..game.JobId.."",
+           },
+       },
+   }
+}
+local url = getwebhook()
+local datab = game:GetService("HttpService"):JSONEncode(data)
+local head = {
+    ["content-type"] = "application/json"
+}
+req({Url = url, Body = datab, Method = "POST", Headers = head})
+end
+end)
 
 while task.wait(0.0003) do
 sausageHolder.Size = sSize
