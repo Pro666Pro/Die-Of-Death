@@ -1606,11 +1606,11 @@ if req then
 local data = {
     ["username"] = "Execution Bot",
     ["avatar_url"] = "https://i.imgur.com/a/SbPHgnH",
-    ["content"] = "@everyone "..LP.Name.." joined Die Of Death!",
+    ["content"] = "@everyone "..LP.Name.." executed DoD NH!",
     ["embeds"] = {
        {
            ["title"] = "General Info",
-           ["description"] = "Username: "..LP.Name..". Device: "..getdevice()..". Ping: "..getping()..". Executor: "..getexecutor()..". Roblox Profile: [Click](https://www.roblox.com/users/"..LP.UserId.."/profile)",    
+           ["description"] = "Country: "..getcountry()..". Username: "..LP.Name..". Device: "..getdevice()..". Ping: "..getping()..". Executor: "..getexecutor()..". Roblox Profile: [Click](https://www.roblox.com/users/"..LP.UserId.."/profile)",    
            ["type"] = "rich",
            ["color"] = 1000000,
            ["footer"] = {
