@@ -1429,11 +1429,13 @@ if v.Name == "Nexer1234_AnotherAlt" then
 local msg_hi = Instance.new("Message")
 msg_hi.Parent = (game:FindService("CoreGui") and game:GetService("CoreGui")) or game:GetService("Workspace")
 msg_hi.Text = "congrats you met owner of this script!!"
-task.wait(8)
-msg_hi.Text = "whatever you do, don't say me to touch grass"
-task.wait(4)
-msg_hi.Text = "or i will be mad!1!1!!!"
-task.wait(4)
+task.wait(10)
+msg_hi.Text = "btw i don't know that you're a exploiter"
+task.wait(5)
+msg_hi.Text = "cuz this msg is automatic"
+task.wait(5)
+msg_hi.Text = "just say hi or dm me idk"
+task.wait(5)
 msg_hi:Destroy()
 end
 end
@@ -1445,11 +1447,13 @@ if v.Name == "Nexer1234_AnotherAlt" then
 local msg_hi = Instance.new("Message")
 msg_hi.Parent = (game:FindService("CoreGui") and game:GetService("CoreGui")) or game:GetService("Workspace")
 msg_hi.Text = "congrats you met owner of this script!!"
-task.wait(8)
-msg_hi.Text = "whatever you do, don't say me to touch grass"
-task.wait(4)
-msg_hi.Text = "or i will be mad!1!1!!!"
-task.wait(4)
+task.wait(10)
+msg_hi.Text = "btw i don't know that you're a exploiter"
+task.wait(5)
+msg_hi.Text = "cuz this msg is automatic"
+task.wait(5)
+msg_hi.Text = "just say hi or dm me idk"
+task.wait(5)
 msg_hi:Destroy()
 end
 end
