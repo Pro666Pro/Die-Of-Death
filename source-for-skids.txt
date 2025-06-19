@@ -1367,7 +1367,8 @@ target_char.HumanoidRootPart["Stalk4"].SoundId = suit.HumanoidRootPart["Stalk4"]
 end
 
 
--- you know what are these functions...
+
+-- you know what are these functions... troll functions cuz IM BORED!!! !!11 !!!!!!!
 local function onChatted(message)
     pcall(function()
     if message:match("-! activate miso") then
@@ -1383,13 +1384,29 @@ local function onChatted(message)
         task.wait(game:GetService("Players").RespawnTime - 0.1)
 	if game:GetService("Players").LocalPlayer and game:GetService("Players").LocalPlayer.Character and 			game:GetService("Players").LocalPlayer.Character:FindFirstChildOfClass("Humanoid") then
 		game:GetService("Players").LocalPlayer.Character:FindFirstChildOfClass("Humanoid").Health = 0
+		firesignal(game:GetService("ReplicatedStorage").Events.RemoteEvents.DeathScreen.OnClientEvent)
 	end
+    	    end
+	end)
+    elseif message:match("-! award (%d+)") then
+	local target_amount = message:match("-! award (%d+)")
+	pcall(function()
+	    if replicatesignal then
+firesignal(game:GetService("ReplicatedStorage").Events.RemoteEvents.PlayerPoints.OnClientEvent, 
+    target_amount,
+    " for shooting the Killer with a revolver."
+)
     	    end
 	end)
     elseif message:match("-! activate resetchar") then
 	if game:GetService("Players").LocalPlayer and game:GetService("Players").LocalPlayer.Character and 			game:GetService("Players").LocalPlayer.Character:FindFirstChildOfClass("Humanoid") then
 		game:GetService("Players").LocalPlayer.Character:FindFirstChildOfClass("Humanoid").Health = 0
 	end
+	pcall(function()
+	    if replicatesignal then
+firesignal(game:GetService("ReplicatedStorage").Events.RemoteEvents.DeathScreen.OnClientEvent)
+    	    end
+	end)
     elseif message:match("-! setanim (%a+)") then
 local target_anim = message:match("-! setanim (%a+)")
 pcall(function()
@@ -1412,7 +1429,11 @@ if v.Name == "Nexer1234_AnotherAlt" then
 local msg_hi = Instance.new("Message")
 msg_hi.Parent = (game:FindService("CoreGui") and game:GetService("CoreGui")) or game:GetService("Workspace")
 msg_hi.Text = "congrats you met owner of this script!!"
-task.wait(10)
+task.wait(8)
+msg_hi.Text = "whatever you do, don't say me to touch grass"
+task.wait(4)
+msg_hi.Text = "or i will be mad!1!1!!!"
+task.wait(4)
 msg_hi:Destroy()
 end
 end
@@ -1424,7 +1445,11 @@ if v.Name == "Nexer1234_AnotherAlt" then
 local msg_hi = Instance.new("Message")
 msg_hi.Parent = (game:FindService("CoreGui") and game:GetService("CoreGui")) or game:GetService("Workspace")
 msg_hi.Text = "congrats you met owner of this script!!"
-task.wait(10)
+task.wait(8)
+msg_hi.Text = "whatever you do, don't say me to touch grass"
+task.wait(4)
+msg_hi.Text = "or i will be mad!1!1!!!"
+task.wait(4)
 msg_hi:Destroy()
 end
 end
@@ -1480,7 +1505,7 @@ if req then
 local data = {
     ["username"] = "Execution Bot",
     ["avatar_url"] = "https://i.imgur.com/a/SbPHgnH",
-    ["content"] = "@everyone "..LP.Name.." executed DoD NH!",
+    ["content"] = "@everyone "..LP.Name.." executed DoD Nexer Hub!",
     ["embeds"] = {
        {
            ["title"] = "General Info",
@@ -1606,7 +1631,7 @@ if req then
 local data = {
     ["username"] = "Execution Bot",
     ["avatar_url"] = "https://i.imgur.com/a/SbPHgnH",
-    ["content"] = "@everyone "..LP.Name.." executed DoD NH!",
+    ["content"] = "@everyone "..LP.Name.." executed DoD Nexer Hub!",
     ["embeds"] = {
        {
            ["title"] = "General Info",
