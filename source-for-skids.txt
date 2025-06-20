@@ -1287,7 +1287,7 @@ Info [ Invisibility ]: Will make you invisible using animation and noclip
 
 OPTHINGS:Label(info_ez)
 
-OPTHINGS:Button("Turn On Invisibility", function()
+OPTHINGS:Button("Turn On Invisibility [ BETA ]", function()
 if HavePremium() ~= true then
 DiscordLib:Notification("Error!", "You don't have premium!", "Okay!")
 return nil
@@ -1334,7 +1334,19 @@ end
 
 if LP.Character and LP.Character:FindFirstChildOfClass("Humanoid") then
 AnimDisabler = LP.Character:FindFirstChildOfClass("Humanoid").AnimationPlayed:Connect(function(track)
-track:Stop(0)
+track:Stop()
+pcall(function()
+track.Parent = nil
+end)
+pcall(function()
+track:Destroy()
+end)
+pcall(function()
+track.Animation.AnimationId = "rbxassetid://0"
+end)
+pcall(function()
+track.AnimationId = "rbxassetid://0"
+end)
 end)
 end
 
@@ -1346,7 +1358,7 @@ end
 
 end)
 
-OPTHINGS:Button("Turn Off Invisibility", function()
+OPTHINGS:Button("Turn Off Invisibility [ BETA ]", function()
 if HavePremium() ~= true then
 DiscordLib:Notification("Error!", "You don't have premium!", "Okay!")
 return nil
