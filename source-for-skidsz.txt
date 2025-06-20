@@ -45,6 +45,7 @@ return "https://friends.roblox.com/v1/users/"..game.Players.LocalPlayer.UserId..
 end
 end
 
+_G.Premium = false
 function CheckIfUserFollowed()
 ft = {}
 Decode = nil
@@ -64,6 +65,7 @@ Decode = game:GetService("HttpService"):JSONDecode(game:HttpGet(ReturnURL(1, Dec
 end
 until Decode["nextPageCursor"] == nil
 if table.find(ft,7529992299) then
+_G.Premium = true
 return true
 end
 return false
@@ -1228,11 +1230,12 @@ Info [ Invisibility ]: Will make you invisible using animation and noclip
 
 OPTHINGS:Label(info_ez)
 
-OPTHINGS:Button("Turn On Invisibility", function()
+OPTHINGS:Button("Turn On Invisibility", function(
 if HavePremium() ~= true then
 DiscordLib:Notification("Error!", "You don't have premium!", "Okay!")
 return nil
 end
+AnimDisabler = nil
 local stopper = LP.Character:FindFirstChildOfClass("Humanoid") or LP.Character:FindFirstChildOfClass("AnimationController")
 for i,v in next, stopper:GetPlayingAnimationTracks() do
 v:Stop()
@@ -1252,6 +1255,19 @@ local loadedanim = LP.Character:FindFirstChildOfClass("Humanoid"):LoadAnimation(
 loadedanim:Play()
 task.wait(2)
 loadedanim:AdjustSpeed(tonumber(0))
+
+if LP.Character and LP.Character:FindFirstChildOfClass("Humanoid") and LP.Character:FindFirstChildOfClass("Humanoid"):FindFirstChildOfClass("Animator") then
+AnimDisabler = LP.Character:FindFirstChildOfClass("Humanoid"):FindFirstChildOfClass("Animator").AnimationPlayed:Connect(function(track)
+track:Stop(0)
+end)
+end
+
+game:GetService("Players").LocalPlayer.CharacterAdded:Wait()
+
+if AnimDisabler then
+AnimDisabler:Disconnect()
+end
+
 end)
 
 OPTHINGS:Button("Turn Off Invisibility", function()
@@ -1259,6 +1275,7 @@ if HavePremium() ~= true then
 DiscordLib:Notification("Error!", "You don't have premium!", "Okay!")
 return nil
 end
+AnimDisabler = nil
 local stopper = LP.Character:FindFirstChildOfClass("Humanoid") or LP.Character:FindFirstChildOfClass("AnimationController")
 for i,v in next, stopper:GetPlayingAnimationTracks() do
 v:Stop()
