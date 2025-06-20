@@ -1283,6 +1283,7 @@ OPTHINGS:Seperator()
 
 local info_ez = [[
 Info [ Invisibility ]: Will make you invisible using animation and noclip
+PS: you'll be visible when using other anims such as dance and others
 ]]
 
 OPTHINGS:Label(info_ez)
