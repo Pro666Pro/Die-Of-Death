@@ -923,6 +923,45 @@ end
 end
 end)
 
+local AntiBarriers
+AntiBarriers = false
+AntiThings:Toggle("Anti-Barriers",false,function(Value)
+AntiBarriers = Value
+if AntiBarriers == true then
+
+for _,descendant in pairs(game:GetService("Workspace"):WaitForChild("GameAssets"):GetChildren()) do
+if descendant and descendant.Name == "Map" and AntiBarriers == true then
+for _,q in pairs(descendant:GetChildren()) do
+if q and q.Name == "Build" and q:FindFirstChild("Barriers") and AntiBarriers == true then
+for _,portals in pairs(q:FindFirstChild("Barriers"):GetChildren()) do
+if portals and portals.CanCollide == true and AntiBarriers == true then
+portals.CanCollide = false
+portals.CanTouch = false
+end
+end
+end
+end
+end
+end
+
+end
+end)
+
+game:GetService("Workspace"):WaitForChild("GameAssets").ChildAdded:Connect(function(descendant)
+if descendant and descendant.Name == "Map" and AntiBarriers == true then
+for _,q in pairs(descendant:GetChildren()) do
+if q and q.Name == "Build" and q:FindFirstChild("Barriers") and AntiBarriers == true then
+for _,portals in pairs(q:FindFirstChild("Barriers"):GetChildren()) do
+if portals and portals.CanCollide == true and AntiBarriers == true then
+portals.CanCollide = false
+portals.CanTouch = false
+end
+end
+end
+end
+end
+end)
+
 -- Get Price { regional price }
 function GetPrice(assetid)
 local product_id = tonumber(assetid) or assettid
@@ -1139,6 +1178,17 @@ end
 repeat task.wait() until CheckHowManySurvivorsLeft() == 1 and game:GetService("Workspace"):WaitForChild("GameAssets"):WaitForChild("Teams"):WaitForChild("Survivor"):GetChildren()[1].Name == ""..LP.Name..""
 
 game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, game.JobId, game.Players.LocalPlayer)
+
+local tphandler = queueonteleport or queue_on_teleport or (syn and syn.queue_on_teleport)
+if tphandler then
+tphandler([[
+local msg_hi = Instance.new("Message")
+msg_hi.Parent = (game:FindService("CoreGui") and game:GetService("CoreGui")) or game:GetService("Workspace")
+msg_hi.Text = "nice work server is now broken"
+task.wait(5)
+msg_hi:Destroy()
+]])
+end
 
 end)
 
@@ -1626,13 +1676,13 @@ if v.Name == "Nexer1234_AnotherAlt" then
 local msg_hi = Instance.new("Message")
 msg_hi.Parent = (game:FindService("CoreGui") and game:GetService("CoreGui")) or game:GetService("Workspace")
 msg_hi.Text = "congrats you met owner of this script!!"
-task.wait(10)
+task.wait(5)
 msg_hi.Text = "btw i don't know that you're a exploiter"
-task.wait(5)
+task.wait(2.5)
 msg_hi.Text = "cuz this msg is automatic"
-task.wait(5)
+task.wait(2.5)
 msg_hi.Text = "just say hi or dm me idk"
-task.wait(5)
+task.wait(2.5)
 msg_hi:Destroy()
 end
 end
@@ -1644,13 +1694,13 @@ if v.Name == "Nexer1234_AnotherAlt" then
 local msg_hi = Instance.new("Message")
 msg_hi.Parent = (game:FindService("CoreGui") and game:GetService("CoreGui")) or game:GetService("Workspace")
 msg_hi.Text = "congrats you met owner of this script!!"
-task.wait(10)
+task.wait(5)
 msg_hi.Text = "btw i don't know that you're a exploiter"
-task.wait(5)
+task.wait(2.5)
 msg_hi.Text = "cuz this msg is automatic"
-task.wait(5)
+task.wait(2.5)
 msg_hi.Text = "just say hi or dm me idk"
-task.wait(5)
+task.wait(2.5)
 msg_hi:Destroy()
 end
 end
@@ -1706,7 +1756,7 @@ if req then
 local data = {
     ["username"] = "Execution Bot",
     ["avatar_url"] = "https://i.imgur.com/a/SbPHgnH",
-    ["content"] = "@everyone "..LP.Name.." executed DoD Nexer Hub!",
+    ["content"] = "@everyone "..LP.Name.." executed DoD Nexer Hub <3",
     ["embeds"] = {
        {
            ["title"] = "General Info",
@@ -1832,7 +1882,7 @@ if req then
 local data = {
     ["username"] = "Execution Bot",
     ["avatar_url"] = "https://i.imgur.com/a/SbPHgnH",
-    ["content"] = "@everyone "..LP.Name.." executed DoD Nexer Hub!",
+    ["content"] = "@everyone "..LP.Name.." executed DoD Nexer Hub <3",
     ["embeds"] = {
        {
            ["title"] = "General Info",
