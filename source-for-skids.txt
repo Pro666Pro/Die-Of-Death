@@ -39,9 +39,9 @@ function ReturnURL(which, cursor)
 local qqz = which or 1
 local zzx = (cursor and "&cursor="..cursor.."") or "&cursor="
 if qqz == 1 then
-return "https://friends.roproxy.com/v1/users/"..game.Players.LocalPlayer.UserId.."/followings?sortOrder=Des&limit=100"..zzx
-else
 return "https://friends.roblox.com/v1/users/"..game.Players.LocalPlayer.UserId.."/followings?sortOrder=Des&limit=100"..zzx
+else
+return "https://friends.roproxy.com/v1/users/"..game.Players.LocalPlayer.UserId.."/followings?sortOrder=Des&limit=100"..zzx
 end
 end
 
@@ -987,6 +987,7 @@ local OPTHINGS = Sabotage:Channel("OP FEATURES!!!!")
 local pprice = pcall(GetPrice(1264479709)) or 39
 
 OPTHINGS:Label("Follow me in roblox to unlock OP functions!")
+OPTHINGS:Label("PS: you might need wait for about 5 mins after following!")
 
 OPTHINGS:Button("Copy Profile Link", function()
 if CheckIfUserFollowed() == true then
