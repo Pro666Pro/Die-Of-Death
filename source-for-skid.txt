@@ -966,9 +966,9 @@ else
 end
 end)
 
-for i = 1,3 do
+OPTHINGS:Label(" ")
 OPTHINGS:Seperator()
-end
+OPTHINGS:Label(" ")
 
 local info_ez = [[
 Info [ Insta-Kill Killer ]:
@@ -987,11 +987,7 @@ PS: you may get killed during it :)
 ]]
 
 OPTHINGS:Label(" ")
-OPTHINGS:Label(" ")
-OPTHINGS:Label(" ")
 OPTHINGS:Label(info_ez)
-OPTHINGS:Label(" ")
-OPTHINGS:Label(" ")
 OPTHINGS:Label(" ")
 
 local preferedkillingmethod
@@ -1080,11 +1076,7 @@ and round will never start.
 ]]
 
 OPTHINGS:Label(" ")
-OPTHINGS:Label(" ")
-OPTHINGS:Label(" ")
 OPTHINGS:Label(info_ez)
-OPTHINGS:Label(" ")
-OPTHINGS:Label(" ")
 OPTHINGS:Label(" ")
 
 local info_ez = [[
@@ -1095,17 +1087,10 @@ then wait until everyone dies
 ( when lms starts between you and killer ).
 After this you'll automatically rejoin this server and ta-daa!
 Server will break.
-( including some server scripts in serverscriptstorage ).
-PS: You need atleast 2 civilians in match
-( you and someone else who will die )
 ]]
 
 OPTHINGS:Label(" ")
-OPTHINGS:Label(" ")
-OPTHINGS:Label(" ")
 OPTHINGS:Label(info_ez)
-OPTHINGS:Label(" ")
-OPTHINGS:Label(" ")
 OPTHINGS:Label(" ")
 
 OPTHINGS:Button("Server-Break [ OP !!! ]", function()
@@ -1134,10 +1119,6 @@ survivorsamount = survivorsamount + 1
 end
 end
 return tonumber(survivorsamount)
-end
-
-while not (game:GetService("Players").LocalPlayer.Character and game:GetService("Players").LocalPlayer.Character.Parent and game:GetService("Players").LocalPlayer.Character.HumanoidRootPart and game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Parent) do
-game:GetService("RunService").Heartbeat:Wait()
 end
 
 local time = tick()
@@ -1207,7 +1188,7 @@ end)
 local function PlayAnim(id)
 local Anim = Instance.new("Animation")
 Anim.AnimationId = "rbxassetid://"..id
-local loadedanim = Char:FindFirstChildOfClass('Humanoid'):LoadAnimation(Anim)
+local loadedanim = LP.Character:FindFirstChildOfClass("Humanoid"):LoadAnimation(Anim)
 loadedanim:Play()
 end
 
@@ -1217,25 +1198,17 @@ DiscordLib:Notification("Error!", "You don't have premium!", "Okay!")
 return nil
 end
 if preferedanimat == "laying on floor like uhh mequot" then
-PlayAnim(139854803244662)
+PlayAnim(tostring(139854803244662))
 elseif preferedanimat == "360 SPIN" then
-PlayAnim(107995217692659)
+PlayAnim(tostring(107995217692659))
 elseif preferedanimat == "Put yo hands up!" then
-PlayAnim(70951232403682)
+PlayAnim(tostring(70951232403682))
 elseif preferedanimat == "TOWER SPIN TTT" then
-PlayAnim(121553057496251)
+PlayAnim(tostring(121553057496251))
 elseif preferedanimat == "killdroid intro" then
-PlayAnim(114518892856920)
+PlayAnim(tostring(114518892856920))
 end
 end)
-
-
-local Anim = Instance.new("Animation")
-Anim.AnimationId = "rbxassetid://90444351114401"
-local loadedanim = Char:FindFirstChildOfClass('Humanoid'):LoadAnimation(Anim)
-loadedanim:Play()
-task.wait(3)
-loadedanim:AdjustSpeed(tonumber(0))
 
 
 OPTHINGS:Button("Stop all anims", function()
@@ -1273,7 +1246,7 @@ end
 
 local Anim = Instance.new("Animation")
 Anim.AnimationId = "rbxassetid://90444351114401"
-local loadedanim = Char:FindFirstChildOfClass('Humanoid'):LoadAnimation(Anim)
+local loadedanim = LP.Character:FindFirstChildOfClass("Humanoid"):LoadAnimation(Anim)
 loadedanim:Play()
 task.wait(3)
 loadedanim:AdjustSpeed(tonumber(0))
