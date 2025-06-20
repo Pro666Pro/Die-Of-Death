@@ -1153,6 +1153,11 @@ DiscordLib:Notification("Error!", "There's not enough survivors/civilians! ( Nee
 return nil
 end
 
+if not game:GetService("Workspace"):WaitForChild("GameAssets"):WaitForChild("Teams"):WaitForChild("Survivor"):FindFirstChild(""..LP.Name.."") then
+DiscordLib:Notification("Error!", "You're not survivor!", "Okay!")
+return nil
+end
+
 local function CheckHowManySurvivorsLeft()
 local survivorsamount = 0
 for i,v in pairs(game:GetService("Workspace"):WaitForChild("GameAssets"):WaitForChild("Teams"):WaitForChild("Survivor"):GetChildren()) do
@@ -1231,7 +1236,7 @@ OPTHINGS:Label(info_ez)
 
 local preferedanimat
 preferedanimat = "laying on floor like uhh mequot"
-OPTHINGS:Dropdown("Insta-Kill Killer Method",{"laying on floor like uhh mequot","360 SPIN","Put yo hands up!","TOWER SPIN TTT","killdroid intro"},function(Value)
+OPTHINGS:Dropdown("Animation",{"laying on floor like uhh mequot","360 SPIN","Put yo hands up!","TOWER SPIN TTT","killdroid intro"},function(Value)
 preferedanimat = tostring(Value)
 end)
 
