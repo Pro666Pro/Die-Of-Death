@@ -1123,13 +1123,13 @@ end
 
 local time = tick()
 while tick() - time < 10 do
-for i,v in pairs(game:GetService("Players").LocalPlayer.Character:GetDescendants()) do
+for i,v in pairs(LP.Character:GetDescendants()) do
 if v and v:IsA("BasePart") then
 v.Velocity = Vector3.new(0,0,0)
 v.RotVelocity = Vector3.new(0,0,0)
 end
 end
-game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(0,-490,0)
+LP.Character.HumanoidRootPart.CFrame = CFrame.new(0,-490,0)
 task.wait()
 end
 
@@ -1171,13 +1171,10 @@ end)
 OPTHINGS:Seperator()
 
 local info_ez = [[
-Info [ More-Anims ]:
-You can use troll or some other cool anims idk
+Info [ More-Anims ]: You can use troll or some other cool anims idk
 ]]
 
-OPTHINGS:Label(" ")
 OPTHINGS:Label(info_ez)
-OPTHINGS:Label(" ")
 
 local preferedanimat
 preferedanimat = "laying on floor like uhh mequot"
@@ -1225,13 +1222,10 @@ end)
 OPTHINGS:Seperator()
 
 local info_ez = [[
-Info [ Invisibility ]:
-Will make you invisible using animation and noclip
+Info [ Invisibility ]: Will make you invisible using animation and noclip
 ]]
 
-OPTHINGS:Label(" ")
 OPTHINGS:Label(info_ez)
-OPTHINGS:Label(" ")
 
 OPTHINGS:Button("Turn On Invisibility", function()
 if HavePremium() ~= true then
@@ -1243,17 +1237,17 @@ for i,v in next, stopper:GetPlayingAnimationTracks() do
 v:Stop()
 end
 
+for i,v in pairs(LP.Character:GetDescendants()) do
+if v and v:IsA("BasePart") and v.CanCollide == true then
+v.CanCollide = false
+end
+end
 local Anim = Instance.new("Animation")
 Anim.AnimationId = "rbxassetid://90444351114401"
 local loadedanim = LP.Character:FindFirstChildOfClass("Humanoid"):LoadAnimation(Anim)
 loadedanim:Play()
 task.wait(3)
 loadedanim:AdjustSpeed(tonumber(0))
-for i,v in pairs(Char:GetDescendants()) do
-if v and v:IsA("BasePart") and v.CanCollide == true then
-v.CanCollide = false
-end
-end
 end)
 
 OPTHINGS:Button("Turn Off Invisibility", function()
