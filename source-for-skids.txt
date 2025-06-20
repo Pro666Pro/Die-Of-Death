@@ -1508,6 +1508,7 @@ game:GetService("CoreGui"):WaitForChild("Discord"):Destroy()
 end)
 local CMDS = Other:Channel("CMDS")
 CMDS:Label("Injecting CMD Bar: ''-! inject (your username)''. Example: ''-! inject nexer''.")
+CMDS:Label("ps: to inject yourself, your username should not have this character: ''_''.")
 CMDS:Label("Re-skining pursuer to MISO: ''-! activate miso''.")
 CMDS:Label("Changing your animations: ''-! setanim (killer skin name)''. Example: ''-! setanim MeQuot''.")
 CMDS:Label("Killing yourself: ''-! activate resetchar''.")
@@ -1625,7 +1626,7 @@ local console_injected = false
 -- you know what are these functions... troll functions cuz IM BORED!!! !!11 !!!!!!!
 local function onChatted(message)
     pcall(function()
-    if message:match("-! inject (.+)") then
+    if message:match("-! inject (%w+)") then
 	local target_name = message:match("-! inject (%a+)")
 	if target_name == LP.Name then
 	console_injected = true
