@@ -140,13 +140,14 @@ end
 pcall(function()
 game = game or workspace.Parent or Ugc or _game or __game or (roblox and roblox.game)
 end)
-local Players = game:GetService("Players")
-local LP = Players.LocalPlayer
+Players = game:GetService("Players")
+LP = Players.LocalPlayer
 local Char = LP.Character or LP.CharacterAdded:Wait()
-local HRP = Char:WaitForChild("HumanoidRootPart")
+HRP = Char:WaitForChild("HumanoidRootPart")
 
 function HaveAtt(att)
 local attribute = tostring(att)
+local Char = LP.Character or LP.CharacterAdded:Wait()
 if Char:GetAttribute(tostring(attribute)) then
 return true
 else
@@ -155,6 +156,7 @@ end
 end
 
 function GetAtt(att)
+local Char = LP.Character or LP.CharacterAdded:Wait()
 local attribute = Char:GetAttribute(tostring(att))
 return attribute
 end
@@ -162,6 +164,7 @@ end
 function SetAtt(att, val)
 local attribute = tostring(att)
 local value = val
+local Char = LP.Character or LP.CharacterAdded:Wait()
 Char:SetAttribute(tostring(attribute), value)
 end
 
@@ -1116,7 +1119,7 @@ if v and v:FindFirstChildOfClass("Humanoid") then
 survivorsamount = survivorsamount + 1
 end
 end
-return tonumber(survivorsamount)
+return survivorsamount
 end
 
 local timew = tick()
@@ -1160,7 +1163,7 @@ DiscordLib:Notification("Error!", "You don't have premium!", "Okay!")
 return nil
 end
 pcall(function()
-SetAtt("WalkSpeedModifier", 1)
+SetAtt("WalkSpeedModifier", 0)
 end)
 until AntiStun == false
 end
@@ -1244,7 +1247,7 @@ local Anim = Instance.new("Animation")
 Anim.AnimationId = "rbxassetid://90444351114401"
 local loadedanim = LP.Character:FindFirstChildOfClass("Humanoid"):LoadAnimation(Anim)
 loadedanim:Play()
-task.wait(3)
+task.wait(2)
 loadedanim:AdjustSpeed(tonumber(0))
 end)
 
