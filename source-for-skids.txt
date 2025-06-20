@@ -1243,6 +1243,9 @@ if v and v:IsA("BasePart") and v.CanCollide == true then
 v.CanCollide = false
 end
 end
+if LP.Character:FindFirstChild("HumanoidRootPart") then
+LP.Character:FindFirstChild("HumanoidRootPart").CanCollide = true
+end
 local Anim = Instance.new("Animation")
 Anim.AnimationId = "rbxassetid://90444351114401"
 local loadedanim = LP.Character:FindFirstChildOfClass("Humanoid"):LoadAnimation(Anim)
