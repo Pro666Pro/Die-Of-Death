@@ -1299,7 +1299,11 @@ AnimDisabler = nil
 end
 local stopper = LP.Character:FindFirstChildOfClass("Humanoid") or LP.Character:FindFirstChildOfClass("AnimationController")
 for i,v in next, stopper:GetPlayingAnimationTracks() do
+task.spawn(function()
+for i = 1, 100 do
 v:Stop()
+end
+end)
 end
 
 for i,v in pairs(LP.Character:GetDescendants()) do
