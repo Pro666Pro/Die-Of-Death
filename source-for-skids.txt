@@ -1104,12 +1104,12 @@ DiscordLib:Notification("Error!", "You don't have premium!", "Okay!")
 return nil
 end
 
-if game:GetService("Players"):GetPlayers() < 3 then
+if #game:GetService("Players"):GetPlayers() < 3 then
 DiscordLib:Notification("Error!", "There's not enough players! ( Need atleast 3 )", "Okay!")
 return nil
 end
 
-if game:GetService("Workspace"):WaitForChild("GameAssets"):WaitForChild("Teams"):WaitForChild("Survivor"):GetChildren() < 2 then
+if #game:GetService("Workspace"):WaitForChild("GameAssets"):WaitForChild("Teams"):WaitForChild("Survivor"):GetChildren() < 2 then
 DiscordLib:Notification("Error!", "There's not enough survivors/civilians! ( Need atleast 2 )", "Okay!")
 return nil
 end
@@ -1124,15 +1124,15 @@ end
 return survivorsamount
 end
 
-local timew = tick()
-while tick() - timew < 10 do
-for i,v in pairs(LP.Character:GetDescendants()) do
+local time = tick()
+while tick() - time < 10 do
+for i,v in pairs(game.Players.LocalPlayer.Character:GetDescendants()) do
 if v and v:IsA("BasePart") then
 v.Velocity = Vector3.new(0,0,0)
 v.RotVelocity = Vector3.new(0,0,0)
 end
 end
-LP.Character.HumanoidRootPart.CFrame = CFrame.new(0,-490,0)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(0,-490,0)
 task.wait()
 end
 
