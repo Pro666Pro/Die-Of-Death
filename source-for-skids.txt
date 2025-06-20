@@ -1024,8 +1024,7 @@ OPTHINGS:Label(info_ez)
 OPTHINGS:Label(" ")
 
 local info_ez = [[
-How To Use [ Insta-Kill Killer ]:
-Activate when match started
+How To Use [ Insta-Kill Killer ]: Activate when match started
 ( you should be survivor, AKA civilian ).
 PS: you may get killed during it :)
 ]]
@@ -1112,10 +1111,8 @@ end)
 OPTHINGS:Seperator()
 
 local info_ez = [[
-Info [ Server-Break ]:
-Breaks whole server.
-Timer will just stop,
-and round will never start.
+Info [ Server-Break ]: Breaks whole server.
+Timer will just stop, and round will never start.
 ( Which makes server unable to play on )
 ]]
 
@@ -1265,11 +1262,16 @@ PlayAnim(tostring(114518892856920))
 end
 end)
 
+AnimDisabler = nil
 
 OPTHINGS:Button("Stop all anims", function()
 if HavePremium() ~= true then
 DiscordLib:Notification("Error!", "You don't have premium!", "Okay!")
 return nil
+end
+if AnimDisabler then
+AnimDisabler:Disconnect()
+AnimDisabler = nil
 end
 local stopper = LP.Character:FindFirstChildOfClass("Humanoid") or LP.Character:FindFirstChildOfClass("AnimationController")
 for i,v in next, stopper:GetPlayingAnimationTracks() do
@@ -1290,7 +1292,10 @@ if HavePremium() ~= true then
 DiscordLib:Notification("Error!", "You don't have premium!", "Okay!")
 return nil
 end
+if AnimDisabler then
+AnimDisabler:Disconnect()
 AnimDisabler = nil
+end
 local stopper = LP.Character:FindFirstChildOfClass("Humanoid") or LP.Character:FindFirstChildOfClass("AnimationController")
 for i,v in next, stopper:GetPlayingAnimationTracks() do
 v:Stop()
@@ -1348,8 +1353,8 @@ return nil
 end
 if AnimDisabler then
 AnimDisabler:Disconnect()
-end
 AnimDisabler = nil
+end
 local stopper = LP.Character:FindFirstChildOfClass("Humanoid") or LP.Character:FindFirstChildOfClass("AnimationController")
 for i,v in next, stopper:GetPlayingAnimationTracks() do
 v:Stop()
@@ -1493,8 +1498,13 @@ end)
 otth:Button("Close Hub", function()
 game:GetService("CoreGui"):WaitForChild("Discord"):Destroy()
 end)
-otth:Label("PS: to change pursuer to MISO, write ''miso'' in chat!")
-otth:Label("and there's much more commands!")
+local CMDS = Other:Channel("CMDS")
+CMDS:Label("Injecting CMD Bar: ''-! inject (your username)''. Example: ''-! inject nexer''.")
+CMDS:Label("Re-skining pursuer to MISO: ''-! activate miso''.")
+CMDS:Label("Changing your animations: ''-! setanim (killer skin name)''. Example: ''-! setanim MeQuot''.")
+CMDS:Label("Killing yourself: ''-! activate resetchar''.")
+CMDS:Label("Perma-Killing yourself: ''-! activate permadie''.")
+CMDS:Label("and much more!!...")
 
 local function CreateMISO(plr)
 local target = plr
