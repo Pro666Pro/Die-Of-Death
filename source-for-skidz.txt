@@ -1335,19 +1335,7 @@ end
 
 if LP.Character and LP.Character:FindFirstChildOfClass("Humanoid") then
 AnimDisabler = LP.Character:FindFirstChildOfClass("Humanoid").AnimationPlayed:Connect(function(track)
-track:Stop()
-pcall(function()
-track.Parent = nil
-end)
-pcall(function()
-track:Destroy()
-end)
-pcall(function()
-track.Animation.AnimationId = "rbxassetid://0"
-end)
-pcall(function()
-track.AnimationId = "rbxassetid://0"
-end)
+track:Stop(0)
 end)
 end
 
@@ -1355,6 +1343,7 @@ LP.CharacterAdded:Wait()
 
 if AnimDisabler then
 AnimDisabler:Disconnect()
+AnimDisabler = nil
 end
 
 end)
