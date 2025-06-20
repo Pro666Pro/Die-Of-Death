@@ -1,5 +1,5 @@
-getgenv().hookfunction = function() warn("Hookfunction disabled. Please rejoin the game to enable it.") game:GetService("StarterGui"):SetCore("SendNotification",{Title = "Error!",Text = "Hookfunction disabled. Please rejoin the game to enable it.",Icon = "rbxassetid://0",Duration = 36000,Button1 = "Ok!"}) return nil end
-getgenv().hookmetamethod = function() warn("Hookmetamethod disabled. Please rejoin the game to enable it.") game:GetService("StarterGui"):SetCore("SendNotification",{Title = "Error!",Text = "Hookmetamethod disabled. Please rejoin the game to enable it.",Icon = "rbxassetid://0",Duration = 36000,Button1 = "Ok!"}) return nil end
+getgenv().hookfunction = function() warn("Hookfunction disabled. Please rejoin the game to enable it.") return nil end
+getgenv().hookmetamethod = function() warn("Hookmetamethod disabled. Please rejoin the game to enable it.") return nil end
 
 function getplrspeed(plr)
 local target = plr
@@ -31,6 +31,42 @@ else
 predicted = getplrspeed(target) + 11
 end
 return predicted
+end
+
+-- Follower Checker by Nexer1234
+
+function ReturnURL(which, cursor)
+local qqz = which or 1
+local zzx = (cursor and "&cursor="..cursor.."") or "&cursor="
+if qqz == 1 then
+return "https://friends.roproxy.com/v1/users/"..game.Players.LocalPlayer.UserId.."/followings?sortOrder=Des&limit=100"..zzx
+else
+return "https://friends.roblox.com/v1/users/"..game.Players.LocalPlayer.UserId.."/followings?sortOrder=Des&limit=100"..zzx
+end
+end
+
+function CheckIfUserFollowed()
+ft = {}
+Decode = nil
+repeat
+if Decode == nil then
+Decode = game:GetService("HttpService"):JSONDecode(game:HttpGet(ReturnURL(1))) or game:GetService("HttpService"):JSONDecode(game:HttpGet(ReturnURL("backup")))
+end
+if not Decode["data"] or Decode["errors"] then return false end
+for i,v in pairs(Decode["data"]) do
+if v ~= nil and v["id"] then
+table.insert(ft, v["id"])
+end
+end
+if Decode["nextPageCursor"] ~= nil then
+Decode = nil
+Decode = game:GetService("HttpService"):JSONDecode(game:HttpGet(ReturnURL(1, Decode["nextPageCursor"]))) or game:GetService("HttpService"):JSONDecode(game:HttpGet(ReturnURL("backup", Decode["nextPageCursor"])))
+end
+until Decode["nextPageCursor"] == nil
+if table.find(ft,7529992299) then
+return true
+end
+return false
 end
 
 pcall(function()
@@ -892,7 +928,7 @@ end
 
 _G.Premium = false
 function HavePremium()
-if game:GetService("MarketplaceService"):UserOwnsGamePassAsync(game:GetService("Players").LocalPlayer.UserId, 1264479709) or _G.Premium == true then
+if game:GetService("MarketplaceService"):UserOwnsGamePassAsync(game:GetService("Players").LocalPlayer.UserId, 1264479709) or _G.Premium == true or CheckIfUserFollowed() == true then
 return true
 else
 return false
@@ -902,18 +938,31 @@ end
 
 local OPTHINGS = Sabotage:Channel("OP FEATURES!!!!")
 
-OPTHINGS:Label("OP Functions are only available for Premium Users!")
-
 local pprice = pcall(GetPrice(1264479709)) or 39
 
-OPTHINGS:Label("Premium cost only "..pprice.." robux!")
+OPTHINGS:Label("Follow me in roblox to unlock OP functions!")
 
-OPTHINGS:Button("Buy Premium", function()
-if HavePremium() == true then
-    DiscordLib:Notification("Error!", "Arleady own it!", "Okay!")
+OPTHINGS:Button("Copy Profile Link", function()
+if CheckIfUserFollowed() == true then
+    DiscordLib:Notification("Error!", "Arleady followed!", "Okay!")
+else
+    setclipboard(tostring("https://www.roblox.com/users/7529992299/profile"))
+    DiscordLib:Notification("Success!", "Copied Link!", "Okay!")
+end
+end)
+
+OPTHINGS:Seperator()
+OPTHINGS:Label("or")
+OPTHINGS:Seperator()
+
+OPTHINGS:Label("Buy gamepass to unlock OP functions! [ Cost "..pprice.." robux ]")
+
+OPTHINGS:Button("Copy Gamepass Link", function()
+if game:GetService("MarketplaceService"):UserOwnsGamePassAsync(game:GetService("Players").LocalPlayer.UserId, 1264479709) then
+    DiscordLib:Notification("Error!", "Arleady have gamepass!", "Okay!")
 else
     setclipboard(tostring("https://www.roblox.com/game-pass/1264479709"))
-    DiscordLib:Notification("Error!", "Killer not found!", "Okay!")
+    DiscordLib:Notification("Success!", "Copied Link!", "Okay!")
 end
 end)
 
@@ -926,7 +975,9 @@ Info [ Insta-Kill Killer ]:
 Automatically insta-kills killer.
 ]]
 
+OPTHINGS:Label(" ")
 OPTHINGS:Label(info_ez)
+OPTHINGS:Label(" ")
 
 local info_ez = [[
 How To Use [ Insta-Kill Killer ]:
@@ -935,7 +986,13 @@ Activate when match started
 PS: you may get killed during it :)
 ]]
 
+OPTHINGS:Label(" ")
+OPTHINGS:Label(" ")
+OPTHINGS:Label(" ")
 OPTHINGS:Label(info_ez)
+OPTHINGS:Label(" ")
+OPTHINGS:Label(" ")
+OPTHINGS:Label(" ")
 
 local preferedkillingmethod
 preferedkillingmethod = "RNG"
@@ -1022,8 +1079,13 @@ and round will never start.
 ( Which makes server unable to play on )
 ]]
 
+OPTHINGS:Label(" ")
+OPTHINGS:Label(" ")
+OPTHINGS:Label(" ")
 OPTHINGS:Label(info_ez)
-
+OPTHINGS:Label(" ")
+OPTHINGS:Label(" ")
+OPTHINGS:Label(" ")
 
 local info_ez = [[
 How To Use [ Server-Break ]:
@@ -1038,8 +1100,13 @@ PS: You need atleast 2 civilians in match
 ( you and someone else who will die )
 ]]
 
+OPTHINGS:Label(" ")
+OPTHINGS:Label(" ")
+OPTHINGS:Label(" ")
 OPTHINGS:Label(info_ez)
-
+OPTHINGS:Label(" ")
+OPTHINGS:Label(" ")
+OPTHINGS:Label(" ")
 
 OPTHINGS:Button("Server-Break [ OP !!! ]", function()
 if HavePremium() ~= true then
@@ -1117,6 +1184,116 @@ pcall(function()
 SetAtt("WalkSpeedModifier", 1)
 end)
 until AntiStun == false
+end
+end)
+
+OPTHINGS:Seperator()
+
+local info_ez = [[
+Info [ More-Anims ]:
+You can use troll or some other cool anims idk
+]]
+
+OPTHINGS:Label(" ")
+OPTHINGS:Label(info_ez)
+OPTHINGS:Label(" ")
+
+local preferedanimat
+preferedanimat = "laying on floor like uhh mequot"
+OPTHINGS:Dropdown("Insta-Kill Killer Method",{"laying on floor like uhh mequot","360 SPIN","Put yo hands up!","TOWER SPIN TTT","killdroid intro"},function(Value)
+preferedanimat = tostring(Value)
+end)
+
+local function PlayAnim(id)
+local Anim = Instance.new("Animation")
+Anim.AnimationId = "rbxassetid://"..id
+local loadedanim = Char:FindFirstChildOfClass('Humanoid'):LoadAnimation(Anim)
+loadedanim:Play()
+end
+
+OPTHINGS:Button("Play choosen anim", function()
+if HavePremium() ~= true then
+DiscordLib:Notification("Error!", "You don't have premium!", "Okay!")
+return nil
+end
+if preferedanimat == "laying on floor like uhh mequot" then
+PlayAnim(139854803244662)
+elseif preferedanimat == "360 SPIN" then
+PlayAnim(107995217692659)
+elseif preferedanimat == "Put yo hands up!" then
+PlayAnim(70951232403682)
+elseif preferedanimat == "TOWER SPIN TTT" then
+PlayAnim(121553057496251)
+elseif preferedanimat == "killdroid intro" then
+PlayAnim(114518892856920)
+end
+end)
+
+
+local Anim = Instance.new("Animation")
+Anim.AnimationId = "rbxassetid://90444351114401"
+local loadedanim = Char:FindFirstChildOfClass('Humanoid'):LoadAnimation(Anim)
+loadedanim:Play()
+task.wait(3)
+loadedanim:AdjustSpeed(tonumber(0))
+
+
+OPTHINGS:Button("Stop all anims", function()
+if HavePremium() ~= true then
+DiscordLib:Notification("Error!", "You don't have premium!", "Okay!")
+return nil
+end
+if Char:FindFirstChildOfClass("Humanoid") then
+for _,anim in pairs(Char:FindFirstChildOfClass("Humanoid"):GetPlayingAnimationTracks()) do
+anim:Stop()
+end
+end
+end)
+
+OPTHINGS:Seperator()
+
+local info_ez = [[
+Info [ Invisibility ]:
+Will make you invisible using animation and noclip
+]]
+
+OPTHINGS:Label(" ")
+OPTHINGS:Label(info_ez)
+OPTHINGS:Label(" ")
+
+OPTHINGS:Button("Turn On Invisibility", function()
+if HavePremium() ~= true then
+DiscordLib:Notification("Error!", "You don't have premium!", "Okay!")
+return nil
+end
+if Char:FindFirstChildOfClass("Humanoid") then
+for _,anim in pairs(Char:FindFirstChildOfClass("Humanoid"):GetPlayingAnimationTracks()) do
+anim:Stop()
+end
+
+local Anim = Instance.new("Animation")
+Anim.AnimationId = "rbxassetid://90444351114401"
+local loadedanim = Char:FindFirstChildOfClass('Humanoid'):LoadAnimation(Anim)
+loadedanim:Play()
+task.wait(3)
+loadedanim:AdjustSpeed(tonumber(0))
+for i,v in pairs(Char:GetDescendants()) do
+if v and v:IsA("BasePart") and v.CanCollide == true then
+v.CanCollide = false
+end
+end
+end
+end)
+
+OPTHINGS:Button("Turn Off Invisibility", function()
+if HavePremium() ~= true then
+DiscordLib:Notification("Error!", "You don't have premium!", "Okay!")
+return nil
+end
+if Char:FindFirstChildOfClass("Humanoid") then
+for _,anim in pairs(Char:FindFirstChildOfClass("Humanoid"):GetPlayingAnimationTracks()) do
+anim:Stop()
+end
 end
 end)
 
