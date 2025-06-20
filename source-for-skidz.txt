@@ -1256,8 +1256,8 @@ loadedanim:Play()
 task.wait(2)
 loadedanim:AdjustSpeed(tonumber(0))
 
-if LP.Character and LP.Character:FindFirstChildOfClass("Humanoid") and LP.Character:FindFirstChildOfClass("Humanoid"):FindFirstChildOfClass("Animator") then
-AnimDisabler = LP.Character:FindFirstChildOfClass("Humanoid"):FindFirstChildOfClass("Animator").AnimationPlayed:Connect(function(track)
+if LP.Character and LP.Character:FindFirstChildOfClass("Humanoid") then
+AnimDisabler = LP.Character:FindFirstChildOfClass("Humanoid").AnimationPlayed:Connect(function(track)
 track:Stop(0)
 end)
 end
