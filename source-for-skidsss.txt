@@ -1255,10 +1255,9 @@ if HavePremium() ~= true then
 DiscordLib:Notification("Error!", "You don't have premium!", "Okay!")
 return nil
 end
-if Char:FindFirstChildOfClass("Humanoid") then
-for _,anim in pairs(Char:FindFirstChildOfClass("Humanoid"):GetPlayingAnimationTracks()) do
-anim:Stop()
-end
+local stopper = LP.Character:FindFirstChildOfClass("Humanoid") or LP.Character:FindFirstChildOfClass("AnimationController")
+for i,v in next, stopper:GetPlayingAnimationTracks() do
+v:Stop()
 end
 end)
 
