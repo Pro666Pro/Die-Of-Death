@@ -1230,7 +1230,7 @@ Info [ Invisibility ]: Will make you invisible using animation and noclip
 
 OPTHINGS:Label(info_ez)
 
-OPTHINGS:Button("Turn On Invisibility", function(
+OPTHINGS:Button("Turn On Invisibility", function()
 if HavePremium() ~= true then
 DiscordLib:Notification("Error!", "You don't have premium!", "Okay!")
 return nil
@@ -1262,7 +1262,7 @@ track:Stop(0)
 end)
 end
 
-game:GetService("Players").LocalPlayer.CharacterAdded:Wait()
+LP.CharacterAdded:Wait()
 
 if AnimDisabler then
 AnimDisabler:Disconnect()
