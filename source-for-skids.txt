@@ -827,10 +827,12 @@ Sabotage
 
 local Sabotage = Window:Server("Sabotage","rbxassetid://97428323453639")
 
+
+--[[
 local KillThings = Sabotage:Channel("Farm / Kill / Idk")
 
 KillThings:Label("Survivor Things")
-
+]]--
 
 
 local AntiThings = Sabotage:Channel("Anti / Immunities")
