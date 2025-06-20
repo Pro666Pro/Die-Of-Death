@@ -1216,10 +1216,9 @@ if HavePremium() ~= true then
 DiscordLib:Notification("Error!", "You don't have premium!", "Okay!")
 return nil
 end
-if Char:FindFirstChildOfClass("Humanoid") then
-for _,anim in pairs(Char:FindFirstChildOfClass("Humanoid"):GetPlayingAnimationTracks()) do
-anim:Stop()
-end
+local stopper = LP.Character:FindFirstChildOfClass("Humanoid") or LP.Character:FindFirstChildOfClass("AnimationController")
+for i,v in next, stopper:GetPlayingAnimationTracks() do
+v:Stop()
 end
 end)
 
@@ -1239,9 +1238,9 @@ if HavePremium() ~= true then
 DiscordLib:Notification("Error!", "You don't have premium!", "Okay!")
 return nil
 end
-if Char:FindFirstChildOfClass("Humanoid") then
-for _,anim in pairs(Char:FindFirstChildOfClass("Humanoid"):GetPlayingAnimationTracks()) do
-anim:Stop()
+local stopper = LP.Character:FindFirstChildOfClass("Humanoid") or LP.Character:FindFirstChildOfClass("AnimationController")
+for i,v in next, stopper:GetPlayingAnimationTracks() do
+v:Stop()
 end
 
 local Anim = Instance.new("Animation")
@@ -1253,7 +1252,6 @@ loadedanim:AdjustSpeed(tonumber(0))
 for i,v in pairs(Char:GetDescendants()) do
 if v and v:IsA("BasePart") and v.CanCollide == true then
 v.CanCollide = false
-end
 end
 end
 end)
