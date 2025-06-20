@@ -1099,7 +1099,7 @@ DiscordLib:Notification("Error!", "You don't have premium!", "Okay!")
 return nil
 end
 
-if game:GetService("Players"):GetChildren() < 3 then
+if game:GetService("Players"):GetPlayers() < 3 then
 DiscordLib:Notification("Error!", "There's not enough players! ( Need atleast 3 )", "Okay!")
 return nil
 end
@@ -1109,20 +1109,18 @@ DiscordLib:Notification("Error!", "There's not enough survivors/civilians! ( Nee
 return nil
 end
 
-local SurvivorChecker = 0
-
 local function CheckHowManySurvivorsLeft()
 local survivorsamount = 0
 for i,v in pairs(game:GetService("Workspace"):WaitForChild("GameAssets"):WaitForChild("Teams"):WaitForChild("Survivor"):GetChildren()) do
-if v and v:FindFirstChild("Humanoid") then
+if v and v:FindFirstChildOfClass("Humanoid") then
 survivorsamount = survivorsamount + 1
 end
 end
 return tonumber(survivorsamount)
 end
 
-local time = tick()
-while tick() - time < 10 do
+local timew = tick()
+while tick() - timew < 10 do
 for i,v in pairs(LP.Character:GetDescendants()) do
 if v and v:IsA("BasePart") then
 v.Velocity = Vector3.new(0,0,0)
@@ -1133,9 +1131,9 @@ LP.Character.HumanoidRootPart.CFrame = CFrame.new(0,-490,0)
 task.wait()
 end
 
-repeat SurvivorChecker = CheckHowManySurvivorsLeft(); game:GetService("RunService").Heartbeat:Wait() until SurvivorChecker == 1 and game:GetService("Workspace"):WaitForChild("GameAssets"):WaitForChild("Teams"):WaitForChild("Survivor"):GetChildren()[1].Name == ""..LP.Name..""
+repeat task.wait() until CheckHowManySurvivorsLeft() == 1 and game:GetService("Workspace"):WaitForChild("GameAssets"):WaitForChild("Teams"):WaitForChild("Survivor"):GetChildren()[1].Name == ""..LP.Name..""
 
-game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, game.JobId, LP)
+game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, game.JobId, game.Players.LocalPlayer)
 
 end)
 
