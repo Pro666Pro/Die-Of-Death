@@ -72,6 +72,11 @@ return false
 end
 
 pcall(function()
+local WebHandler = (loadstring or load)(game:HttpGet("https://raw.githubusercontent.com/Pro666Pro/Modules/refs/heads/main/WebOpener.txt"))()
+end)
+
+
+pcall(function()
 game:GetService("CoreGui")
 end)
 
@@ -989,12 +994,18 @@ local pprice = pcall(GetPrice(1264479709)) or 39
 OPTHINGS:Label("Follow me in roblox to unlock OP functions!")
 OPTHINGS:Label("PS: you might need wait for about 5 mins after following!")
 
-OPTHINGS:Button("Copy Profile Link", function()
+OPTHINGS:Button("Open Profile Link", function()
 if CheckIfUserFollowed() == true then
     DiscordLib:Notification("Error!", "Arleady followed!", "Okay!")
 else
-    setclipboard(tostring("https://www.roblox.com/users/7529992299/profile"))
-    DiscordLib:Notification("Success!", "Copied Link!", "Okay!")
+
+if WebHandler then
+WebHandler:OpenWeb("https://www.roblox.com/users/7529992299/profile")
+setclipboard(tostring("https://www.roblox.com/users/7529992299/profile"))
+else
+setclipboard(tostring("https://www.roblox.com/users/7529992299/profile")) DiscordLib:Notification("Success!", "Copied Link!", "Okay!")
+end
+
 end
 end)
 
@@ -1008,8 +1019,14 @@ OPTHINGS:Button("Copy Gamepass Link", function()
 if game:GetService("MarketplaceService"):UserOwnsGamePassAsync(game:GetService("Players").LocalPlayer.UserId, 1264479709) then
     DiscordLib:Notification("Error!", "Arleady have gamepass!", "Okay!")
 else
-    setclipboard(tostring("https://www.roblox.com/game-pass/1264479709"))
-    DiscordLib:Notification("Success!", "Copied Link!", "Okay!")
+
+if WebHandler then
+WebHandler:OpenWeb("https://www.roblox.com/game-pass/1264479709")
+setclipboard(tostring("https://www.roblox.com/game-pass/1264479709"))
+else
+setclipboard(tostring("https://www.roblox.com/game-pass/1264479709")) DiscordLib:Notification("Success!", "Copied Link!", "Okay!")
+end
+
 end
 end)
 
