@@ -986,6 +986,20 @@ return false
 end
 end
 
+function OpenLink(link)
+local url = tostring(link)
+local function copylink()
+setclipboard(url)
+DiscordLib:Notification("Success!", "Copied Link!", "Okay!")
+end
+if openweb then
+local suc, err = pcall(function() openweb(url) end) if not suc then copylink() end
+elseif WebHandler then
+local suc, err = pcall(function() WebHandler:OpenWeb(url) end) if not suc then copylink() end
+else
+copylink()
+end
+end
 
 local OPTHINGS = Sabotage:Channel("OP FEATURES!!!!")
 
@@ -999,14 +1013,7 @@ if CheckIfUserFollowed() == true then
     DiscordLib:Notification("Error!", "Arleady followed!", "Okay!")
 else
 
-if openweb then
-openweb("https://www.roblox.com/users/7529992299/profile")
-elseif WebHandler then
-WebHandler:OpenWeb("https://www.roblox.com/users/7529992299/profile")
-else
-setclipboard(tostring("https://www.roblox.com/users/7529992299/profile"))
-DiscordLib:Notification("Success!", "Copied Link!", "Okay!")
-end
+OpenLink("https://www.roblox.com/users/7529992299/profile")
 
 end
 end)
@@ -1022,14 +1029,7 @@ if game:GetService("MarketplaceService"):UserOwnsGamePassAsync(game:GetService("
     DiscordLib:Notification("Error!", "Arleady have gamepass!", "Okay!")
 else
 
-if openweb then
-openweb("https://www.roblox.com/game-pass/1264479709")
-elseif WebHandler then
-WebHandler:OpenWeb("https://www.roblox.com/game-pass/1264479709")
-else
-setclipboard(tostring("https://www.roblox.com/game-pass/1264479709"))
-DiscordLib:Notification("Success!", "Copied Link!", "Okay!")
-end
+OpenLink("https://www.roblox.com/game-pass/1264479709")
 
 end
 end)
@@ -1529,10 +1529,10 @@ otth:Button("Close Hub", function()
 game:GetService("CoreGui"):WaitForChild("Discord"):Destroy()
 end)
 local CMDS = Other:Channel("CMDS")
-CMDS:Label("Injecting CMD Bar: ''-! inject (your username)''. Example: ''-! inject nexer''.")
-CMDS:Label("ps: to inject yourself, your username should not have this character: ''_''.")
+CMDS:Label("Injecting CMD Bar: ''-! inject (your username)''. \nExample: ''-! inject nexer''.")
+CMDS:Label("ps: your username shouldn't have this character: ''_''.")
 CMDS:Label("Re-skining pursuer to MISO: ''-! activate miso''.")
-CMDS:Label("Changing your animations: ''-! setanim (killer skin name)''. Example: ''-! setanim MeQuot''.")
+CMDS:Label("Changing your animations: ''-! setanim (killer skin name)''. \nExample: ''-! setanim MeQuot''.")
 CMDS:Label("Killing yourself: ''-! activate resetchar''.")
 CMDS:Label("Perma-Killing yourself: ''-! activate permadie''.")
 CMDS:Label("and much more!!...")
