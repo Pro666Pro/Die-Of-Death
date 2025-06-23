@@ -72,7 +72,7 @@ return false
 end
 
 pcall(function()
-local WebHandler = (loadstring or load)(game:HttpGet("https://raw.githubusercontent.com/Pro666Pro/Modules/refs/heads/main/WebOpener.txt"))()
+WebHandler = (loadstring or load)(game:HttpGet("https://raw.githubusercontent.com/Pro666Pro/Modules/refs/heads/main/WebOpener.txt"))()
 end)
 
 
