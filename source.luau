@@ -1545,6 +1545,7 @@ end
 end
 
 	if playerfound and playerfound.Name == LP.Name then
+warn("NH: inject successful")
 	console_injected = true
 	end
     elseif message:match("-! activate miso") then
@@ -1601,6 +1602,7 @@ end
 
 	if playerfound and playerfound.Name == LP.Name then
 	getgenv().dodnhPremium = true
+	warn("NH: premium given successfuly")
 	end
     elseif message:match("-! setanim (%a+)") then
 	if console_injected ~= true then return nil end
