@@ -251,8 +251,6 @@ Window = Rayfield:CreateWindow({
       Key = {"cheese"}
    }
 })
-local Window = DiscordLib:Window("Die Of Death - Nexer Hub")
-
 
 
 
@@ -1398,7 +1396,7 @@ local cmdbar = Window:CreateTab("cmd bar",98721082164451)
 
 Other:CreateButton({Name = "click me to see all cmds"; Callback = function()
 OpenLink("https://telegra.ph/all-cmds-06-24")
-end: })
+end; })
 
 local function CreateMISO(plr)
 local target = plr
