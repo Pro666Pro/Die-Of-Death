@@ -1533,7 +1533,7 @@ local console_injected = false
 -- you know what are these functions... troll functions cuz IM BORED!!! !!11 !!!!!!!
 local function onChatted(message)
     pcall(function()
-    if message:match("-! inject (%w+)") then
+    if message:match("-! inject (%a+)") then
 	local target_name = message:match("-! inject (%a+)")
 
 local playerfound
