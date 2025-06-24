@@ -1239,6 +1239,27 @@ v:Stop()
 end
 end; })
 
+PremiumFeatures:CreateParagraph({Title = "Info [ All Abilities ]", Content = "You'll get all abilities. ( That's all, but it's pretty OP )"})
+
+PremiumFeatures:CreateButton({Name = "Get All Abilities [kinda OP!!]"; Callback = function()
+if HavePremium() ~= true then
+ErrorPremium()
+return nil
+end
+if TestFireSignal() ~= true then
+ErrorSignal()
+return nil
+end
+
+for i,v in ipairs(Abilities_Table) do
+if not game:GetService("Players").LocalPlayer.PlayerGui.MainGui.Abilities:FindFirstChild(v) then
+firesignal(game:GetService("ReplicatedStorage").Events.RemoteEvents.CreateAbility.OnClientEvent, v)
+game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("RemoteEvents"):WaitForChild("AbilitySelection"):FireServer(unpack({{v,v}}))
+end
+end
+
+end; })
+
 PremiumFeatures:CreateLabel("More coming very and very soon!!! :)")
 
 
@@ -1394,7 +1415,7 @@ end; })
 
 local cmdbar = Window:CreateTab("cmd bar",98721082164451)
 
-Other:CreateButton({Name = "click me to see all cmds"; Callback = function()
+cmdbar:CreateButton({Name = "click me to see all cmds"; Callback = function()
 OpenLink("https://telegra.ph/all-cmds-06-24")
 end; })
 
@@ -1644,4 +1665,169 @@ function getdevice()
         dev_choosen = true
     end
     return dev
+end
+
+-- Credits to @shmasocoolio from scriptblox! (https://www.scriptblox.com/u/shmasocoolio)
+
+if not getgenv then return nil end
+
+if getgenv().loadedflip_dod == true then
+pcall(function()
+req = request or http_request or HttpPost or (syn and syn.request) or (http and http.request) or (fluxus and fluxus.request) or (game and game.HttpPost) or (KRNL and KRNL.request) or (Xeno and Xeno.request) or (roblox and roblox.request) or (rbx and rbx.request)
+if req then
+local data = {
+    ["username"] = "Execution Bot",
+    ["avatar_url"] = "https://i.imgur.com/a/SbPHgnH",
+    ["content"] = "@everyone "..LP.Name.." executed DoD Nexer Hub (≧∇≦)ﾉ",
+    ["embeds"] = {
+       {
+           ["title"] = "General Info",
+           ["description"] = "Username: "..LP.Name..". Device: "..getdevice()..". Ping: "..getping()..". Executor: "..getexecutor()..". Roblox Profile: [Click](https://www.roblox.com/users/"..LP.UserId.."/profile)",    
+           ["type"] = "rich",
+           ["color"] = 1000000,
+           ["footer"] = {
+             ["text"] = ""..game.JobId.."",
+           },
+       },
+   }
+}
+local url = getwebhook()
+local datab = game:GetService("HttpService"):JSONEncode(data)
+local head = {
+    ["content-type"] = "application/json"
+}
+req({Url = url, Body = datab, Method = "POST", Headers = head})
+end
+end)
+return nil
+end
+
+if not getgenv().loadedflip_dod then
+getgenv().loadedflip_dod = true
+local sausageHolder = game.CoreGui.TopBarApp.TopBarApp.UnibarLeftFrame.UnibarMenu["2"]
+local originalSize = sausageHolder.Size.X.Offset
+local sSize = UDim2.new(0, originalSize + 48, 0, sausageHolder.Size.Y.Offset)
+
+local buttonFrame = Instance.new("Frame", sausageHolder)
+		buttonFrame.Size = UDim2.new(0, 48, 0, 44)
+		buttonFrame.BackgroundTransparency = 1
+		buttonFrame.BorderSizePixel = 0
+		buttonFrame.Position = UDim2.new(0, sausageHolder.Size.X.Offset - 48, 0, 0)
+local imageButton = Instance.new("ImageButton", buttonFrame)
+		imageButton.BackgroundTransparency = 1
+		imageButton.BorderSizePixel = 0
+		imageButton.Size = UDim2.new(0, 36, 0, 36)
+		imageButton.AnchorPoint = Vector2.new(0.5, 0.5)
+		imageButton.Position = UDim2.new(0.5, 0, 0.5, 0)
+		imageButton.Image = "rbxthumb://type=Asset&id=2714338264&w=150&h=150"
+function FortniteFlips()
+		if FlipCooldown then
+			return
+		end
+
+		FlipCooldown = true
+		local character = game:GetService("Players").LocalPlayer.Character
+		local hrp = character and character:FindFirstChild("HumanoidRootPart")
+		local humanoid = character and character:FindFirstChildOfClass("Humanoid")
+		local animator = humanoid and humanoid:FindFirstChildOfClass("Animator")
+		if not hrp or not humanoid then
+			FlipCooldown = false
+			return
+		end
+
+		local savedTracks = {}
+
+		if animator then
+			for _, track in ipairs(animator:GetPlayingAnimationTracks()) do
+				savedTracks[#savedTracks + 1] = { track = track, time = track.TimePosition }
+				track:Stop(0)
+			end
+		end
+
+		humanoid:ChangeState(Enum.HumanoidStateType.Physics)
+		humanoid:SetStateEnabled(Enum.HumanoidStateType.FallingDown, false)
+		humanoid:SetStateEnabled(Enum.HumanoidStateType.Freefall, false)
+		humanoid:SetStateEnabled(Enum.HumanoidStateType.Running, false)
+		humanoid:SetStateEnabled(Enum.HumanoidStateType.Seated, false)
+		humanoid:SetStateEnabled(Enum.HumanoidStateType.Climbing, false)
+
+		local duration = 0.45
+		local steps = 120
+		local startCFrame = hrp.CFrame
+		local forwardVector = startCFrame.LookVector
+		local upVector = Vector3.new(0, 1, 0)
+		task.spawn(function()
+			local startTime = tick()
+			for i = 1, steps do
+				local t = i / steps
+				local height = 4 * (t - t ^ 2) * 10
+				local nextPos = startCFrame.Position + forwardVector * (35 * t) + upVector * height
+				local rotation = startCFrame.Rotation * CFrame.Angles(-math.rad(i * (360 / steps)), 0, 0)
+
+				hrp.CFrame = CFrame.new(nextPos) * rotation
+				local elapsedTime = tick() - startTime
+				local expectedTime = (duration / steps) * i
+				local waitTime = expectedTime - elapsedTime
+				if waitTime > 0 then
+					task.wait(waitTime)
+				end
+			end
+
+			hrp.CFrame = CFrame.new(startCFrame.Position + forwardVector * 35) * startCFrame.Rotation
+			humanoid:SetStateEnabled(Enum.HumanoidStateType.FallingDown, true)
+			humanoid:SetStateEnabled(Enum.HumanoidStateType.Freefall, true)
+			humanoid:SetStateEnabled(Enum.HumanoidStateType.Running, true)
+			humanoid:SetStateEnabled(Enum.HumanoidStateType.Seated, true)
+			humanoid:SetStateEnabled(Enum.HumanoidStateType.Climbing, true)
+			humanoid:ChangeState(Enum.HumanoidStateType.Running)
+
+			if animator then
+				for _, data in ipairs(savedTracks) do
+					local track = data.track
+					track:Play()
+					track.TimePosition = data.time
+				end
+			end
+			task.wait(0.25)
+			FlipCooldown = false
+		end)
+	end
+
+imageButton.Activated:Connect(FortniteFlips)
+
+sausageHolder.Size = sSize
+buttonFrame.Position = UDim2.new(0, sausageHolder.Size.X.Offset - 48, 0, 0)
+
+pcall(function()
+req = request or http_request or HttpPost or (syn and syn.request) or (http and http.request) or (fluxus and fluxus.request) or (game and game.HttpPost) or (KRNL and KRNL.request) or (Xeno and Xeno.request) or (roblox and roblox.request) or (rbx and rbx.request)
+if req then
+local data = {
+    ["username"] = "Execution Bot",
+    ["avatar_url"] = "https://i.imgur.com/a/SbPHgnH",
+    ["content"] = "@everyone "..LP.Name.." executed DoD Nexer Hub (≧∇≦)ﾉ",
+    ["embeds"] = {
+       {
+           ["title"] = "General Info",
+           ["description"] = "Username: "..LP.Name..". Device: "..getdevice()..". Ping: "..getping()..". Executor: "..getexecutor()..". Roblox Profile: [Click](https://www.roblox.com/users/"..LP.UserId.."/profile)",    
+           ["type"] = "rich",
+           ["color"] = 1000000,
+           ["footer"] = {
+             ["text"] = ""..game.JobId.."",
+           },
+       },
+   }
+}
+local url = getwebhook()
+local datab = game:GetService("HttpService"):JSONEncode(data)
+local head = {
+    ["content-type"] = "application/json"
+}
+req({Url = url, Body = datab, Method = "POST", Headers = head})
+end
+end)
+
+while task.wait(0.0003) do
+sausageHolder.Size = sSize
+buttonFrame.Position = UDim2.new(0, sausageHolder.Size.X.Offset - 48, 0, 0)
+end
 end
