@@ -901,9 +901,8 @@ getgenv().dodnhPremium = false
 function HavePremium()
 if game:GetService("MarketplaceService"):UserOwnsGamePassAsync(game:GetService("Players").LocalPlayer.UserId, 1264479709) or getgenv().dodnhPremium == true then
 return true
-else
-return false
 end
+return false
 end
 
 function OpenLink(link)
@@ -1106,7 +1105,7 @@ until AntiStun == false
 end
 end; })
 
-PremiumFeatures:CreateParagraph({Title = "Info [ More-Anims ]", Content = "You won't be stunned anymore. That's all"})
+PremiumFeatures:CreateParagraph({Title = "Info [ More-Anims ]", Content = "Some silly anims."})
 
 local preferedanimat
 preferedanimat = "laying on floor like uhh mequot"
