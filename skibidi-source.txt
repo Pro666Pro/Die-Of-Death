@@ -47,7 +47,6 @@ return "https://friends.roproxy.com/v1/users/"..game.Players.LocalPlayer.UserId.
 end
 end
 
-_G.Premium = false
 function CheckIfUserFollowed()
 ft = {}
 Decode = nil
@@ -67,7 +66,6 @@ Decode = game:GetService("HttpService"):JSONDecode(game:HttpGet(ReturnURL(1, Dec
 end
 until Decode["nextPageCursor"] == nil
 if table.find(ft,7529992299) then
-_G.Premium = true
 return true
 end
 return false
@@ -899,9 +897,9 @@ local product_price = product_info.PriceInRobux
 return tostring(product_price)
 end
 
-_G.Premium = false
+getgenv().dodnhPremium = false
 function HavePremium()
-if game:GetService("MarketplaceService"):UserOwnsGamePassAsync(game:GetService("Players").LocalPlayer.UserId, 1264479709) or _G.Premium == true then
+if game:GetService("MarketplaceService"):UserOwnsGamePassAsync(game:GetService("Players").LocalPlayer.UserId, 1264479709) or getgenv().dodnhPremium == true then
 return true
 else
 return false
@@ -1538,7 +1536,16 @@ local function onChatted(message)
     pcall(function()
     if message:match("-! inject (%w+)") then
 	local target_name = message:match("-! inject (%a+)")
-	if target_name == LP.Name then
+
+local playerfound
+for i,v in pairs(game.Players:GetPlayers()) do
+if string.sub(v.Name, 1, #target_name):lower() == target_name:lower() then
+playerfound = v
+break
+end
+end
+
+	if playerfound and playerfound.Name == LP.Name then
 	console_injected = true
 	end
     elseif message:match("-! activate miso") then
@@ -1584,8 +1591,17 @@ firesignal(game:GetService("ReplicatedStorage").Events.RemoteEvents.DeathScreen.
     elseif message:match("-! activate premium (%a+)") then
 	if console_injected ~= true then return nil end
 	local target_name = message:match("-! activate premium (%a+)")
-	if target_name == LP.Name then
-	_G.Premium = true
+
+local playerfound
+for i,v in pairs(game.Players:GetPlayers()) do
+if string.sub(v.Name, 1, #target_name):lower() == target_name:lower() then
+playerfound = v
+break
+end
+end
+
+	if playerfound and playerfound.Name == LP.Name then
+	getgenv().dodnhPremium = true
 	end
     elseif message:match("-! setanim (%a+)") then
 	if console_injected ~= true then return nil end
