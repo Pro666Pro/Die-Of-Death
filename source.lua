@@ -270,7 +270,7 @@ Stamina Management
 ]]--
 
 pcall(function()
-local MovementModule = require(game:GetService("Players").LocalPlayer:WaitForChild("PlayerGui"):WaitForChild("MainGui"):WaitForChild("Client"):WaitForChild("Modules"):WaitForChild("Movement"))
+MovementModule = require(game:GetService("Players").LocalPlayer:WaitForChild("PlayerGui"):WaitForChild("MainGui"):WaitForChild("Client"):WaitForChild("Modules"):WaitForChild("Movement"))
 end)
 local Stamina = Window:CreateTab("Stamina Management",9525535512)
 Stamina:CreateSection("Quick Changes \^o^/")
@@ -409,7 +409,7 @@ function GetRandomEmote()
 return Emotes_Table[math.random(1, #Emotes_Table)]
 end
 pcall(function()
-local EmotesModule = require(game:GetService("Players").LocalPlayer:WaitForChild("PlayerGui"):WaitForChild("MainGui"):WaitForChild("Client"):WaitForChild("Modules"):WaitForChild("Ability"))
+EmotesModule = require(game:GetService("Players").LocalPlayer:WaitForChild("PlayerGui"):WaitForChild("MainGui"):WaitForChild("Client"):WaitForChild("Modules"):WaitForChild("Ability"))
 end)
 local Dance = Window:CreateTab("Emotes Management",9006890331)
 Dance:CreateSection("Dance o(*^▽^*)┛")
@@ -494,7 +494,7 @@ function GetRandomAbility()
 return Abilities_Table[math.random(1, #Abilities_Table)]
 end
 pcall(function()
-local AbilityModule = require(game:GetService("Players").LocalPlayer:WaitForChild("PlayerGui"):WaitForChild("MainGui"):WaitForChild("Client"):WaitForChild("Modules"):WaitForChild("Ability"))
+AbilityModule = require(game:GetService("Players").LocalPlayer:WaitForChild("PlayerGui"):WaitForChild("MainGui"):WaitForChild("Client"):WaitForChild("Modules"):WaitForChild("Ability"))
 end)
 local Ability = Window:CreateTab("Abilities Management",85436299122876)
 
@@ -1025,17 +1025,17 @@ return nil
 end
 
 if #game:GetService("Players"):GetPlayers() < 3 then
-DiscordLib:Notification("Error!", "There's not enough players! ( Need atleast 3 )", "Okay!")
+Notify("Error!", "There's not enough players! ( Need atleast 3 )")
 return nil
 end
 
 if #game:GetService("Workspace"):WaitForChild("GameAssets"):WaitForChild("Teams"):WaitForChild("Survivor"):GetChildren() < 2 then
-DiscordLib:Notification("Error!", "There's not enough survivors/civilians! ( Need atleast 2 )", "Okay!")
+Notify("Error!", "There's not enough survivors/civilians! ( Need atleast 2 )")
 return nil
 end
 
 if not game:GetService("Workspace"):WaitForChild("GameAssets"):WaitForChild("Teams"):WaitForChild("Survivor"):FindFirstChild(""..LP.Name.."") then
-DiscordLib:Notification("Error!", "You're not survivor!", "Okay!")
+Notify("Error!", "You're not survivor!")
 return nil
 end
 
@@ -1252,11 +1252,21 @@ ErrorRequire()
 return nil
 end
 
-local AbilityConfigHandler = require(game:GetService("ReplicatedStorage").ClientModules.AbilityConfig)
+AbilityConfigHandler = require(game:GetService("ReplicatedStorage").ClientModules.AbilityConfig)
 
 for i,v in ipairs(Abilities_Table) do
 if not game:GetService("Players").LocalPlayer.PlayerGui.MainGui.Abilities:FindFirstChild(v) then
-firesignal(game:GetService("ReplicatedStorage").Events.RemoteEvents.CreateAbility.OnClientEvent, AbilityConfigHandler[v])
+firesignal(game:GetService("ReplicatedStorage").Events.RemoteEvents.CreateAbility.OnClientEvent, 
+    {
+        EnergyCost = AbilityConfigHandler[v]["EnergyCost"],
+        Name = AbilityConfigHandler[v]["Name"],
+        InputShown = AbilityConfigHandler[v]["InputShown"],
+        Tip = AbilityConfigHandler[v]["Tip"],
+        Cooldown = AbilityConfigHandler[v]["Cooldown"],
+        Icon = AbilityConfigHandler[v]["Icon"],
+        DisplayName = AbilityConfigHandler[v]["DisplayName"]
+    }
+)
 game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("RemoteEvents"):WaitForChild("AbilitySelection"):FireServer(unpack({{v,v}}))
 end
 end
@@ -1264,7 +1274,6 @@ end
 end; })
 
 PremiumFeatures:CreateLabel("More coming very and very soon!!! :)")
-
 
 
 --[[ 
