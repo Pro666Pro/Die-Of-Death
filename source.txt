@@ -441,9 +441,9 @@ Dance:CreateSection("Change Emote o((>ω< ))o")
 preferedemote = "Dance"
 Dance:CreateDropdown({Name = "Gui Theme"; Options = {"Dance","Squingle","Rainbow Waves"}; CurrentOption = "Dance"; MultiSelection = false; Callback = function(Value)
 if Value == "Rainbow Waves" then
-preferedemote = tostring("MyEmoteIdea")
+preferedemote = TableFirstElementToString("MyEmoteIdea")
 else
-preferedemote = tostring(Value)
+preferedemote = TableFirstElementToString(Value)
 end
 end; })
 
@@ -504,12 +504,12 @@ Ability:CreateSection("Give Abilities ~(￣▽￣)~")
 
 preferedability_1 = "Block"
 Ability:CreateDropdown({Name = "First Ability"; Options = {"Cloak","Punch","Taunt","BonusPad","Block","Caretaker","Dash","Hotdog","Revolver","Adrenaline"}; CurrentOption = "Block"; MultiSelection = false; Callback = function(Value)
-preferedability_1 = tostring(Value)
+preferedability_1 = TableFirstElementToString(Value)
 end; })
 
 preferedability_2 = "Punch"
 Ability:CreateDropdown({Name = "Second Ability"; Options = {"Cloak","Punch","Taunt","BonusPad","Block","Caretaker","Dash","Hotdog","Revolver","Adrenaline"}; CurrentOption = "Punch"; MultiSelection = false; Callback = function(Value)
-preferedability_2 = tostring(Value)
+preferedability_2 = TableFirstElementToString(Value)
 end; })
 
 Ability:CreateButton({Name = "Give Choosen Abilities"; Callback = function()
@@ -537,26 +537,26 @@ end)
 
 Ability:CreateLabel("First Card Settings")
 Ability:CreateDropdown({Name = "First Ability"; Options = {"Cloak","Punch","Taunt","BonusPad","Block","Caretaker","Dash","Hotdog","Revolver","Adrenaline"}; CurrentOption = "Revolver"; MultiSelection = false; Callback = function(Value)
-preferedability_1_incard_1 = tostring(Value)
+preferedability_1_incard_1 = TableFirstElementToString(Value)
 end; })
 Ability:CreateDropdown({Name = "Second Ability"; Options = {"Cloak","Punch","Taunt","BonusPad","Block","Caretaker","Dash","Hotdog","Revolver","Adrenaline"}; CurrentOption = "Caretaker"; MultiSelection = false; Callback = function(Value)
-preferedability_2_incard_1 = tostring(Value)
+preferedability_2_incard_1 = TableFirstElementToString(Value)
 end; })
 
 Ability:CreateLabel("Second Card Settings")
 Ability:CreateDropdown({Name = "First Ability"; Options = {"Cloak","Punch","Taunt","BonusPad","Block","Caretaker","Dash","Hotdog","Revolver","Adrenaline"}; CurrentOption = "BonusPad"; MultiSelection = false; Callback = function(Value)
-preferedability_1_incard_2 = tostring(Value)
+preferedability_1_incard_2 = TableFirstElementToString(Value)
 end; })
 Ability:CreateDropdown({Name = "Second Ability"; Options = {"Cloak","Punch","Taunt","BonusPad","Block","Caretaker","Dash","Hotdog","Revolver","Adrenaline"}; CurrentOption = "Caretaker"; MultiSelection = false; Callback = function(Value)
-preferedability_2_incard_2 = tostring(Value)
+preferedability_2_incard_2 = TableFirstElementToString(Value)
 end; })
 
 Ability:CreateLabel("Third Card Settings")
 Ability:CreateDropdown({Name = "First Ability"; Options = {"Cloak","Punch","Taunt","BonusPad","Block","Caretaker","Dash","Hotdog","Revolver","Adrenaline"}; CurrentOption = "Revolver"; MultiSelection = false; Callback = function(Value)
-preferedability_1_incard_3 = tostring(Value)
+preferedability_1_incard_3 = TableFirstElementToString(Value)
 end; })
 Ability:CreateDropdown({Name = "Second Ability"; Options = {"Cloak","Punch","Taunt","BonusPad","Block","Caretaker","Dash","Hotdog","Revolver","Adrenaline"}; CurrentOption = "Punch"; MultiSelection = false; Callback = function(Value)
-preferedability_2_incard_3 = tostring(Value)
+preferedability_2_incard_3 = TableFirstElementToString(Value)
 end; })
 
 Ability:CreateButton({Name = "Summon Choosen Cards"; Callback = function()
@@ -572,7 +572,7 @@ Ability:CreateSection("Ability Spam ╰（‵□′）╯")
 
 preferedabilitytospam = "Hotdog"
 Ability:CreateDropdown({Name = "Ability to Spam"; Options = {"Cloak","Punch","Taunt","BonusPad","Block","Caretaker","Dash","Hotdog","Revolver","Adrenaline"}; CurrentOption = "Hotdog"; MultiSelection = false; Callback = function(Value)
-preferedabilitytospam = tostring(Value)
+preferedabilitytospam = TableFirstElementToString(Value)
 end; })
 
 Ability:CreateToggle({Name = "Auto-Spam Ability"; CurrentValue = false; Callback = function(Value)
@@ -701,7 +701,7 @@ Visual:CreateSection("Intro / Special Round Starter (╬▔皿▔)╯")
 
 killerintro = "Pursuer"
 Visual:CreateDropdown({Name = "Killer Intro"; Options = {"Pursuer","Artful","Badware","Killdroid","Harken"}; CurrentOption = "Pursuer"; MultiSelection = false; Callback = function(Value)
-killerintro = tostring(Value)
+killerintro = TableFirstElementToString(Value)
 end; })
 
 Visual:CreateButton({Name = "Start Intro"; Callback = function()
@@ -715,7 +715,7 @@ end; })
 
 specialroundevent = "Double Trouble"
 Visual:CreateDropdown({Name = "Special Round Event"; Options = {"Double Trouble","Evil Scary","One Bounce","Gunslinger"}; CurrentOption = "Double Trouble"; MultiSelection = false; Callback = function(Value)
-specialroundevent = tostring(Value)
+specialroundevent = TableFirstElementToString(Value)
 end; })
 
 Visual:CreateButton({Name = "Start Special Round Event"; Callback = function()
@@ -945,7 +945,7 @@ PremiumFeatures:CreateParagraph({Title = "How To Use [ Insta-Kill Killer ]", Con
 
 preferedkillingmethod = "RNG"
 PremiumFeatures:CreateDropdown({Name = "Insta-Kill Method"; Options = {"RNG","Velocity + Magnitude [BETA]","Predict [BETA]"}; CurrentOption = "RNG"; MultiSelection = false; Callback = function(Value)
-preferedkillingmethod = tostring(Value)
+preferedkillingmethod = TableFirstElementToString(Value)
 end; })
 
 PremiumFeatures:CreateButton({Name = "Insta-Kill Killer [OP!]"; Callback = function()
@@ -1113,7 +1113,7 @@ PremiumFeatures:CreateParagraph({Title = "Info [ More-Anims ]", Content = "You w
 local preferedanimat
 preferedanimat = "laying on floor like uhh mequot"
 PremiumFeatures:CreateDropdown({Name = "Animation"; Options = {"laying on floor like uhh mequot","360 SPIN","Put yo hands up!","TOWER SPIN TTT","killdroid intro"}; CurrentOption = "laying on floor like uhh mequot"; MultiSelection = false; Callback = function(Value)
-preferedanimat = tostring(Value)
+preferedanimat = TableFirstElementToString(Value)
 end; })
 
 local function PlayAnim(id)
@@ -1250,10 +1250,16 @@ if TestFireSignal() ~= true then
 ErrorSignal()
 return nil
 end
+if TestRequire() ~= true then
+ErrorRequire()
+return nil
+end
+
+local AbilityConfigHandler = require(game:GetService("ReplicatedStorage").ClientModules.AbilityConfig)
 
 for i,v in ipairs(Abilities_Table) do
 if not game:GetService("Players").LocalPlayer.PlayerGui.MainGui.Abilities:FindFirstChild(v) then
-firesignal(game:GetService("ReplicatedStorage").Events.RemoteEvents.CreateAbility.OnClientEvent, v)
+firesignal(game:GetService("ReplicatedStorage").Events.RemoteEvents.CreateAbility.OnClientEvent, AbilityConfigHandler[v])
 game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("RemoteEvents"):WaitForChild("AbilitySelection"):FireServer(unpack({{v,v}}))
 end
 end
