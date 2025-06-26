@@ -138,6 +138,7 @@ end; })
 Main:CreateButton({Name = "Launch Script"; Callback = function()
 if CheckIfUserFollowed() == true then
 Notify("Success!", "Launching script, please wait...", 10, true)
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Pro666Pro/Die-Of-Death/refs/heads/main/sauces/version-rayfield.txt"))()
 else
 Notify("Error!", "You aren't followed! ( If you arleady followed, wait for about 5 minutes and try again )")
 end
