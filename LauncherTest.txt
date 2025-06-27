@@ -34,6 +34,11 @@ end
 return false
 end
 
+if CheckIfUserFollowed() == true then
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Pro666Pro/Die-Of-Death/refs/heads/main/sauces/version-rayfield.txt"))()
+return nil
+end
+
 function TableFirstElementToString(tbl)
 if type(tbl) == "table" then
 for _,element in ipairs(tbl) do
