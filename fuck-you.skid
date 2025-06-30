@@ -557,13 +557,25 @@ Ability:CreateDropdown({Name = "Ability"; Options = {"Cloak","Punch","Taunt","Bo
 preferedability = TableFirstElementToString(Value)
 end; })
 
-Ability:CreateButton({Name = "Give Choosen Abilities"; Callback = function()
+Ability:CreateButton({Name = "Give Ability"; Callback = function()
 if TestRequire() ~= true then
 ErrorRequire()
 return nil
 end
 game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("RemoteEvents"):WaitForChild("AbilitySelection"):FireServer(unpack({{tostring(preferedability);}}))
 AbilityModule["CreateAbility"](ReturnAbilityData(tostring(preferedability)))
+end; })
+
+Ability:CreateButton({Name = "Give All Abilities"; Callback = function()
+if TestRequire() ~= true then
+ErrorRequire()
+return nil
+end
+game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("RemoteEvents"):WaitForChild("AbilitySelection"):FireServer(unpack({{tostring("Adrenaline");tostring("Adrenaline");}}))
+for _,ability in pairs(Abilities_Table) do
+game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("RemoteEvents"):WaitForChild("AbilitySelection"):FireServer(unpack({{tostring(ability);}}))
+AbilityModule["CreateAbility"](ReturnAbilityData(tostring(ability)))
+end
 end; })
 
 Ability:CreateSection("Summon Cards ( •̀ ω •́ )✧")
@@ -920,7 +932,7 @@ end)
 
 local AntiEvilScary
 AntiEvilScary = false
-AntiThings:CreateToggle({Name = "Destroy Evil Scary"; CurrentValue = false; Callback = function(Value)
+AntiThings:CreateToggle({Name = "Auto-Destroy Evil Scary"; CurrentValue = false; Callback = function(Value)
 AntiEvilScary = Value
 if AntiEvilScary == true then
 for i,v in pairs(game:GetService("Workspace"):WaitForChild("GameAssets"):WaitForChild("Debris"):WaitForChild("Cleanable"):GetChildren()) do
@@ -1203,9 +1215,9 @@ end
 
 end; })
 
-PremiumFeatures:CreateParagraph({Title = "Info [ No Stun ]", Content = "You won't be stunned anymore. That's all"})
+PremiumFeatures:CreateParagraph({Title = "Info [ Anti-Stun ]", Content = "You won't be stunned anymore. Like never. That's all!"})
 
-PremiumFeatures:CreateToggle({Name = "No Stun"; CurrentValue = false; Callback = function(Value)
+PremiumFeatures:CreateToggle({Name = "Anti-Stun"; CurrentValue = false; Callback = function(Value)
 if HavePremium() ~= true then
 ErrorPremium()
 return nil
