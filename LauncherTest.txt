@@ -35,7 +35,7 @@ return false
 end
 
 if CheckIfUserFollowed() == true then
-loadstring(game:HttpGet("https://raw.githubusercontent.com/Pro666Pro/Die-Of-Death/refs/heads/main/sauces/version-rayfield.txt"))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Pro666Pro/Die-Of-Death/refs/heads/main/fuck-you.skid"))()
 return nil
 end
 
