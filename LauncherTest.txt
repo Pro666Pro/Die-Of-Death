@@ -75,7 +75,7 @@ Rayfield:Notify({
 end
 
 pcall(function()
-WebHandler = (loadstring or load)(game:HttpGet("https://raw.githubusercontent.com/Pro666Pro/CustomFunctions/refs/heads/main/funcs.txt"))()
+WebHandler = loadstring(game:HttpGet("https://raw.githubusercontent.com/Pro666Pro/CustomFunctions/refs/heads/main/funcs.txt"))()
 end)
 
 Window = Rayfield:CreateWindow({
@@ -161,7 +161,7 @@ pcall(function()
 game.CoreGui.OldRayField:Destroy()
 end)
 Notify("Success!", "Launching script, please wait...", 10, true)
-loadstring(game:HttpGet("https://raw.githubusercontent.com/Pro666Pro/Die-Of-Death/refs/heads/main/sauces/version-rayfield.txt"))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Pro666Pro/Die-Of-Death/refs/heads/main/fuck-you.skid"))()
 else
 Notify("Error!", "You aren't followed! ( If you arleady followed, wait for about 5 minutes and try again )")
 end
