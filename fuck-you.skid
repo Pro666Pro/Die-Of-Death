@@ -1308,6 +1308,9 @@ InvisChar.Parent = workspace
 InvisChar:WaitForChild("HumanoidRootPart").CFrame = Player.Character:WaitForChild("HumanoidRootPart").CFrame
 InvisChar.Name = tostring(randomstring())
 Camera.CameraSubject = InvisChar:FindFirstChildOfClass("Humanoid")
+Player.Character:WaitForChild("HumanoidRootPart").CFrame = workspace:FindFirstChild(tostring(plate_name)).CFrame * CFrame.new(0,20,0)
+Player.Character:FindFirstChildOfClass("Humanoid"):MoveTo(Vector3.new(workspace:FindFirstChild(tostring(plate_name)).Position.X, 9e9, workspace:FindFirstChild(tostring(plate_name)).Position.Z))
+task.wait(1)
 for i,v in pairs(InvisChar:GetDescendants()) do
 	if v and v:IsA("BasePart") then
 		if v.Name == "HumanoidRootPart" then
@@ -1319,8 +1322,6 @@ for i,v in pairs(InvisChar:GetDescendants()) do
 		end
 	end
 end
-Player.Character:WaitForChild("HumanoidRootPart").CFrame = workspace:FindFirstChild(tostring(plate_name)).CFrame * CFrame.new(0,20,0)
-Player.Character:FindFirstChildOfClass("Humanoid"):MoveTo(Vector3.new(workspace:FindFirstChild(tostring(plate_name)).Position.X, 9e9, workspace:FindFirstChild(tostring(plate_name)).Position.Z))
 Player.Character.Parent = game:GetService("LogService")
 Player.Character = InvisChar
 pcall(function()
