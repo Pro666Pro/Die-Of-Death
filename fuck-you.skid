@@ -493,6 +493,31 @@ local Abilities_Table = {
 function GetRandomAbility()
 return Abilities_Table[math.random(1, #Abilities_Table)]
 end
+function ReturnAbilityData(ability)
+if tostring(ability) == "Adrenaline" then
+return {Name = "Adrenaline",InputShown = "",Tip = "Get a temporary speed boost for 6 seconds, highlighting you to your teamates and slowing you down after it\'s over.",Cooldown = 35,Icon = "rbxassetid://116399911657417",DisplayName = "Adrenaline"}
+elseif tostring(ability) == "Punch" then
+return {Name = "Punch",InputShown = "",Tip = "Swing foward stunning any killers hit for 3 seconds, if missed you\'ll get severe endlag.",Cooldown = 40,Icon = "rbxassetid://97428323453639",DisplayName = "Punch"}
+elseif tostring(ability) == "Caretaker" then
+return {Name = "Caretaker",InputShown = "",Tip = "Splash a potion infront of you, any survivors hit will heal 20 HP in total. Having this ability makes you lose 75 max health though!",Cooldown = 30,Icon = "rbxassetid://90712805517714",DisplayName = "Caretaker"}
+elseif tostring(ability) == "Cloak" then
+return {Name = "Cloak",InputShown = "",Tip = "Becoming heavily slowed but invisible for a short amount of time, Killers can still hit you though!",Cooldown = 50,Icon = "rbxassetid://90476367580326",DisplayName = "Cloak"}
+elseif tostring(ability) == "Block" then
+return {Name = "Block",InputShown = "",Tip = "Try blocking any form of damage, if successful heal 10 HP, get a speed boost and negate all the damage.",Cooldown = 40,Icon = "rbxassetid://120929805037270",DisplayName = "Block"}
+elseif tostring(ability) == "Dash" then
+return {Name = "Dash",InputShown = "",Tip = "Dash foward, after you will get fatigue for 2 seconds which slows stamina regeneration and makes it drain faster.",Cooldown = 20,Icon = "rbxassetid://73777691791017",DisplayName = "Dash"}
+elseif tostring(ability) == "BonusPad" then
+return {Name = "BonusPad",InputShown = "",Tip = "Build a temporary speed pad that speeds up any survivor who steps on it. Having this ability makes you lose 10 max health though!",Cooldown = 70,Icon = "rbxassetid://86775625332300",DisplayName = "BonusPad"}
+elseif tostring(ability) == "Hotdog" then
+return {Name = "Hotdog",InputShown = "",Tip = "Eat a hotdog, healing 15 HP at the cost of 10 stamina.",Cooldown = 15,Icon = "rbxassetid://134322360499381",DisplayName = "Hotdog"}
+elseif tostring(ability) == "Revolver" then
+return {Name = "Revolver",InputShown = "",Tip = "Shoot with your revolver stunning any killers hit for 2 seconds, you\'ll have to reload after. Having this ability makes you lose 20 max stamina though!",Cooldown = 15,Icon = "rbxassetid://107624957891469",DisplayName = "Revolver"}
+elseif tostring(ability) == "Taunt" then
+return {Name = "Taunt",InputShown = "",Tip = "Taunt the killer gaining a forcefield, highlighting the killer, and slowing them down for 5 seconds or until you\'re hit for the duration of the effect (1.25x damage).",Cooldown = 25,Icon = "rbxassetid://85436299122876",DisplayName = "Taunt"}
+else
+return {Name = "Untitled",InputShown = "?",Tip = "No tips for this ability.",Cooldown = 10,Icon = "rbxassetid://82116081649912",DisplayName = "Untitled"}
+end
+end
 pcall(function()
 AbilityModule = require(game:GetService("Players").LocalPlayer:WaitForChild("PlayerGui"):WaitForChild("MainGui"):WaitForChild("Client"):WaitForChild("Modules"):WaitForChild("Ability"))
 end)
@@ -500,18 +525,18 @@ local Ability = Window:CreateTab("Abilities Management",85436299122876)
 
 Ability:CreateSection("Give Abilities ~(￣▽￣)~")
 
-preferedability_1 = "Block"
-Ability:CreateDropdown({Name = "First Ability"; Options = {"Cloak","Punch","Taunt","BonusPad","Block","Caretaker","Dash","Hotdog","Revolver","Adrenaline"}; CurrentOption = "Block"; MultiSelection = false; Callback = function(Value)
-preferedability_1 = TableFirstElementToString(Value)
-end; })
-
-preferedability_2 = "Punch"
-Ability:CreateDropdown({Name = "Second Ability"; Options = {"Cloak","Punch","Taunt","BonusPad","Block","Caretaker","Dash","Hotdog","Revolver","Adrenaline"}; CurrentOption = "Punch"; MultiSelection = false; Callback = function(Value)
-preferedability_2 = TableFirstElementToString(Value)
+preferedability = "Block"
+Ability:CreateDropdown({Name = "Ability"; Options = {"Cloak","Punch","Taunt","BonusPad","Block","Caretaker","Dash","Hotdog","Revolver","Adrenaline"}; CurrentOption = "Block"; MultiSelection = false; Callback = function(Value)
+preferedability = TableFirstElementToString(Value)
 end; })
 
 Ability:CreateButton({Name = "Give Choosen Abilities"; Callback = function()
-game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("RemoteEvents"):WaitForChild("AbilitySelection"):FireServer(unpack({{preferedability_1,preferedability_2}}))
+if TestRequire() ~= true then
+ErrorRequire()
+return nil
+end
+game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("RemoteEvents"):WaitForChild("AbilitySelection"):FireServer(unpack({{tostring(preferedability);}}))
+AbilityModule["CreateAbility"](ReturnAbilityData(tostring(preferedability)))
 end; })
 
 Ability:CreateSection("Summon Cards ( •̀ ω •́ )✧")
