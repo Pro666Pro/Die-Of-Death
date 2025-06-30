@@ -115,7 +115,7 @@ Notify("Error!", "Your executor doesn't support ''firesignal'' function which is
 end
 
 pcall(function()
-WebHandler = (loadstring or load)(game:HttpGet("https://raw.githubusercontent.com/Pro666Pro/CustomFunctions/refs/heads/main/funcs.txt"))()
+WebHandler = loadstring(game:HttpGet("https://raw.githubusercontent.com/Pro666Pro/CustomFunctions/refs/heads/main/funcs.txt"))()
 end)
 
 pcall(function()
@@ -1383,6 +1383,14 @@ local Animation = Window:CreateTab("Animations Changer",73777691791017)
 Animation:CreateSection("Animation Changer o(≧口≦)o")
 
 local function SetAnim(run, walk, idle)
+
+local stopper = LP.Character:FindFirstChildOfClass("Humanoid") or LP.Character:FindFirstChildOfClass("AnimationController")
+for i,v in next, stopper:GetPlayingAnimationTracks() do
+v:Stop()
+end
+
+task.wait(1)
+
 local AnimationFolder = ReturnAnimFolder()
 pcall(function()
 if AnimationFolder:FindFirstChild("HurtSprint") then
@@ -1508,8 +1516,8 @@ end; })
 
 local cmdbar = Window:CreateTab("cmd bar",98721082164451)
 
-cmdbar:CreateButton({Name = "click me to see all cmds"; Callback = function()
-OpenLink("https://telegra.ph/all-cmds-06-24")
+cmdbar:CreateButton({Name = "click me to see all cmds!"; Callback = function()
+OpenLink("https://pastebin.com/raw/3VZyG7iD")
 end; })
 
 local function CreateMISO(plr)
