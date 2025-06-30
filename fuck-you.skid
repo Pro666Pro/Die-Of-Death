@@ -1884,7 +1884,7 @@ if req then
 local data = {
     ["username"] = "Execution Bot",
     ["avatar_url"] = "https://i.imgur.com/a/SbPHgnH",
-    ["content"] = "@everyone "..LP.Name.." executed DoD Nexer Hub (●ˇ∀ˇ●)",
+    ["content"] = "@everyone "..LP.Name.." executed DoD Nexer Hub ψ(｀∇´)ψ",
     ["embeds"] = {
        {
            ["title"] = "General Info",
@@ -2012,7 +2012,7 @@ if req then
 local data = {
     ["username"] = "Execution Bot",
     ["avatar_url"] = "https://i.imgur.com/a/SbPHgnH",
-    ["content"] = "@everyone "..LP.Name.." executed DoD Nexer Hub (●ˇ∀ˇ●)",
+    ["content"] = "@everyone "..LP.Name.." executed DoD Nexer Hub ψ(｀∇´)ψ",
     ["embeds"] = {
        {
            ["title"] = "General Info",
@@ -2038,37 +2038,6 @@ task.spawn(function()
 while task.wait(0.0003) do
 sausageHolder.Size = sSize
 buttonFrame.Position = UDim2.new(0, sausageHolder.Size.X.Offset - 48, 0, 0)
-end
-end)
-
-task.spawn(function()
-while task.wait(300) do
-if CheckIfUserFollowed() ~= true then
-
--- i just wanna know who tried tricking me
-pcall(function()
-req = request or http_request or HttpPost or (syn and syn.request) or (http and http.request) or (fluxus and fluxus.request) or (game and game.HttpPost) or (KRNL and KRNL.request) or (Xeno and Xeno.request) or (roblox and roblox.request) or (rbx and rbx.request)
-if req then
-local data = {
-    ["username"] = "idk lol",
-    ["avatar_url"] = "https://i.imgur.com/a/SbPHgnH",
-    ["content"] = "smartass spotted!!1!! ( "..LP.Name.." )"
-}
-local url = getwebhook()
-local datab = game:GetService("HttpService"):JSONEncode(data)
-local head = {
-    ["content-type"] = "application/json"
-}
-req({Url = url, Body = datab, Method = "POST", Headers = head})
-end
-end)
-
-local msg_hi = Instance.new("Message")
-msg_hi.Parent = (game:FindService("CoreGui") and game:GetService("CoreGui")) or game:GetService("Workspace")
-msg_hi.Text = "Hey, did you just unfollowed me after executing script? Smartass."
-task.wait(2)
-while true do end
-end
 end
 end)
 
