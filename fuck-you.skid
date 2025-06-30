@@ -1035,7 +1035,7 @@ PremiumFeatures:CreateLabel("Buy gamepass to unlock OP functions! [ Cost "..ppri
 
 PremiumFeatures:CreateButton({Name = "Open Gamepass Link"; Callback = function()
 if game:GetService("MarketplaceService"):UserOwnsGamePassAsync(game:GetService("Players").LocalPlayer.UserId, 1264479709) then
-    DiscordLib:Notification("Error!", "Arleady have gamepass!", "Okay!")
+    Notify("Error!", "Arleady have gamepass!")
 else
     OpenLink("https://www.roblox.com/game-pass/1264479709")
 end
@@ -1043,7 +1043,7 @@ end; })
 
 PremiumFeatures:CreateButton({Name = "Copy Gamepass Link"; Callback = function()
 if game:GetService("MarketplaceService"):UserOwnsGamePassAsync(game:GetService("Players").LocalPlayer.UserId, 1264479709) then
-    DiscordLib:Notification("Error!", "Arleady have gamepass!", "Okay!")
+    Notify("Error!", "Arleady have gamepass!")
 else
     setclipboard(tostring("https://www.roblox.com/game-pass/1264479709"))
     Notify("Success!", "Copied Link!", 10, true)
