@@ -661,7 +661,7 @@ ReturnToOldSpot()
 end
 end
 
-local PointFarm = Window:CreateTab("Point Farm [ BETA ]",107624957891469)
+local PointFarm = Window:CreateTab("Point Farm [ work in progress ]",107624957891469)
 
 ability_tofarm = "Cloak"
 PointFarm:CreateDropdown({Name = "Ability"; Options = {"Cloak","Punch","Taunt","Revolver","Adrenaline"}; CurrentOption = "Cloak"; MultiSelection = false; Callback = function(Value)
@@ -675,7 +675,7 @@ local RevolverLabel = PointFarm:CreateLabel("Revolver Cooldown: 0")
 local AdrenalineLabel = PointFarm:CreateLabel("Adrenaline Cooldown: 0")
 
 PointFarm:CreateButton({Name = "Get Money with Ability"; Callback = function()
-GetMoneyViaAbility(tostring(ability_tofarm))
+--[[ cooldown thingy ]]--
 if ability_tofarm == "Cloak" then
 for i = 50, 1, -1 do
 CloakLabel:Set("Cloak Cooldown: "..i)
@@ -707,6 +707,8 @@ wait(1)
 end
 AdrenalineLabel:Set("Adrenaline Cooldown: 0")
 end
+--[[ get money ]]--
+GetMoneyViaAbility(tostring(ability_tofarm))
 end; })
 
 --[[ 
