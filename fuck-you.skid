@@ -663,6 +663,8 @@ end
 
 local PointFarm = Window:CreateTab("Point Farm [ work in progress ]",107624957891469)
 
+PointFarm:CreateLabel("Before farming money make sure to disable shiftlock!")
+
 ability_tofarm = "Cloak"
 PointFarm:CreateDropdown({Name = "Ability"; Options = {"Cloak","Punch","Taunt","Revolver","Adrenaline"}; CurrentOption = "Cloak"; MultiSelection = false; Callback = function(Value)
 ability_tofarm = TableFirstElementToString(Value)
