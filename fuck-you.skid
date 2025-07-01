@@ -661,11 +661,15 @@ ReturnToOldSpot()
 end
 end
 
-local PointFarm = Window:CreateTab("Point Farm [ test ]",107624957891469)
+local PointFarm = Window:CreateTab("Point Farm [ b e t a ]",107624957891469)
 
 ability_tofarm = "Cloak"
 PointFarm:CreateDropdown({Name = "Ability"; Options = {"Cloak","Punch","Taunt","Revolver","Adrenaline"}; CurrentOption = "Cloak"; MultiSelection = false; Callback = function(Value)
-ability_tofarm = TableFirstElementToString(Value)
+local asgjasi = nil
+ability_tofarm = nil
+asgjasi = TableFirstElementToString(Value)
+repeat task.wait() until asgjasi ~= nil
+ability_tofarm = asgjasi
 end; })
 
 local CloakLabel = PointFarm:CreateLabel("Cloak Cooldown: 0")
@@ -681,26 +685,31 @@ for i = 50, 1, -1 do
 wait(1)
 CloakLabel:Set("Cloak Cooldown: "..i)
 end
+CloakLabel:Set("Cloak Cooldown: 0")
 elseif ability_tofarm == "Punch" then
 for i = 40, 1, -1 do
 wait(1)
 PunchLabel:Set("Punch Cooldown: "..i)
 end
+PunchLabel:Set("Punch Cooldown: 0")
 elseif ability_tofarm == "Taunt" then
 for i = 25, 1, -1 do
 wait(1)
 TauntLabel:Set("Taunt Cooldown: "..i)
 end
+TauntLabel:Set("Taunt Cooldown: 0")
 elseif ability_tofarm == "Revolver" then
 for i = 15, 1, -1 do
 wait(1)
 RevolverLabel:Set("Revolver Cooldown: "..i)
 end
+RevolverLabel:Set("Revolver Cooldown: 0")
 elseif ability_tofarm == "Adrenaline" then
 for i = 35, 1, -1 do
 wait(1)
 AdrenalineLabel:Set("Adrenaline Cooldown: "..i)
 end
+AdrenalineLabel:Set("Adrenaline Cooldown: 0")
 end
 end; })
 
