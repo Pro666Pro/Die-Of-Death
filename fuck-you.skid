@@ -532,22 +532,35 @@ end
 --[[ If/Elseif starts here ]]--
 
 if ability == "Cloak" then
+game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("RemoteEvents"):WaitForChild("AbilitySelection"):FireServer(unpack({{tostring(ability)}}))
 local time = tick()
-while tick() - time < 3 do
+while tick() - time < 1.5 do
 for i,v in pairs(game.Players.LocalPlayer.Character:GetDescendants()) do
 if v and v:IsA("BasePart") then
 v.Velocity = Vector3.new(0,0,0)
 v.RotVelocity = Vector3.new(0,0,0)
 end
 end
-game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("RemoteEvents"):WaitForChild("AbilitySelection"):FireServer(unpack({{tostring(ability)}}))
+LP.Character:WaitForChild("HumanoidRootPart").CFrame = game:GetService("Workspace"):WaitForChild("GameAssets"):WaitForChild("Teams"):WaitForChild("Killer"):FindFirstChildOfClass("Model"):WaitForChild("HumanoidRootPart").CFrame * CFrame.new(0,10,0)
+task.wait()
+end
+task.spawn(function()
 game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("RemoteFunctions"):WaitForChild("UseAbility"):InvokeServer(unpack({tostring(ability)}))
+end)
+local time = tick()
+while tick() - time < 1.5 do
+for i,v in pairs(game.Players.LocalPlayer.Character:GetDescendants()) do
+if v and v:IsA("BasePart") then
+v.Velocity = Vector3.new(0,0,0)
+v.RotVelocity = Vector3.new(0,0,0)
+end
+end
 LP.Character:WaitForChild("HumanoidRootPart").CFrame = game:GetService("Workspace"):WaitForChild("GameAssets"):WaitForChild("Teams"):WaitForChild("Killer"):FindFirstChildOfClass("Model"):WaitForChild("HumanoidRootPart").CFrame * CFrame.new(0,10,0)
 task.wait()
 end
 --[[ skibidi void ]]--
 local time = tick()
-while tick() - time < 9 do
+while tick() - time < 8 do
 for i,v in pairs(game.Players.LocalPlayer.Character:GetDescendants()) do
 if v and v:IsA("BasePart") then
 v.Velocity = Vector3.new(0,0,0)
@@ -560,16 +573,29 @@ end
 ReturnToOldSpot()
 
 elseif ability == "Adrenaline" then
+game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("RemoteEvents"):WaitForChild("AbilitySelection"):FireServer(unpack({{tostring(ability)}}))
 local time = tick()
-while tick() - time < 3 do
+while tick() - time < 1.5 do
 for i,v in pairs(game.Players.LocalPlayer.Character:GetDescendants()) do
 if v and v:IsA("BasePart") then
 v.Velocity = Vector3.new(0,0,0)
 v.RotVelocity = Vector3.new(0,0,0)
 end
 end
-game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("RemoteEvents"):WaitForChild("AbilitySelection"):FireServer(unpack({{tostring(ability)}}))
+LP.Character:WaitForChild("HumanoidRootPart").CFrame = game:GetService("Workspace"):WaitForChild("GameAssets"):WaitForChild("Teams"):WaitForChild("Killer"):FindFirstChildOfClass("Model"):WaitForChild("HumanoidRootPart").CFrame * CFrame.new(0,10,0)
+task.wait()
+end
+task.spawn(function()
 game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("RemoteFunctions"):WaitForChild("UseAbility"):InvokeServer(unpack({tostring(ability)}))
+end)
+local time = tick()
+while tick() - time < 1.5 do
+for i,v in pairs(game.Players.LocalPlayer.Character:GetDescendants()) do
+if v and v:IsA("BasePart") then
+v.Velocity = Vector3.new(0,0,0)
+v.RotVelocity = Vector3.new(0,0,0)
+end
+end
 LP.Character:WaitForChild("HumanoidRootPart").CFrame = game:GetService("Workspace"):WaitForChild("GameAssets"):WaitForChild("Teams"):WaitForChild("Killer"):FindFirstChildOfClass("Model"):WaitForChild("HumanoidRootPart").CFrame * CFrame.new(0,10,0)
 task.wait()
 end
@@ -589,7 +615,7 @@ ReturnToOldSpot()
 
 elseif ability == "Punch" then
 local time = tick()
-while tick() - time < 3.25 do
+while tick() - time < 2.75 do
 for i,v in pairs(game.Players.LocalPlayer.Character:GetDescendants()) do
 if v and v:IsA("BasePart") then
 v.Velocity = Vector3.new(0,0,0)
@@ -605,7 +631,7 @@ ReturnToOldSpot()
 
 elseif ability == "Taunt" then
 local time = tick()
-while tick() - time < 4.25 do
+while tick() - time < 2.75 do
 for i,v in pairs(game.Players.LocalPlayer.Character:GetDescendants()) do
 if v and v:IsA("BasePart") then
 v.Velocity = Vector3.new(0,0,0)
@@ -622,7 +648,7 @@ ReturnToOldSpot()
 
 elseif ability == "Revolver" then
 local time = tick()
-while tick() - time < 3 do
+while tick() - time < 2.75 do
 for i,v in pairs(game.Players.LocalPlayer.Character:GetDescendants()) do
 if v and v:IsA("BasePart") then
 v.Velocity = Vector3.new(0,0,0)
@@ -639,7 +665,7 @@ ReturnToOldSpot()
 end
 end
 
-local PointFarm = Window:CreateTab("Point Farm [ BETA ]",107624957891469)
+local PointFarm = Window:CreateTab("Point Farm [ W.I.P. ]",107624957891469)
 
 ability_tofarm = "Cloak"
 PointFarm:CreateDropdown({Name = "Ability"; Options = {"Cloak","Punch","Taunt","Revolver","Adrenaline"}; CurrentOption = "Cloak"; MultiSelection = false; Callback = function(Value)
