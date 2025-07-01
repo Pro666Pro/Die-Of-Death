@@ -661,7 +661,7 @@ ReturnToOldSpot()
 end
 end
 
-local PointFarm = Window:CreateTab("Point Farm [ beta ]",107624957891469)
+local PointFarm = Window:CreateTab("Point Farm [ wip ]",107624957891469)
 
 ability_tofarm = "Cloak"
 PointFarm:CreateDropdown({Name = "Ability"; Options = {"Cloak","Punch","Taunt","Revolver","Adrenaline"}; CurrentOption = "Cloak"; MultiSelection = false; Callback = function(Value)
@@ -678,27 +678,32 @@ PointFarm:CreateButton({Name = "Get Money with Ability"; Callback = function()
 GetMoneyViaAbility(tostring(ability_tofarm))
 if ability_tofarm == "Cloak" then
 CloakLabel:Set("Cloak In Cooldown: true")
-task.delay(50, function()
+task.spawn(function()
+task.wait(50)
 CloakLabel:Set("Cloak In Cooldown: false")
 end)
 elseif ability_tofarm == "Punch" then
 PunchLabel:Set("Punch In Cooldown: true")
-task.delay(40, function()
+task.spawn(function()
+task.wait(40)
 PunchLabel:Set("Punch In Cooldown: false")
 end)
 elseif ability_tofarm == "Taunt" then
 TauntLabel:Set("Taunt In Cooldown: true")
-task.delay(25, function()
+task.spawn(function()
+task.wait(25)
 TauntLabel:Set("Taunt In Cooldown: false")
 end)
 elseif ability_tofarm == "Revolver" then
 RevolverLabel:Set("Revolver In Cooldown: true")
-task.delay(15, function()
+task.spawn(function()
+task.wait(15)
 RevolverLabel:Set("Revolver In Cooldown: false")
 end)
 elseif ability_tofarm == "Adrenaline" then
 AdrenalineLabel:Set("Adrenaline In Cooldown: true")
-task.delay(35, function()
+task.spawn(function()
+task.wait(35)
 AdrenalineLabel:Set("Adrenaline In Cooldown: false")
 end)
 end
