@@ -493,6 +493,198 @@ end; })
 --[[ 
 
 
+__________       __        __    ___________                     
+\______   \____ |__| _____/  |_  \_   _____/____ _______  _____  
+ |     ___/  _ \|  |/    \   __\  |    __) \__  \\_  __ \/     \ 
+ |    |  (  <_> )  |   |  \  |    |     \   / __ \|  | \/  Y Y  \
+ |____|   \____/|__|___|  /__|    \___  /  (____  /__|  |__|_|  /
+                        \/            \/        \/            \/ 
+
+Point Farm
+
+
+]]--
+
+function IsThereKiller()
+if game:GetService("Workspace"):WaitForChild("GameAssets"):WaitForChild("Teams"):WaitForChild("Killer"):FindFirstChildOfClass("Model") and game:GetService("Workspace"):WaitForChild("GameAssets"):WaitForChild("Teams"):WaitForChild("Killer"):FindFirstChildOfClass("Model").Name ~= game:GetService("Players").LocalPlayer.Name then
+return true
+end
+return false
+end
+
+function GetMoneyViaAbility(ability)
+if IsThereKiller() ~= true then return nil end
+local OldHRPCF = LP.Character:WaitForChild("HumanoidRootPart").CFrame
+local function ReturnToOldSpot()
+local time = tick()
+while tick() - time < 1.5 do
+for i,v in pairs(game.Players.LocalPlayer.Character:GetDescendants()) do
+if v and v:IsA("BasePart") then
+v.Velocity = Vector3.new(0,0,0)
+v.RotVelocity = Vector3.new(0,0,0)
+end
+end
+LP.Character:WaitForChild("HumanoidRootPart").CFrame = OldHRPCF
+task.wait()
+end
+end
+
+--[[ If/Elseif starts here ]]--
+
+if ability == "Cloak" then
+local time = tick()
+while tick() - time < 3 do
+for i,v in pairs(game.Players.LocalPlayer.Character:GetDescendants()) do
+if v and v:IsA("BasePart") then
+v.Velocity = Vector3.new(0,0,0)
+v.RotVelocity = Vector3.new(0,0,0)
+end
+end
+game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("RemoteEvents"):WaitForChild("AbilitySelection"):FireServer(unpack({{tostring(ability)}}))
+game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("RemoteFunctions"):WaitForChild("UseAbility"):InvokeServer(unpack({tostring(ability)}))
+LP.Character:WaitForChild("HumanoidRootPart").CFrame = game:GetService("Workspace"):WaitForChild("GameAssets"):WaitForChild("Teams"):WaitForChild("Killer"):FindFirstChildOfClass("Model"):WaitForChild("HumanoidRootPart").CFrame * CFrame.new(0,10,0)
+task.wait()
+end
+--[[ skibidi void ]]--
+local time = tick()
+while tick() - time < 9 do
+for i,v in pairs(game.Players.LocalPlayer.Character:GetDescendants()) do
+if v and v:IsA("BasePart") then
+v.Velocity = Vector3.new(0,0,0)
+v.RotVelocity = Vector3.new(0,0,0)
+end
+end
+LP.Character:WaitForChild("HumanoidRootPart").CFrame = CFrame.new(0,-450,0)
+task.wait()
+end
+ReturnToOldSpot()
+
+elseif ability == "Adrenaline" then
+local time = tick()
+while tick() - time < 3 do
+for i,v in pairs(game.Players.LocalPlayer.Character:GetDescendants()) do
+if v and v:IsA("BasePart") then
+v.Velocity = Vector3.new(0,0,0)
+v.RotVelocity = Vector3.new(0,0,0)
+end
+end
+game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("RemoteEvents"):WaitForChild("AbilitySelection"):FireServer(unpack({{tostring(ability)}}))
+game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("RemoteFunctions"):WaitForChild("UseAbility"):InvokeServer(unpack({tostring(ability)}))
+LP.Character:WaitForChild("HumanoidRootPart").CFrame = game:GetService("Workspace"):WaitForChild("GameAssets"):WaitForChild("Teams"):WaitForChild("Killer"):FindFirstChildOfClass("Model"):WaitForChild("HumanoidRootPart").CFrame * CFrame.new(0,10,0)
+task.wait()
+end
+--[[ skibidi void ]]--
+local time = tick()
+while tick() - time < 5 do
+for i,v in pairs(game.Players.LocalPlayer.Character:GetDescendants()) do
+if v and v:IsA("BasePart") then
+v.Velocity = Vector3.new(0,0,0)
+v.RotVelocity = Vector3.new(0,0,0)
+end
+end
+LP.Character:WaitForChild("HumanoidRootPart").CFrame = CFrame.new(0,-450,0)
+task.wait()
+end
+ReturnToOldSpot()
+
+elseif ability == "Punch" then
+local time = tick()
+while tick() - time < 3.25 do
+for i,v in pairs(game.Players.LocalPlayer.Character:GetDescendants()) do
+if v and v:IsA("BasePart") then
+v.Velocity = Vector3.new(0,0,0)
+v.RotVelocity = Vector3.new(0,0,0)
+end
+end
+game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("RemoteEvents"):WaitForChild("AbilitySelection"):FireServer(unpack({{tostring(ability)}}))
+game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("RemoteFunctions"):WaitForChild("UseAbility"):InvokeServer(unpack({tostring(ability)}))
+LP.Character:WaitForChild("HumanoidRootPart").CFrame = game:GetService("Workspace"):WaitForChild("GameAssets"):WaitForChild("Teams"):WaitForChild("Killer"):FindFirstChildOfClass("Model"):WaitForChild("HumanoidRootPart").CFrame * CFrame.new(0,0,2)
+task.wait()
+end
+ReturnToOldSpot()
+
+elseif ability == "Taunt" then
+local time = tick()
+while tick() - time < 4.25 do
+for i,v in pairs(game.Players.LocalPlayer.Character:GetDescendants()) do
+if v and v:IsA("BasePart") then
+v.Velocity = Vector3.new(0,0,0)
+v.RotVelocity = Vector3.new(0,0,0)
+end
+end
+game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("RemoteEvents"):WaitForChild("AbilitySelection"):FireServer(unpack({{tostring(ability)}}))
+game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("RemoteFunctions"):WaitForChild("UseAbility"):InvokeServer(unpack({tostring(ability)}))
+LP.Character:WaitForChild("HumanoidRootPart").CFrame = game:GetService("Workspace"):WaitForChild("GameAssets"):WaitForChild("Teams"):WaitForChild("Killer"):FindFirstChildOfClass("Model"):WaitForChild("HumanoidRootPart").CFrame * CFrame.new(0,0,2)
+task.wait()
+end
+ReturnToOldSpot()
+
+
+elseif ability == "Revolver" then
+local time = tick()
+while tick() - time < 3 do
+for i,v in pairs(game.Players.LocalPlayer.Character:GetDescendants()) do
+if v and v:IsA("BasePart") then
+v.Velocity = Vector3.new(0,0,0)
+v.RotVelocity = Vector3.new(0,0,0)
+end
+end
+game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("RemoteEvents"):WaitForChild("AbilitySelection"):FireServer(unpack({{tostring(ability)}}))
+game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("RemoteFunctions"):WaitForChild("UseAbility"):InvokeServer(unpack({tostring(ability)}))
+LP.Character:WaitForChild("HumanoidRootPart").CFrame = game:GetService("Workspace"):WaitForChild("GameAssets"):WaitForChild("Teams"):WaitForChild("Killer"):FindFirstChildOfClass("Model"):WaitForChild("HumanoidRootPart").CFrame * CFrame.new(0,0,2)
+task.wait()
+end
+ReturnToOldSpot()
+
+end
+end
+
+local PointFarm = Window:CreateTab("Point Farm [ BETA ]",107624957891469)
+
+ability_tofarm = "Cloak"
+PointFarm:CreateDropdown({Name = "Ability"; Options = {"Cloak","Punch","Taunt","Revolver","Adrenaline"}; CurrentOption = "Cloak"; MultiSelection = false; Callback = function(Value)
+ability_tofarm = TableFirstElementToString(Value)
+end; })
+
+local CloakLabel = PointFarm:CreateLabel("Cloak In Cooldown: false")
+local PunchLabel = PointFarm:CreateLabel("Punch In Cooldown: false")
+local TauntLabel = PointFarm:CreateLabel("Taunt In Cooldown: false")
+local RevolverLabel = PointFarm:CreateLabel("Revolver In Cooldown: false")
+local AdrenalineLabel = PointFarm:CreateLabel("Adrenaline In Cooldown: false")
+
+PointFarm:CreateButton({Name = "Get Money with Ability"; Callback = function()
+GetMoneyViaAbility(tostring(ability_tofarm))
+if ability_tofarm == "Cloak" then
+CloakLabel:Set("Cloak In Cooldown: true")
+task.delay(49, function()
+CloakLabel:Set("Cloak In Cooldown: false")
+end)
+elseif ability_tofarm == "Punch" then
+PunchLabel:Set("Punch In Cooldown: true")
+task.delay(39, function()
+PunchLabel:Set("Punch In Cooldown: false")
+end)
+elseif ability_tofarm == "Taunt" then
+TauntLabel:Set("Taunt In Cooldown: true")
+task.delay(24, function()
+TauntLabel:Set("Taunt In Cooldown: false")
+end)
+elseif ability_tofarm == "Revolver" then
+RevolverLabel:Set("Revolver In Cooldown: true")
+task.delay(14, function()
+RevolverLabel:Set("Revolver In Cooldown: false")
+end)
+elseif ability_tofarm == "Adrenaline" then
+AdrenalineLabel:Set("Adrenaline In Cooldown: true")
+task.delay(34, function()
+AdrenalineLabel:Set("Adrenaline In Cooldown: false")
+end)
+end
+end; })
+
+--[[ 
+
+
    _____ ___     __ __   __  __   __               
   /  _  \\_ |__ |__|  | |__|/  |_|__| ____   ______
  /  /_\  \| __ \|  |  | |  \   __\  |/ __ \ /  ___/
