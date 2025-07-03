@@ -1159,7 +1159,7 @@ end)
 
 local AntiEvilScary
 AntiEvilScary = false
-AntiThings:CreateToggle({Name = "Auto-Destroy Evil Scary"; CurrentValue = false; Callback = function(Value)
+AntiThings:CreateToggle({Name = "Auto-Destroy Evil Scary [ client ]"; CurrentValue = false; Callback = function(Value)
 AntiEvilScary = Value
 if AntiEvilScary == true then
 for i,v in pairs(game:GetService("Workspace"):WaitForChild("GameAssets"):WaitForChild("Debris"):WaitForChild("Cleanable"):GetChildren()) do
@@ -1832,6 +1832,162 @@ cmdbar:CreateButton({Name = "click me to see all cmds!"; Callback = function()
 OpenLink("https://pastebin.com/raw/3VZyG7iD")
 end; })
 
+
+--[[ Fartful skin myself handler ]]--
+pcall(function()
+function RemoveThingy(username)
+    return string.sub(username, 1, 1) == "@" and string.sub(username, 2) or username
+end
+
+workspace.GameAssets.Teams.Killer.ChildAdded:Connect(function(child)
+	task.wait(1)
+	local suc, err = pcall(function()
+		if child and child:FindFirstChild("CloneTool") and child:WaitForChild("CloneTool"):WaitForChild("Sparkles").Enabled == false then
+			child:WaitForChild("Accessories"):WaitForChild("Cape").Transparency = 0
+			if child:WaitForChild("Accessories"):FindFirstChild("Mask") then
+			child:WaitForChild("Accessories"):WaitForChild("Mask"):Destroy()
+			end
+			if child:FindFirstChild("TShirt") then
+			child:WaitForChild("TShirt"):Destroy()
+			end
+			child:WaitForChild("Accessories"):WaitForChild("Hat"):WaitForChild("SpecialMesh").MeshId = "rbxassetid://10550906266"
+			child:WaitForChild("Face"):WaitForChild("Face").Texture = "http://www.roblox.com/asset/?id=22587893"
+			if child:FindFirstChildOfClass("Shirt") == nil then
+			Instance.new("Shirt", child).ShirtTemplate = "http://www.roblox.com/asset/?id=11781931570"
+			end
+			if child:FindFirstChildOfClass("Pants") == nil then
+			Instance.new("Pants", child).PantsTemplate = "http://www.roblox.com/asset/?id=12198890151"
+			end
+			child:WaitForChild("CloneTool"):WaitForChild("Sparkles").Enabled = true
+			child:WaitForChild("CloneTool"):WaitForChild("Sparkles").Texture = "rbxassetid://9099782826"
+			child:WaitForChild("Animations"):WaitForChild("ChaseTheme").SoundId = "rbxassetid://122304523836872"
+			child:WaitForChild("Animations"):WaitForChild("ChaseTheme").Volume = 2.2
+		end
+	end)
+	if not suc then
+		warn(err)
+		pcall(function() error(err) end)
+	end
+end)
+
+local child = game:GetService("ReplicatedStorage").Characters.Killer.Artful.VeryRetro
+	if child and child:FindFirstChild("CloneTool") and child:WaitForChild("CloneTool"):WaitForChild("Sparkles").Enabled == false then
+		child:WaitForChild("Accessories"):WaitForChild("Cape").Transparency = 0
+		if child:WaitForChild("Accessories"):FindFirstChild("Mask") then
+		child:WaitForChild("Accessories"):WaitForChild("Mask"):Destroy()
+		end
+		if child:FindFirstChild("TShirt") then
+		child:WaitForChild("TShirt"):Destroy()
+		end
+		child:WaitForChild("Accessories"):WaitForChild("Hat"):WaitForChild("SpecialMesh").MeshId = "rbxassetid://10550906266"
+		child:WaitForChild("Face"):WaitForChild("Face").Texture = "http://www.roblox.com/asset/?id=22587893"
+		if child:FindFirstChildOfClass("Shirt") == nil then
+		Instance.new("Shirt", child).ShirtTemplate = "http://www.roblox.com/asset/?id=11781931570"
+		end
+		if child:FindFirstChildOfClass("Pants") == nil then
+		Instance.new("Pants", child).PantsTemplate = "http://www.roblox.com/asset/?id=12198890151"
+		end
+		child:WaitForChild("CloneTool"):WaitForChild("Sparkles").Enabled = true
+		child:WaitForChild("CloneTool"):WaitForChild("Sparkles").Texture = "rbxassetid://9099782826"
+		child:WaitForChild("Animations"):WaitForChild("ChaseTheme").SoundId = "rbxassetid://122304523836872"
+		child:WaitForChild("Animations"):WaitForChild("ChaseTheme").Volume = 2.2
+	end
+
+game:GetService("Players").LocalPlayer.PlayerGui.MainGui.Shop.KillerSkins.SkinInfo.Bio:GetPropertyChangedSignal("Text"):Connect(function()
+if game:GetService("Players").LocalPlayer.PlayerGui.MainGui.Shop.KillerSkins.SkinInfo.Bio.Text == '"I miss old ROBLOX so much man... Pet Simulator X was a blast!"' then
+game:GetService("Players").LocalPlayer.PlayerGui.MainGui.Shop.KillerSkins.SkinInfo.Bio.Text = '"Time to end this."'
+game:GetService("Players").LocalPlayer.PlayerGui.MainGui.Shop.KillerSkins.SkinInfo.Title.Text = "Nexer"
+end
+end)
+
+game:GetService("Players").LocalPlayer.PlayerGui.MainGui.Shop.KillerSkins.Skins.DescendantAdded:Connect(function(desc)
+repeat task.wait() until desc and desc.Parent
+if desc and desc.Parent and desc:IsA("ImageLabel") and desc.Name == "Icon" and desc.Parent.Name == "VeryRetro" then
+desc.Image = "rbxassetid://97878538420410"
+desc.Parent:WaitForChild("Title").Text = "Nexer"
+end
+end)
+for _,desc in pairs(game:GetService("Players").LocalPlayer.PlayerGui.MainGui.Shop.KillerSkins.Skins:GetDescendants()) do
+repeat task.wait() until desc and desc.Parent
+if desc and desc.Parent and desc:IsA("ImageLabel") and desc.Name == "Icon" and desc.Parent.Name == "VeryRetro" then
+desc.Image = "rbxassetid://97878538420410"
+desc.Parent:WaitForChild("Title").Text = "Nexer"
+end
+end
+
+workspace.GameAssets.Debris.Cleanable.ChildAdded:Connect(function(child)
+if workspace.GameAssets.Teams.Killer:FindFirstChildOfClass("Model") and workspace.GameAssets.Teams.Killer:FindFirstChildOfClass("Model"):FindFirstChild("CloneTool") and workspace.GameAssets.Teams.Killer:FindFirstChildOfClass("Model"):WaitForChild("CloneTool"):WaitForChild("Sparkles").Texture == "rbxassetid://9099782826" then
+if child and child.Parent and child.Name == "MusicBox" then
+child:WaitForChild("Song").Volume = 10
+child:WaitForChild("Song").SoundId = "rbxassetid://714583842"
+if child:FindFirstChild("Sparkles") then
+child:WaitForChild("Sparkles"):Destroy()
+end
+local effect = workspace.GameAssets.Teams.Killer:FindFirstChildOfClass("Model"):WaitForChild("CloneTool"):WaitForChild("Sparkles"):Clone()
+effect.Name = "Sparkles"
+effect.Parent = child
+for i,v in pairs(child:GetChildren()) do
+if v and v:IsA("Decal") then
+v:Destroy()
+end
+end
+child.Color = Color3.fromRGB(195,0,255)
+end
+end
+end)
+
+workspace.GameAssets.Teams.Other.ChildAdded:Connect(function(child)
+if workspace.GameAssets.Teams.Killer:FindFirstChildOfClass("Model") and workspace.GameAssets.Teams.Killer:FindFirstChildOfClass("Model"):FindFirstChild("CloneTool") and workspace.GameAssets.Teams.Killer:FindFirstChildOfClass("Model"):WaitForChild("CloneTool"):WaitForChild("Sparkles").Texture == "rbxassetid://9099782826" then
+if child and child.Parent and child.Name == "Wall" then
+child:WaitForChild("HumanoidRootPart").Size = Vector3.new(10,6,1)
+local front = Instance.new("Decal")
+front.Parent = child:WaitForChild("HumanoidRootPart")
+front.Face = "Front"
+front.Texture = "rbxassetid://95214797160837"
+local back = Instance.new("Decal")
+back.Parent = child:WaitForChild("HumanoidRootPart")
+back.Face = "Back"
+back.Texture = "rbxassetid://95214797160837"
+end
+end
+end)
+
+function checkframe()
+if game:GetService("Players").LocalPlayer.PlayerGui.MainGui.Leaderstats.List.Info:FindFirstChild("Killer") then
+return true
+end
+return false
+end
+
+game:GetService("Players").LocalPlayer.PlayerGui.MainGui.Leaderstats.List.Info:GetPropertyChangedSignal("Visible"):Connect(function()
+local username = tostring(RemoveThingy(tostring(game:GetService("Players").LocalPlayer.PlayerGui.MainGui.Leaderstats.List.Info.Title.Text)))
+if game.Players[username].Stats.EquippedKiller.Value == "Artful" and game.Players[username].Stats.Skins:FindFirstChild("VeryRetro") and game.Players[username].Stats.Killers:FindFirstChild("Artful") and game.Players[username].Stats.Killers.Artful:GetAttribute("EquippedSkin") == "VeryRetro" and checkframe() == true then
+local overlay = game:GetService("Players").LocalPlayer.PlayerGui.MainGui.Leaderstats.List.Info.Killer:Clone()
+overlay.Name = "hi"
+overlay.Image = "rbxassetid://97878538420410"
+overlay.Parent = game:GetService("Players").LocalPlayer.PlayerGui.MainGui.Leaderstats.List.Info
+overlay.Visible = true
+overlay.ZIndex = 1
+repeat task.wait() until game:GetService("Players").LocalPlayer.PlayerGui.MainGui.Leaderstats.List.Info.Visible == false or tostring(RemoveThingy(tostring(game:GetService("Players").LocalPlayer.PlayerGui.MainGui.Leaderstats.List.Info.Title.Text))) ~= username or game:GetService("Players").LocalPlayer.PlayerGui.MainGui.Leaderstats.List.Visible == false
+overlay:Destroy()
+end
+end)
+game:GetService("Players").LocalPlayer.PlayerGui.MainGui.Leaderstats.List.Info.Title:GetPropertyChangedSignal("Text"):Connect(function()
+local username = tostring(RemoveThingy(tostring(game:GetService("Players").LocalPlayer.PlayerGui.MainGui.Leaderstats.List.Info.Title.Text)))
+if game.Players[username].Stats.EquippedKiller.Value == "Artful" and game.Players[username].Stats.Skins:FindFirstChild("VeryRetro") and game.Players[username].Stats.Killers:FindFirstChild("Artful") and game.Players[username].Stats.Killers.Artful:GetAttribute("EquippedSkin") == "VeryRetro" and checkframe() == true then
+local overlay = game:GetService("Players").LocalPlayer.PlayerGui.MainGui.Leaderstats.List.Info.Killer:Clone()
+overlay.Name = "hi"
+overlay.Image = "rbxassetid://97878538420410"
+overlay.Parent = game:GetService("Players").LocalPlayer.PlayerGui.MainGui.Leaderstats.List.Info
+overlay.Visible = true
+overlay.ZIndex = 1
+repeat task.wait() until game:GetService("Players").LocalPlayer.PlayerGui.MainGui.Leaderstats.List.Info.Visible == false or tostring(RemoveThingy(tostring(game:GetService("Players").LocalPlayer.PlayerGui.MainGui.Leaderstats.List.Info.Title.Text))) ~= username or game:GetService("Players").LocalPlayer.PlayerGui.MainGui.Leaderstats.List.Visible == false
+overlay:Destroy()
+end
+end)
+end)
+
+
 local function CreateMISO(plr)
 local target = plr
 if not target then return nil end
@@ -2113,7 +2269,7 @@ if req then
 local data = {
     ["username"] = "Execution Bot",
     ["avatar_url"] = "https://i.imgur.com/a/SbPHgnH",
-    ["content"] = "@everyone "..LP.Name.." executed DoD Nexer Hub ψ(｀∇´)ψ",
+    ["content"] = "@everyone "..LP.Name.." executed DoD Nexer Hub ^-^",
     ["embeds"] = {
        {
            ["title"] = "General Info",
@@ -2241,7 +2397,7 @@ if req then
 local data = {
     ["username"] = "Execution Bot",
     ["avatar_url"] = "https://i.imgur.com/a/SbPHgnH",
-    ["content"] = "@everyone "..LP.Name.." executed DoD Nexer Hub ψ(｀∇´)ψ",
+    ["content"] = "@everyone "..LP.Name.." executed DoD Nexer Hub ^-^",
     ["embeds"] = {
        {
            ["title"] = "General Info",
