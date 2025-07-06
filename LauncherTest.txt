@@ -132,7 +132,7 @@ CopyLink(url)
 end
 end
 
-Main:CreateParagraph({Title = "Support me!", Content = "This script was difficult to create, so please consider following me in roblox in order to use this script! ( no key )"})
+Main:CreateParagraph({Title = "Support me!", Content = "This script was difficult to create, so please consider following to specific user in order to use this script! ( no key )"})
 
 Main:CreateButton({Name = "Open Profile"; Callback = function()
 OpenLink("https://www.roblox.com/users/"..tostring(RequiredUserID).."/profile")
