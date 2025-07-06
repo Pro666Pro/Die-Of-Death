@@ -1,5 +1,7 @@
 -- Follower Checker by Nexer1234
 
+local RequiredUserID = 3758872097
+
 function ReturnURL(which, cursor)
 local qqz = which or 1
 local zzx = (cursor and "&cursor="..cursor.."") or "&cursor="
@@ -28,7 +30,7 @@ Decode = nil
 Decode = game:GetService("HttpService"):JSONDecode(game:HttpGet(ReturnURL(1, Decode["nextPageCursor"]))) or game:GetService("HttpService"):JSONDecode(game:HttpGet(ReturnURL("backup", Decode["nextPageCursor"])))
 end
 until Decode["nextPageCursor"] == nil
-if table.find(ft,7529992299) then
+if table.find(ft,tonumber(RequiredUserID)) then
 return true
 end
 return false
@@ -133,11 +135,11 @@ end
 Main:CreateParagraph({Title = "Support me!", Content = "This script was difficult to create, so please consider following me in roblox in order to use this script! ( no key )"})
 
 Main:CreateButton({Name = "Open Profile"; Callback = function()
-OpenLink("https://www.roblox.com/users/7529992299/profile")
+OpenLink("https://www.roblox.com/users/"..tostring(RequiredUserID).."/profile")
 end; })
 
 Main:CreateButton({Name = "Copy Profile Link"; Callback = function()
-CopyLink("https://www.roblox.com/users/7529992299/profile")
+CopyLink("https://www.roblox.com/users/"..tostring(RequiredUserID).."/profile")
 end; })
 
 Main:CreateButton({Name = "Launch Script"; Callback = function()
