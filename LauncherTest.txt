@@ -132,6 +132,10 @@ CopyLink(url)
 end
 end
 
+pcall(function()
+Main:CreateLabel("Last Time User Changed: 06.07.2025 (DD.MM.YYYY)")
+end)
+
 Main:CreateParagraph({Title = "Support me!", Content = "This script was difficult to create, so please consider following to specific user in order to use this script! ( no key )"})
 
 Main:CreateButton({Name = "Open Profile"; Callback = function()
