@@ -1,6 +1,6 @@
 -- Follower Checker by Nexer1234
 
-local RequiredUserID = 7529992299
+local RequiredUserID = 5483422962
 
 function ReturnURL(which, cursor)
 local qqz = which or 1
